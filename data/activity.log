@@ -35,3 +35,4 @@
 [2025-10-07T05:53:47.000Z] docs: update API contract and endpoint specifications (#6/28)
 [2025-10-07T06:18:55.000Z] perf: index query key lookup table for O(1) retrieval (#7/28)
 [2025-10-07T06:44:22.000Z] feat: optimize event bus telemetry and trace logging (#8/28)
+[2025-10-07T07:04:02.000Z] chore: clean up deprecated helper functions (#9/28)
