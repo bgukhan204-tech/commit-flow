@@ -41,3 +41,4 @@
 [2025-10-07T08:21:00.000Z] feat: add structured JSON log formatter (#12/28)
 [2025-10-07T08:41:17.000Z] chore: clean up deprecated helper functions (#13/28)
 [2025-10-07T09:04:34.000Z] perf: index query key lookup table for O(1) retrieval (#14/28)
+[2025-10-07T09:31:16.000Z] fix: resolve timezone offset discrepancy in scheduler (#15/28)
