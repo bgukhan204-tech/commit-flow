@@ -37,3 +37,4 @@
 [2025-10-07T06:44:22.000Z] feat: optimize event bus telemetry and trace logging (#8/28)
 [2025-10-07T07:04:02.000Z] chore: clean up deprecated helper functions (#9/28)
 [2025-10-07T07:32:07.000Z] chore: bump minor dependency patches and lockfile (#10/28)
+[2025-10-07T07:53:33.000Z] feat: add structured JSON log formatter (#11/28)
