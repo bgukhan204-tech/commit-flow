@@ -86,3 +86,4 @@
 [2025-10-08T13:40:17.000Z] fix: handle null pointer check in payload serializer (#29/32)
 [2025-10-08T13:59:36.000Z] test: expand integration suite for webhook deliveries (#30/32)
 [2025-10-08T14:21:26.000Z] fix: resolve timezone offset discrepancy in scheduler (#31/32)
+[2025-10-08T14:40:59.000Z] docs: clarify deployment environment variable requirements (#32/32)
