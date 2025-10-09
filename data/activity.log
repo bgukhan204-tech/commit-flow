@@ -102,3 +102,4 @@
 [2025-10-09T08:38:00.000Z] chore: clean up deprecated helper functions (#13/28)
 [2025-10-09T09:07:18.000Z] perf: reduce memory allocation in matrix computation (#14/28)
 [2025-10-09T09:31:46.000Z] refactor: decouple configuration loader from runtime core (#15/28)
+[2025-10-09T09:50:36.000Z] docs: update API contract and endpoint specifications (#16/28)
