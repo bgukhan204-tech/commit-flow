@@ -126,3 +126,4 @@
 [2025-10-10T07:04:26.000Z] docs: clarify deployment environment variable requirements (#9/29)
 [2025-10-10T07:28:26.000Z] docs: update API contract and endpoint specifications (#10/29)
 [2025-10-10T07:56:06.000Z] test: expand integration suite for webhook deliveries (#11/29)
+[2025-10-10T08:16:59.000Z] fix: prevent race condition in async buffer queue (#12/29)
