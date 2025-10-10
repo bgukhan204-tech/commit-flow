@@ -118,3 +118,4 @@
 [2025-10-10T03:52:07.000Z] docs: add visual sequence diagrams for authentication flow (#1/29)
 [2025-10-10T04:16:46.000Z] feat: optimize event bus telemetry and trace logging (#2/29)
 [2025-10-10T04:42:27.000Z] perf: debounce high-frequency state update dispatchers (#3/29)
+[2025-10-10T05:02:47.000Z] refactor: decouple configuration loader from runtime core (#4/29)
