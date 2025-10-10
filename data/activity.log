@@ -128,3 +128,4 @@
 [2025-10-10T07:56:06.000Z] test: expand integration suite for webhook deliveries (#11/29)
 [2025-10-10T08:16:59.000Z] fix: prevent race condition in async buffer queue (#12/29)
 [2025-10-10T08:40:33.000Z] feat: implement adaptive caching layer for remote sync (#13/29)
+[2025-10-10T09:07:14.000Z] chore: clean up deprecated helper functions (#14/29)
