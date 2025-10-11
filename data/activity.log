@@ -158,3 +158,4 @@
 [2025-10-11T08:04:49.000Z] chore: bump minor dependency patches and lockfile (#12/30)
 [2025-10-11T08:28:59.000Z] test: add unit coverage for edge-case parser states (#13/30)
 [2025-10-11T08:49:37.000Z] refactor: streamline data pipeline transformation logic (#14/30)
+[2025-10-11T09:14:43.000Z] docs: clarify deployment environment variable requirements (#15/30)
