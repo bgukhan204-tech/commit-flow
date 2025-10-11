@@ -144,3 +144,4 @@
 [2025-10-10T14:18:05.000Z] chore: clean up deprecated helper functions (#27/29)
 [2025-10-10T14:45:38.000Z] feat: optimize event bus telemetry and trace logging (#28/29)
 [2025-10-10T15:05:44.000Z] style: enforce consistent lint formatting across modules (#29/29)
+[2025-10-11T03:50:28.000Z] docs: clarify deployment environment variable requirements (#1/30)
