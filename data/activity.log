@@ -203,3 +203,4 @@
 [2025-10-12T13:22:21.000Z] chore: bump minor dependency patches and lockfile (#27/31)
 [2025-10-12T13:47:45.000Z] chore: clean up deprecated helper functions (#28/31)
 [2025-10-12T14:05:44.000Z] feat: implement adaptive caching layer for remote sync (#29/31)
+[2025-10-12T14:32:20.000Z] docs: clarify deployment environment variable requirements (#30/31)
