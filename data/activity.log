@@ -201,3 +201,4 @@
 [2025-10-12T12:38:36.000Z] refactor: extract reusable validator utility methods (#25/31)
 [2025-10-12T12:58:46.000Z] perf: reduce memory allocation in matrix computation (#26/31)
 [2025-10-12T13:22:21.000Z] chore: bump minor dependency patches and lockfile (#27/31)
+[2025-10-12T13:47:45.000Z] chore: clean up deprecated helper functions (#28/31)
