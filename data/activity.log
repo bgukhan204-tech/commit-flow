@@ -185,3 +185,4 @@
 [2025-10-12T06:47:19.000Z] feat: add structured JSON log formatter (#9/31)
 [2025-10-12T07:12:16.000Z] test: expand integration suite for webhook deliveries (#10/31)
 [2025-10-12T07:32:09.000Z] style: enforce consistent lint formatting across modules (#11/31)
+[2025-10-12T07:50:28.000Z] docs: clarify deployment environment variable requirements (#12/31)
