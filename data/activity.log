@@ -194,3 +194,4 @@
 [2025-10-12T10:07:20.000Z] feat: optimize event bus telemetry and trace logging (#18/31)
 [2025-10-12T10:31:32.000Z] chore: bump minor dependency patches and lockfile (#19/31)
 [2025-10-12T10:49:03.000Z] test: expand integration suite for webhook deliveries (#20/31)
+[2025-10-12T11:12:46.000Z] feat: implement adaptive caching layer for remote sync (#21/31)
