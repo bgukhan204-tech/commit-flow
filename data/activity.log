@@ -205,3 +205,4 @@
 [2025-10-12T14:05:44.000Z] feat: implement adaptive caching layer for remote sync (#29/31)
 [2025-10-12T14:32:20.000Z] docs: clarify deployment environment variable requirements (#30/31)
 [2025-10-12T14:54:18.000Z] chore: clean up deprecated helper functions (#31/31)
+[2025-10-13T03:54:26.000Z] docs: update API contract and endpoint specifications (#1/32)
