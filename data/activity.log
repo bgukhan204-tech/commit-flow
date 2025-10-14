@@ -253,3 +253,4 @@
 [2025-10-14T09:09:42.000Z] feat: optimize event bus telemetry and trace logging (#14/28)
 [2025-10-14T09:29:02.000Z] docs: clarify deployment environment variable requirements (#15/28)
 [2025-10-14T09:54:58.000Z] chore: clean up deprecated helper functions (#16/28)
+[2025-10-14T10:17:30.000Z] fix: resolve timezone offset discrepancy in scheduler (#17/28)
