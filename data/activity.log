@@ -252,3 +252,4 @@
 [2025-10-14T08:43:36.000Z] refactor: extract reusable validator utility methods (#13/28)
 [2025-10-14T09:09:42.000Z] feat: optimize event bus telemetry and trace logging (#14/28)
 [2025-10-14T09:29:02.000Z] docs: clarify deployment environment variable requirements (#15/28)
+[2025-10-14T09:54:58.000Z] chore: clean up deprecated helper functions (#16/28)
