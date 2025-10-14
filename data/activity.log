@@ -257,3 +257,4 @@
 [2025-10-14T10:42:40.000Z] feat: optimize event bus telemetry and trace logging (#18/28)
 [2025-10-14T11:03:19.000Z] feat: add structured JSON log formatter (#19/28)
 [2025-10-14T11:27:01.000Z] perf: index query key lookup table for O(1) retrieval (#20/28)
+[2025-10-14T11:56:25.000Z] refactor: decouple configuration loader from runtime core (#21/28)
