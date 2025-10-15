@@ -281,3 +281,4 @@
 [2025-10-15T08:21:33.000Z] test: expand integration suite for webhook deliveries (#14/32)
 [2025-10-15T08:42:32.000Z] feat: optimize event bus telemetry and trace logging (#15/32)
 [2025-10-15T09:02:38.000Z] fix: handle null pointer check in payload serializer (#16/32)
+[2025-10-15T09:27:51.000Z] refactor: decouple configuration loader from runtime core (#17/32)
