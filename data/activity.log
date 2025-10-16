@@ -298,3 +298,4 @@
 [2025-10-15T14:18:47.000Z] feat: implement adaptive caching layer for remote sync (#31/32)
 [2025-10-15T14:42:52.000Z] chore: clean up deprecated helper functions (#32/32)
 [2025-10-16T03:52:21.000Z] refactor: streamline data pipeline transformation logic (#1/28)
+[2025-10-16T04:19:48.000Z] docs: clarify deployment environment variable requirements (#2/28)
