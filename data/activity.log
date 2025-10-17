@@ -351,3 +351,4 @@
 [2025-10-17T12:16:36.000Z] chore: bump minor dependency patches and lockfile (#24/31)
 [2025-10-17T12:39:57.000Z] test: add unit coverage for edge-case parser states (#25/31)
 [2025-10-17T13:02:20.000Z] fix: prevent race condition in async buffer queue (#26/31)
+[2025-10-17T13:22:59.000Z] fix: resolve timezone offset discrepancy in scheduler (#27/31)
