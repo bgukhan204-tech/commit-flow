@@ -346,3 +346,4 @@
 [2025-10-17T10:30:55.000Z] fix: handle null pointer check in payload serializer (#19/31)
 [2025-10-17T10:49:36.000Z] feat: optimize event bus telemetry and trace logging (#20/31)
 [2025-10-17T11:15:52.000Z] feat: optimize event bus telemetry and trace logging (#21/31)
+[2025-10-17T11:34:10.000Z] fix: handle null pointer check in payload serializer (#22/31)
