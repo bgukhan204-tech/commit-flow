@@ -333,3 +333,4 @@
 [2025-10-17T05:38:29.000Z] test: add unit coverage for edge-case parser states (#6/31)
 [2025-10-17T06:03:11.000Z] docs: add visual sequence diagrams for authentication flow (#7/31)
 [2025-10-17T06:27:39.000Z] fix: prevent race condition in async buffer queue (#8/31)
+[2025-10-17T06:49:09.000Z] docs: clarify deployment environment variable requirements (#9/31)
