@@ -355,3 +355,4 @@
 [2025-10-17T13:48:46.000Z] docs: add visual sequence diagrams for authentication flow (#28/31)
 [2025-10-17T14:10:08.000Z] docs: update API contract and endpoint specifications (#29/31)
 [2025-10-17T14:33:57.000Z] chore: bump minor dependency patches and lockfile (#30/31)
+[2025-10-17T14:53:24.000Z] refactor: decouple configuration loader from runtime core (#31/31)
