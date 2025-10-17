@@ -338,3 +338,4 @@
 [2025-10-17T07:35:05.000Z] test: add unit coverage for edge-case parser states (#11/31)
 [2025-10-17T07:54:15.000Z] fix: resolve timezone offset discrepancy in scheduler (#12/31)
 [2025-10-17T08:18:13.000Z] feat: implement adaptive caching layer for remote sync (#13/31)
+[2025-10-17T08:38:16.000Z] fix: prevent race condition in async buffer queue (#14/31)
