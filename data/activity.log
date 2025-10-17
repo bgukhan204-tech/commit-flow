@@ -325,3 +325,4 @@
 [2025-10-16T13:51:39.000Z] perf: debounce high-frequency state update dispatchers (#26/28)
 [2025-10-16T14:16:42.000Z] docs: clarify deployment environment variable requirements (#27/28)
 [2025-10-16T14:45:12.000Z] refactor: decouple configuration loader from runtime core (#28/28)
+[2025-10-17T03:50:19.000Z] feat: add structured JSON log formatter (#1/31)
