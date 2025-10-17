@@ -331,3 +331,4 @@
 [2025-10-17T04:57:37.000Z] refactor: extract reusable validator utility methods (#4/31)
 [2025-10-17T05:17:23.000Z] chore: bump minor dependency patches and lockfile (#5/31)
 [2025-10-17T05:38:29.000Z] test: add unit coverage for edge-case parser states (#6/31)
+[2025-10-17T06:03:11.000Z] docs: add visual sequence diagrams for authentication flow (#7/31)
