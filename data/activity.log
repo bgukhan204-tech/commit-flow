@@ -335,3 +335,4 @@
 [2025-10-17T06:27:39.000Z] fix: prevent race condition in async buffer queue (#8/31)
 [2025-10-17T06:49:09.000Z] docs: clarify deployment environment variable requirements (#9/31)
 [2025-10-17T07:13:38.000Z] docs: clarify deployment environment variable requirements (#10/31)
+[2025-10-17T07:35:05.000Z] test: add unit coverage for edge-case parser states (#11/31)
