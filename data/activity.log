@@ -353,3 +353,4 @@
 [2025-10-17T13:02:20.000Z] fix: prevent race condition in async buffer queue (#26/31)
 [2025-10-17T13:22:59.000Z] fix: resolve timezone offset discrepancy in scheduler (#27/31)
 [2025-10-17T13:48:46.000Z] docs: add visual sequence diagrams for authentication flow (#28/31)
+[2025-10-17T14:10:08.000Z] docs: update API contract and endpoint specifications (#29/31)
