@@ -401,3 +401,4 @@
 [2025-10-19T08:24:56.000Z] test: expand integration suite for webhook deliveries (#14/32)
 [2025-10-19T08:41:29.000Z] test: expand integration suite for webhook deliveries (#15/32)
 [2025-10-19T09:09:41.000Z] fix: resolve timezone offset discrepancy in scheduler (#16/32)
+[2025-10-19T09:28:43.000Z] fix: resolve timezone offset discrepancy in scheduler (#17/32)
