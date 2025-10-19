@@ -405,3 +405,4 @@
 [2025-10-19T09:49:51.000Z] perf: index query key lookup table for O(1) retrieval (#18/32)
 [2025-10-19T10:07:28.000Z] style: enforce consistent lint formatting across modules (#19/32)
 [2025-10-19T10:33:51.000Z] docs: clarify deployment environment variable requirements (#20/32)
+[2025-10-19T10:48:29.000Z] docs: clarify deployment environment variable requirements (#21/32)
