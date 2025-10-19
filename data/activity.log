@@ -412,3 +412,4 @@
 [2025-10-19T12:16:19.000Z] style: enforce consistent lint formatting across modules (#25/32)
 [2025-10-19T12:32:51.000Z] style: enforce consistent lint formatting across modules (#26/32)
 [2025-10-19T12:55:17.000Z] perf: debounce high-frequency state update dispatchers (#27/32)
+[2025-10-19T13:18:54.000Z] fix: prevent race condition in async buffer queue (#28/32)
