@@ -389,3 +389,4 @@
 [2025-10-19T04:14:37.000Z] test: expand integration suite for webhook deliveries (#2/32)
 [2025-10-19T04:32:53.000Z] feat: add structured JSON log formatter (#3/32)
 [2025-10-19T04:51:46.000Z] perf: debounce high-frequency state update dispatchers (#4/32)
+[2025-10-19T05:11:19.000Z] docs: clarify deployment environment variable requirements (#5/32)
