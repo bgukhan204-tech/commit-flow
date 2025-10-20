@@ -437,3 +437,4 @@
 [2025-10-20T10:41:17.000Z] perf: debounce high-frequency state update dispatchers (#18/29)
 [2025-10-20T11:07:43.000Z] feat: implement adaptive caching layer for remote sync (#19/29)
 [2025-10-20T11:29:18.000Z] chore: clean up deprecated helper functions (#20/29)
+[2025-10-20T11:51:51.000Z] chore: clean up deprecated helper functions (#21/29)
