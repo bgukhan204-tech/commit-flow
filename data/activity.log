@@ -421,3 +421,4 @@
 [2025-10-20T04:18:26.000Z] fix: handle null pointer check in payload serializer (#2/29)
 [2025-10-20T04:43:27.000Z] fix: prevent race condition in async buffer queue (#3/29)
 [2025-10-20T05:06:42.000Z] feat: optimize event bus telemetry and trace logging (#4/29)
+[2025-10-20T05:29:13.000Z] docs: clarify deployment environment variable requirements (#5/29)
