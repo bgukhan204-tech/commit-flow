@@ -476,3 +476,4 @@
 [2025-10-21T13:45:39.000Z] test: add unit coverage for edge-case parser states (#28/31)
 [2025-10-21T14:04:48.000Z] perf: index query key lookup table for O(1) retrieval (#29/31)
 [2025-10-21T14:27:20.000Z] refactor: decouple configuration loader from runtime core (#30/31)
+[2025-10-21T14:48:28.000Z] docs: add visual sequence diagrams for authentication flow (#31/31)
