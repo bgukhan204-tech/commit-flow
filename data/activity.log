@@ -470,3 +470,4 @@
 [2025-10-21T11:32:21.000Z] chore: clean up deprecated helper functions (#22/31)
 [2025-10-21T11:52:41.000Z] feat: implement adaptive caching layer for remote sync (#23/31)
 [2025-10-21T12:21:34.000Z] test: expand integration suite for webhook deliveries (#24/31)
+[2025-10-21T12:41:56.000Z] docs: update API contract and endpoint specifications (#25/31)
