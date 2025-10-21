@@ -446,3 +446,4 @@
 [2025-10-20T14:18:19.000Z] perf: index query key lookup table for O(1) retrieval (#27/29)
 [2025-10-20T14:40:25.000Z] feat: add structured JSON log formatter (#28/29)
 [2025-10-20T15:05:18.000Z] chore: clean up deprecated helper functions (#29/29)
+[2025-10-21T03:54:32.000Z] test: add unit coverage for edge-case parser states (#1/31)
