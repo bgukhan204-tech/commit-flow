@@ -485,3 +485,4 @@
 [2025-10-22T05:52:31.000Z] refactor: streamline data pipeline transformation logic (#6/29)
 [2025-10-22T06:14:37.000Z] chore: bump minor dependency patches and lockfile (#7/29)
 [2025-10-22T06:42:51.000Z] test: expand integration suite for webhook deliveries (#8/29)
+[2025-10-22T07:07:31.000Z] chore: clean up deprecated helper functions (#9/29)
