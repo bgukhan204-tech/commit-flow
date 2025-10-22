@@ -497,3 +497,4 @@
 [2025-10-22T10:45:22.000Z] chore: bump minor dependency patches and lockfile (#18/29)
 [2025-10-22T11:05:00.000Z] fix: prevent race condition in async buffer queue (#19/29)
 [2025-10-22T11:28:20.000Z] chore: clean up deprecated helper functions (#20/29)
+[2025-10-22T11:57:41.000Z] perf: index query key lookup table for O(1) retrieval (#21/29)
