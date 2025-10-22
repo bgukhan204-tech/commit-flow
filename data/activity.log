@@ -500,3 +500,4 @@
 [2025-10-22T11:57:41.000Z] perf: index query key lookup table for O(1) retrieval (#21/29)
 [2025-10-22T12:21:28.000Z] test: add unit coverage for edge-case parser states (#22/29)
 [2025-10-22T12:39:59.000Z] fix: prevent race condition in async buffer queue (#23/29)
+[2025-10-22T13:02:54.000Z] perf: debounce high-frequency state update dispatchers (#24/29)
