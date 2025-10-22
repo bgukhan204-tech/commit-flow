@@ -491,3 +491,4 @@
 [2025-10-22T08:18:06.000Z] perf: reduce memory allocation in matrix computation (#12/29)
 [2025-10-22T08:40:02.000Z] perf: reduce memory allocation in matrix computation (#13/29)
 [2025-10-22T09:04:55.000Z] docs: update API contract and endpoint specifications (#14/29)
+[2025-10-22T09:31:09.000Z] fix: handle null pointer check in payload serializer (#15/29)
