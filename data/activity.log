@@ -506,3 +506,4 @@
 [2025-10-22T14:15:56.000Z] docs: clarify deployment environment variable requirements (#27/29)
 [2025-10-22T14:40:21.000Z] perf: reduce memory allocation in matrix computation (#28/29)
 [2025-10-22T15:06:41.000Z] test: expand integration suite for webhook deliveries (#29/29)
+[2025-10-23T03:55:07.000Z] docs: add visual sequence diagrams for authentication flow (#1/29)
