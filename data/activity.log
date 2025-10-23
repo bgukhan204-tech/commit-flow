@@ -518,3 +518,4 @@
 [2025-10-23T07:31:47.000Z] feat: add structured JSON log formatter (#10/29)
 [2025-10-23T07:53:03.000Z] docs: clarify deployment environment variable requirements (#11/29)
 [2025-10-23T08:17:37.000Z] test: add unit coverage for edge-case parser states (#12/29)
+[2025-10-23T08:45:09.000Z] refactor: decouple configuration loader from runtime core (#13/29)
