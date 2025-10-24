@@ -538,3 +538,4 @@
 [2025-10-24T03:48:38.000Z] docs: clarify deployment environment variable requirements (#1/32)
 [2025-10-24T04:10:14.000Z] feat: optimize event bus telemetry and trace logging (#2/32)
 [2025-10-24T04:35:11.000Z] test: expand integration suite for webhook deliveries (#3/32)
+[2025-10-24T04:50:56.000Z] fix: handle null pointer check in payload serializer (#4/32)
