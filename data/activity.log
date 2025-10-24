@@ -565,3 +565,4 @@
 [2025-10-24T13:19:14.000Z] fix: handle null pointer check in payload serializer (#28/32)
 [2025-10-24T13:35:48.000Z] style: enforce consistent lint formatting across modules (#29/32)
 [2025-10-24T13:57:56.000Z] feat: add structured JSON log formatter (#30/32)
+[2025-10-24T14:19:14.000Z] test: add unit coverage for edge-case parser states (#31/32)
