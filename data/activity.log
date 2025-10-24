@@ -544,3 +544,4 @@
 [2025-10-24T05:57:57.000Z] refactor: streamline data pipeline transformation logic (#7/32)
 [2025-10-24T06:15:07.000Z] docs: clarify deployment environment variable requirements (#8/32)
 [2025-10-24T06:40:33.000Z] style: enforce consistent lint formatting across modules (#9/32)
+[2025-10-24T06:58:00.000Z] docs: add visual sequence diagrams for authentication flow (#10/32)
