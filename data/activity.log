@@ -550,3 +550,4 @@
 [2025-10-24T07:59:04.000Z] perf: index query key lookup table for O(1) retrieval (#13/32)
 [2025-10-24T08:27:43.000Z] refactor: extract reusable validator utility methods (#14/32)
 [2025-10-24T08:41:36.000Z] refactor: decouple configuration loader from runtime core (#15/32)
+[2025-10-24T09:05:28.000Z] docs: clarify deployment environment variable requirements (#16/32)
