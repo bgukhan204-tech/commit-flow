@@ -614,3 +614,4 @@
 [2025-10-26T09:31:07.000Z] chore: bump minor dependency patches and lockfile (#15/28)
 [2025-10-26T09:52:51.000Z] docs: add visual sequence diagrams for authentication flow (#16/28)
 [2025-10-26T10:18:44.000Z] fix: resolve timezone offset discrepancy in scheduler (#17/28)
+[2025-10-26T10:38:25.000Z] refactor: decouple configuration loader from runtime core (#18/28)
