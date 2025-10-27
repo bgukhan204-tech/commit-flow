@@ -642,3 +642,4 @@
 [2025-10-27T09:12:09.000Z] feat: implement adaptive caching layer for remote sync (#15/30)
 [2025-10-27T09:35:16.000Z] docs: add visual sequence diagrams for authentication flow (#16/30)
 [2025-10-27T10:03:56.000Z] chore: bump minor dependency patches and lockfile (#17/30)
+[2025-10-27T10:26:00.000Z] fix: prevent race condition in async buffer queue (#18/30)
