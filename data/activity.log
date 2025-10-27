@@ -644,3 +644,4 @@
 [2025-10-27T10:03:56.000Z] chore: bump minor dependency patches and lockfile (#17/30)
 [2025-10-27T10:26:00.000Z] fix: prevent race condition in async buffer queue (#18/30)
 [2025-10-27T10:47:05.000Z] docs: update API contract and endpoint specifications (#19/30)
+[2025-10-27T11:11:46.000Z] docs: add visual sequence diagrams for authentication flow (#20/30)
