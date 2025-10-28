@@ -680,3 +680,4 @@
 [2025-10-28T12:40:44.000Z] perf: debounce high-frequency state update dispatchers (#23/28)
 [2025-10-28T13:08:38.000Z] test: add unit coverage for edge-case parser states (#24/28)
 [2025-10-28T13:31:26.000Z] perf: index query key lookup table for O(1) retrieval (#25/28)
+[2025-10-28T13:53:18.000Z] fix: prevent race condition in async buffer queue (#26/28)
