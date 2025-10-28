@@ -682,3 +682,4 @@
 [2025-10-28T13:31:26.000Z] perf: index query key lookup table for O(1) retrieval (#25/28)
 [2025-10-28T13:53:18.000Z] fix: prevent race condition in async buffer queue (#26/28)
 [2025-10-28T14:14:26.000Z] docs: clarify deployment environment variable requirements (#27/28)
+[2025-10-28T14:41:33.000Z] fix: handle null pointer check in payload serializer (#28/28)
