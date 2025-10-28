@@ -666,3 +666,4 @@
 [2025-10-28T07:06:59.000Z] fix: prevent race condition in async buffer queue (#9/28)
 [2025-10-28T07:27:23.000Z] perf: reduce memory allocation in matrix computation (#10/28)
 [2025-10-28T07:52:43.000Z] fix: prevent race condition in async buffer queue (#11/28)
+[2025-10-28T08:17:36.000Z] docs: clarify deployment environment variable requirements (#12/28)
