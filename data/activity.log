@@ -670,3 +670,4 @@
 [2025-10-28T08:41:20.000Z] test: add unit coverage for edge-case parser states (#13/28)
 [2025-10-28T09:02:12.000Z] test: add unit coverage for edge-case parser states (#14/28)
 [2025-10-28T09:33:32.000Z] feat: optimize event bus telemetry and trace logging (#15/28)
+[2025-10-28T09:53:48.000Z] feat: add structured JSON log formatter (#16/28)
