@@ -697,3 +697,4 @@
 [2025-10-29T08:19:56.000Z] fix: prevent race condition in async buffer queue (#12/28)
 [2025-10-29T08:45:45.000Z] docs: add visual sequence diagrams for authentication flow (#13/28)
 [2025-10-29T09:03:15.000Z] docs: add visual sequence diagrams for authentication flow (#14/28)
+[2025-10-29T09:33:53.000Z] test: expand integration suite for webhook deliveries (#15/28)
