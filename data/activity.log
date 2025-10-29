@@ -689,3 +689,4 @@
 [2025-10-29T05:07:33.000Z] refactor: decouple configuration loader from runtime core (#4/28)
 [2025-10-29T05:33:35.000Z] feat: implement adaptive caching layer for remote sync (#5/28)
 [2025-10-29T05:51:19.000Z] refactor: decouple configuration loader from runtime core (#6/28)
+[2025-10-29T06:20:23.000Z] docs: clarify deployment environment variable requirements (#7/28)
