@@ -683,3 +683,4 @@
 [2025-10-28T13:53:18.000Z] fix: prevent race condition in async buffer queue (#26/28)
 [2025-10-28T14:14:26.000Z] docs: clarify deployment environment variable requirements (#27/28)
 [2025-10-28T14:41:33.000Z] fix: handle null pointer check in payload serializer (#28/28)
+[2025-10-29T03:50:46.000Z] test: add unit coverage for edge-case parser states (#1/28)
