@@ -710,3 +710,4 @@
 [2025-10-29T13:26:29.000Z] feat: optimize event bus telemetry and trace logging (#25/28)
 [2025-10-29T13:50:40.000Z] perf: index query key lookup table for O(1) retrieval (#26/28)
 [2025-10-29T14:19:39.000Z] refactor: extract reusable validator utility methods (#27/28)
+[2025-10-29T14:42:36.000Z] fix: handle null pointer check in payload serializer (#28/28)
