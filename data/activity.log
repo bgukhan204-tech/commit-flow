@@ -726,3 +726,4 @@
 [2025-10-30T08:39:05.000Z] docs: clarify deployment environment variable requirements (#13/29)
 [2025-10-30T09:02:18.000Z] style: enforce consistent lint formatting across modules (#14/29)
 [2025-10-30T09:28:57.000Z] perf: debounce high-frequency state update dispatchers (#15/29)
+[2025-10-30T09:50:47.000Z] docs: clarify deployment environment variable requirements (#16/29)
