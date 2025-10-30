@@ -725,3 +725,4 @@
 [2025-10-30T08:15:04.000Z] docs: add visual sequence diagrams for authentication flow (#12/29)
 [2025-10-30T08:39:05.000Z] docs: clarify deployment environment variable requirements (#13/29)
 [2025-10-30T09:02:18.000Z] style: enforce consistent lint formatting across modules (#14/29)
+[2025-10-30T09:28:57.000Z] perf: debounce high-frequency state update dispatchers (#15/29)
