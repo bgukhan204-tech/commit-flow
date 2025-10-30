@@ -738,3 +738,4 @@
 [2025-10-30T13:28:04.000Z] feat: optimize event bus telemetry and trace logging (#25/29)
 [2025-10-30T13:56:44.000Z] test: expand integration suite for webhook deliveries (#26/29)
 [2025-10-30T14:17:42.000Z] docs: update API contract and endpoint specifications (#27/29)
+[2025-10-30T14:38:36.000Z] fix: resolve timezone offset discrepancy in scheduler (#28/29)
