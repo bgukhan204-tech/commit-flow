@@ -739,3 +739,4 @@
 [2025-10-30T13:56:44.000Z] test: expand integration suite for webhook deliveries (#26/29)
 [2025-10-30T14:17:42.000Z] docs: update API contract and endpoint specifications (#27/29)
 [2025-10-30T14:38:36.000Z] fix: resolve timezone offset discrepancy in scheduler (#28/29)
+[2025-10-30T15:07:42.000Z] fix: handle null pointer check in payload serializer (#29/29)
