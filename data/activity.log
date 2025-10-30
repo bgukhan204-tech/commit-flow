@@ -721,3 +721,4 @@
 [2025-10-30T06:42:04.000Z] docs: clarify deployment environment variable requirements (#8/29)
 [2025-10-30T07:02:01.000Z] chore: clean up deprecated helper functions (#9/29)
 [2025-10-30T07:32:55.000Z] refactor: extract reusable validator utility methods (#10/29)
+[2025-10-30T07:51:20.000Z] docs: add visual sequence diagrams for authentication flow (#11/29)
