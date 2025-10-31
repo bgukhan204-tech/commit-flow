@@ -767,3 +767,4 @@
 [2025-10-31T12:12:00.000Z] docs: update API contract and endpoint specifications (#25/32)
 [2025-10-31T12:33:35.000Z] chore: bump minor dependency patches and lockfile (#26/32)
 [2025-10-31T12:54:12.000Z] chore: bump minor dependency patches and lockfile (#27/32)
+[2025-10-31T13:18:56.000Z] feat: add structured JSON log formatter (#28/32)
