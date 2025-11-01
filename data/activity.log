@@ -775,3 +775,4 @@
 [2025-11-01T03:55:02.000Z] perf: index query key lookup table for O(1) retrieval (#1/30)
 [2025-11-01T04:18:55.000Z] chore: clean up deprecated helper functions (#2/30)
 [2025-11-01T04:40:38.000Z] chore: clean up deprecated helper functions (#3/30)
+[2025-11-01T05:01:56.000Z] docs: add visual sequence diagrams for authentication flow (#4/30)
