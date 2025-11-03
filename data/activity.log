@@ -839,3 +839,4 @@
 [2025-11-03T04:55:03.000Z] feat: optimize event bus telemetry and trace logging (#4/31)
 [2025-11-03T05:20:53.000Z] chore: clean up deprecated helper functions (#5/31)
 [2025-11-03T05:43:53.000Z] feat: add structured JSON log formatter (#6/31)
+[2025-11-03T06:00:53.000Z] refactor: decouple configuration loader from runtime core (#7/31)
