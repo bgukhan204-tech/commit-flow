@@ -855,3 +855,4 @@
 [2025-11-03T10:51:15.000Z] test: expand integration suite for webhook deliveries (#20/31)
 [2025-11-03T11:14:11.000Z] docs: clarify deployment environment variable requirements (#21/31)
 [2025-11-03T11:36:27.000Z] test: add unit coverage for edge-case parser states (#22/31)
+[2025-11-03T11:57:37.000Z] feat: add structured JSON log formatter (#23/31)
