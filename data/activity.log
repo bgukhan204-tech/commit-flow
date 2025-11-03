@@ -858,3 +858,4 @@
 [2025-11-03T11:57:37.000Z] feat: add structured JSON log formatter (#23/31)
 [2025-11-03T12:16:58.000Z] chore: bump minor dependency patches and lockfile (#24/31)
 [2025-11-03T12:42:44.000Z] chore: clean up deprecated helper functions (#25/31)
+[2025-11-03T13:00:37.000Z] perf: debounce high-frequency state update dispatchers (#26/31)
