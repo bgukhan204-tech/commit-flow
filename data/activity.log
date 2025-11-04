@@ -871,3 +871,4 @@
 [2025-11-04T05:33:42.000Z] feat: optimize event bus telemetry and trace logging (#5/28)
 [2025-11-04T05:50:17.000Z] test: expand integration suite for webhook deliveries (#6/28)
 [2025-11-04T06:16:42.000Z] style: enforce consistent lint formatting across modules (#7/28)
+[2025-11-04T06:39:57.000Z] docs: add visual sequence diagrams for authentication flow (#8/28)
