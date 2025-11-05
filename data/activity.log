@@ -893,3 +893,4 @@
 [2025-11-04T14:17:55.000Z] perf: debounce high-frequency state update dispatchers (#27/28)
 [2025-11-04T14:41:05.000Z] test: expand integration suite for webhook deliveries (#28/28)
 [2025-11-05T03:50:57.000Z] fix: prevent race condition in async buffer queue (#1/28)
+[2025-11-05T04:16:04.000Z] fix: prevent race condition in async buffer queue (#2/28)
