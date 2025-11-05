@@ -914,3 +914,4 @@
 [2025-11-05T11:27:06.000Z] refactor: decouple configuration loader from runtime core (#20/28)
 [2025-11-05T11:56:26.000Z] refactor: decouple configuration loader from runtime core (#21/28)
 [2025-11-05T12:16:43.000Z] fix: resolve timezone offset discrepancy in scheduler (#22/28)
+[2025-11-05T12:40:47.000Z] perf: debounce high-frequency state update dispatchers (#23/28)
