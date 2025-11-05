@@ -916,3 +916,4 @@
 [2025-11-05T12:16:43.000Z] fix: resolve timezone offset discrepancy in scheduler (#22/28)
 [2025-11-05T12:40:47.000Z] perf: debounce high-frequency state update dispatchers (#23/28)
 [2025-11-05T13:06:45.000Z] feat: optimize event bus telemetry and trace logging (#24/28)
+[2025-11-05T13:26:59.000Z] docs: clarify deployment environment variable requirements (#25/28)
