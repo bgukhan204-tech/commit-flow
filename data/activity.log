@@ -906,3 +906,4 @@
 [2025-11-05T08:17:38.000Z] refactor: decouple configuration loader from runtime core (#12/28)
 [2025-11-05T08:43:55.000Z] docs: update API contract and endpoint specifications (#13/28)
 [2025-11-05T09:05:56.000Z] docs: add visual sequence diagrams for authentication flow (#14/28)
+[2025-11-05T09:30:22.000Z] docs: clarify deployment environment variable requirements (#15/28)
