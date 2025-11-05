@@ -913,3 +913,4 @@
 [2025-11-05T11:06:55.000Z] refactor: streamline data pipeline transformation logic (#19/28)
 [2025-11-05T11:27:06.000Z] refactor: decouple configuration loader from runtime core (#20/28)
 [2025-11-05T11:56:26.000Z] refactor: decouple configuration loader from runtime core (#21/28)
+[2025-11-05T12:16:43.000Z] fix: resolve timezone offset discrepancy in scheduler (#22/28)
