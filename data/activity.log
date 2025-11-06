@@ -947,3 +947,4 @@
 [2025-11-06T12:15:07.000Z] docs: add visual sequence diagrams for authentication flow (#25/32)
 [2025-11-06T12:38:28.000Z] fix: prevent race condition in async buffer queue (#26/32)
 [2025-11-06T12:59:41.000Z] chore: clean up deprecated helper functions (#27/32)
+[2025-11-06T13:14:43.000Z] chore: clean up deprecated helper functions (#28/32)
