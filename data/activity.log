@@ -927,3 +927,4 @@
 [2025-11-06T05:16:24.000Z] refactor: decouple configuration loader from runtime core (#5/32)
 [2025-11-06T05:33:38.000Z] docs: add visual sequence diagrams for authentication flow (#6/32)
 [2025-11-06T05:55:04.000Z] fix: prevent race condition in async buffer queue (#7/32)
+[2025-11-06T06:18:11.000Z] docs: add visual sequence diagrams for authentication flow (#8/32)
