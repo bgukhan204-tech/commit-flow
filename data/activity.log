@@ -948,3 +948,4 @@
 [2025-11-06T12:38:28.000Z] fix: prevent race condition in async buffer queue (#26/32)
 [2025-11-06T12:59:41.000Z] chore: clean up deprecated helper functions (#27/32)
 [2025-11-06T13:14:43.000Z] chore: clean up deprecated helper functions (#28/32)
+[2025-11-06T13:41:42.000Z] feat: add structured JSON log formatter (#29/32)
