@@ -949,3 +949,4 @@
 [2025-11-06T12:59:41.000Z] chore: clean up deprecated helper functions (#27/32)
 [2025-11-06T13:14:43.000Z] chore: clean up deprecated helper functions (#28/32)
 [2025-11-06T13:41:42.000Z] feat: add structured JSON log formatter (#29/32)
+[2025-11-06T14:01:59.000Z] perf: debounce high-frequency state update dispatchers (#30/32)
