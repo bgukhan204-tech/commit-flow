@@ -969,3 +969,4 @@
 [2025-11-07T09:26:04.000Z] chore: clean up deprecated helper functions (#15/28)
 [2025-11-07T09:50:18.000Z] test: add unit coverage for edge-case parser states (#16/28)
 [2025-11-07T10:19:27.000Z] style: enforce consistent lint formatting across modules (#17/28)
+[2025-11-07T10:44:03.000Z] perf: reduce memory allocation in matrix computation (#18/28)
