@@ -1003,3 +1003,4 @@
 [2025-11-08T11:09:08.000Z] perf: debounce high-frequency state update dispatchers (#21/31)
 [2025-11-08T11:34:43.000Z] feat: implement adaptive caching layer for remote sync (#22/31)
 [2025-11-08T11:53:38.000Z] feat: add structured JSON log formatter (#23/31)
+[2025-11-08T12:20:04.000Z] docs: clarify deployment environment variable requirements (#24/31)
