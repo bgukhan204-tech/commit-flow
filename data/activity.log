@@ -1007,3 +1007,4 @@
 [2025-11-08T12:37:47.000Z] perf: debounce high-frequency state update dispatchers (#25/31)
 [2025-11-08T13:00:13.000Z] perf: reduce memory allocation in matrix computation (#26/31)
 [2025-11-08T13:21:39.000Z] perf: debounce high-frequency state update dispatchers (#27/31)
+[2025-11-08T13:47:02.000Z] refactor: decouple configuration loader from runtime core (#28/31)
