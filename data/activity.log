@@ -994,3 +994,4 @@
 [2025-11-08T07:57:53.000Z] fix: prevent race condition in async buffer queue (#12/31)
 [2025-11-08T08:16:34.000Z] test: expand integration suite for webhook deliveries (#13/31)
 [2025-11-08T08:36:07.000Z] docs: clarify deployment environment variable requirements (#14/31)
+[2025-11-08T08:57:55.000Z] fix: handle null pointer check in payload serializer (#15/31)
