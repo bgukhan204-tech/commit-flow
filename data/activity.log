@@ -1037,3 +1037,4 @@
 [2025-11-09T12:20:30.000Z] perf: index query key lookup table for O(1) retrieval (#24/31)
 [2025-11-09T12:39:01.000Z] chore: clean up deprecated helper functions (#25/31)
 [2025-11-09T13:04:15.000Z] feat: optimize event bus telemetry and trace logging (#26/31)
+[2025-11-09T13:24:31.000Z] fix: prevent race condition in async buffer queue (#27/31)
