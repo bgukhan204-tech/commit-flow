@@ -1038,3 +1038,4 @@
 [2025-11-09T12:39:01.000Z] chore: clean up deprecated helper functions (#25/31)
 [2025-11-09T13:04:15.000Z] feat: optimize event bus telemetry and trace logging (#26/31)
 [2025-11-09T13:24:31.000Z] fix: prevent race condition in async buffer queue (#27/31)
+[2025-11-09T13:42:47.000Z] fix: resolve timezone offset discrepancy in scheduler (#28/31)
