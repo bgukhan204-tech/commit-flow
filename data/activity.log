@@ -1011,3 +1011,4 @@
 [2025-11-08T14:06:04.000Z] feat: optimize event bus telemetry and trace logging (#29/31)
 [2025-11-08T14:33:32.000Z] chore: bump minor dependency patches and lockfile (#30/31)
 [2025-11-08T14:53:07.000Z] perf: reduce memory allocation in matrix computation (#31/31)
+[2025-11-09T03:50:08.000Z] docs: add visual sequence diagrams for authentication flow (#1/31)
