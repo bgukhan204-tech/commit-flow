@@ -1017,3 +1017,4 @@
 [2025-11-09T04:56:04.000Z] fix: prevent race condition in async buffer queue (#4/31)
 [2025-11-09T05:18:54.000Z] chore: bump minor dependency patches and lockfile (#5/31)
 [2025-11-09T05:45:43.000Z] docs: add visual sequence diagrams for authentication flow (#6/31)
+[2025-11-09T06:00:07.000Z] test: add unit coverage for edge-case parser states (#7/31)
