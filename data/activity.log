@@ -1103,3 +1103,4 @@
 [2025-11-11T13:37:30.000Z] docs: clarify deployment environment variable requirements (#29/32)
 [2025-11-11T14:01:34.000Z] fix: prevent race condition in async buffer queue (#30/32)
 [2025-11-11T14:18:33.000Z] test: add unit coverage for edge-case parser states (#31/32)
+[2025-11-11T14:41:56.000Z] feat: add structured JSON log formatter (#32/32)
