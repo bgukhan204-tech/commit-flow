@@ -1097,3 +1097,4 @@
 [2025-11-11T11:30:27.000Z] feat: implement adaptive caching layer for remote sync (#23/32)
 [2025-11-11T11:54:57.000Z] chore: clean up deprecated helper functions (#24/32)
 [2025-11-11T12:16:40.000Z] test: add unit coverage for edge-case parser states (#25/32)
+[2025-11-11T12:39:57.000Z] docs: clarify deployment environment variable requirements (#26/32)
