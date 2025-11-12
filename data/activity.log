@@ -1127,3 +1127,4 @@
 [2025-11-12T11:09:34.000Z] fix: prevent race condition in async buffer queue (#21/31)
 [2025-11-12T11:30:16.000Z] fix: prevent race condition in async buffer queue (#22/31)
 [2025-11-12T11:58:44.000Z] perf: debounce high-frequency state update dispatchers (#23/31)
+[2025-11-12T12:19:47.000Z] docs: clarify deployment environment variable requirements (#24/31)
