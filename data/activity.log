@@ -1126,3 +1126,4 @@
 [2025-11-12T10:48:24.000Z] fix: resolve timezone offset discrepancy in scheduler (#20/31)
 [2025-11-12T11:09:34.000Z] fix: prevent race condition in async buffer queue (#21/31)
 [2025-11-12T11:30:16.000Z] fix: prevent race condition in async buffer queue (#22/31)
+[2025-11-12T11:58:44.000Z] perf: debounce high-frequency state update dispatchers (#23/31)
