@@ -1154,3 +1154,4 @@
 [2025-11-13T09:28:50.000Z] perf: index query key lookup table for O(1) retrieval (#17/32)
 [2025-11-13T09:50:11.000Z] test: expand integration suite for webhook deliveries (#18/32)
 [2025-11-13T10:05:28.000Z] chore: bump minor dependency patches and lockfile (#19/32)
+[2025-11-13T10:33:45.000Z] chore: clean up deprecated helper functions (#20/32)
