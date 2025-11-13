@@ -1150,3 +1150,4 @@
 [2025-11-13T08:03:28.000Z] fix: prevent race condition in async buffer queue (#13/32)
 [2025-11-13T08:23:18.000Z] style: enforce consistent lint formatting across modules (#14/32)
 [2025-11-13T08:42:46.000Z] refactor: streamline data pipeline transformation logic (#15/32)
+[2025-11-13T09:04:22.000Z] chore: clean up deprecated helper functions (#16/32)
