@@ -1147,3 +1147,4 @@
 [2025-11-13T07:00:46.000Z] docs: update API contract and endpoint specifications (#10/32)
 [2025-11-13T07:17:09.000Z] perf: debounce high-frequency state update dispatchers (#11/32)
 [2025-11-13T07:43:35.000Z] chore: clean up deprecated helper functions (#12/32)
+[2025-11-13T08:03:28.000Z] fix: prevent race condition in async buffer queue (#13/32)
