@@ -1171,3 +1171,4 @@
 [2025-11-14T04:14:41.000Z] feat: optimize event bus telemetry and trace logging (#2/30)
 [2025-11-14T04:42:26.000Z] docs: clarify deployment environment variable requirements (#3/30)
 [2025-11-14T05:05:21.000Z] perf: index query key lookup table for O(1) retrieval (#4/30)
+[2025-11-14T05:21:51.000Z] fix: resolve timezone offset discrepancy in scheduler (#5/30)
