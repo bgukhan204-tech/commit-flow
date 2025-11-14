@@ -1190,3 +1190,4 @@
 [2025-11-14T11:31:31.000Z] fix: prevent race condition in async buffer queue (#21/30)
 [2025-11-14T11:58:09.000Z] perf: debounce high-frequency state update dispatchers (#22/30)
 [2025-11-14T12:22:43.000Z] chore: bump minor dependency patches and lockfile (#23/30)
+[2025-11-14T12:39:34.000Z] docs: clarify deployment environment variable requirements (#24/30)
