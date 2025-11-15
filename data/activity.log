@@ -1215,3 +1215,4 @@
 [2025-11-15T09:18:47.000Z] docs: add visual sequence diagrams for authentication flow (#16/31)
 [2025-11-15T09:43:31.000Z] test: expand integration suite for webhook deliveries (#17/31)
 [2025-11-15T10:04:06.000Z] test: expand integration suite for webhook deliveries (#18/31)
+[2025-11-15T10:30:57.000Z] fix: resolve timezone offset discrepancy in scheduler (#19/31)
