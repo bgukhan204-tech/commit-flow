@@ -1229,3 +1229,4 @@
 [2025-11-15T14:26:27.000Z] fix: prevent race condition in async buffer queue (#30/31)
 [2025-11-15T14:54:31.000Z] docs: clarify deployment environment variable requirements (#31/31)
 [2025-11-16T03:57:53.000Z] feat: add structured JSON log formatter (#1/29)
+[2025-11-16T04:15:56.000Z] chore: clean up deprecated helper functions (#2/29)
