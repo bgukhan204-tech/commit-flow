@@ -1256,3 +1256,4 @@
 [2025-11-16T13:53:46.000Z] fix: resolve timezone offset discrepancy in scheduler (#26/29)
 [2025-11-16T14:20:00.000Z] chore: clean up deprecated helper functions (#27/29)
 [2025-11-16T14:44:15.000Z] fix: prevent race condition in async buffer queue (#28/29)
+[2025-11-16T15:09:05.000Z] refactor: decouple configuration loader from runtime core (#29/29)
