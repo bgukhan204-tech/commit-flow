@@ -1240,3 +1240,4 @@
 [2025-11-16T07:32:04.000Z] fix: resolve timezone offset discrepancy in scheduler (#10/29)
 [2025-11-16T07:50:56.000Z] fix: handle null pointer check in payload serializer (#11/29)
 [2025-11-16T08:20:03.000Z] chore: bump minor dependency patches and lockfile (#12/29)
+[2025-11-16T08:38:14.000Z] refactor: decouple configuration loader from runtime core (#13/29)
