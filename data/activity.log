@@ -1254,3 +1254,4 @@
 [2025-11-16T13:09:19.000Z] perf: reduce memory allocation in matrix computation (#24/29)
 [2025-11-16T13:31:58.000Z] perf: reduce memory allocation in matrix computation (#25/29)
 [2025-11-16T13:53:46.000Z] fix: resolve timezone offset discrepancy in scheduler (#26/29)
+[2025-11-16T14:20:00.000Z] chore: clean up deprecated helper functions (#27/29)
