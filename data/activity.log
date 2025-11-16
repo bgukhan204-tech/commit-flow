@@ -1250,3 +1250,4 @@
 [2025-11-16T11:32:58.000Z] fix: prevent race condition in async buffer queue (#20/29)
 [2025-11-16T11:52:34.000Z] perf: reduce memory allocation in matrix computation (#21/29)
 [2025-11-16T12:14:30.000Z] chore: clean up deprecated helper functions (#22/29)
+[2025-11-16T12:44:50.000Z] docs: clarify deployment environment variable requirements (#23/29)
