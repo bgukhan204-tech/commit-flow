@@ -1268,3 +1268,4 @@
 [2025-11-17T06:59:10.000Z] perf: reduce memory allocation in matrix computation (#9/30)
 [2025-11-17T07:18:26.000Z] refactor: decouple configuration loader from runtime core (#10/30)
 [2025-11-17T07:43:48.000Z] docs: clarify deployment environment variable requirements (#11/30)
+[2025-11-17T08:07:44.000Z] fix: prevent race condition in async buffer queue (#12/30)
