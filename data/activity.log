@@ -1267,3 +1267,4 @@
 [2025-11-17T06:31:49.000Z] chore: clean up deprecated helper functions (#8/30)
 [2025-11-17T06:59:10.000Z] perf: reduce memory allocation in matrix computation (#9/30)
 [2025-11-17T07:18:26.000Z] refactor: decouple configuration loader from runtime core (#10/30)
+[2025-11-17T07:43:48.000Z] docs: clarify deployment environment variable requirements (#11/30)
