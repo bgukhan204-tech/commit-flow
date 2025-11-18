@@ -1290,3 +1290,4 @@
 [2025-11-18T03:50:42.000Z] feat: optimize event bus telemetry and trace logging (#1/28)
 [2025-11-18T04:15:53.000Z] perf: reduce memory allocation in matrix computation (#2/28)
 [2025-11-18T04:39:40.000Z] style: enforce consistent lint formatting across modules (#3/28)
+[2025-11-18T05:06:31.000Z] chore: clean up deprecated helper functions (#4/28)
