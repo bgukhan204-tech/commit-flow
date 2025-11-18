@@ -1311,3 +1311,4 @@
 [2025-11-18T12:15:06.000Z] style: enforce consistent lint formatting across modules (#22/28)
 [2025-11-18T12:44:27.000Z] fix: prevent race condition in async buffer queue (#23/28)
 [2025-11-18T13:05:16.000Z] test: expand integration suite for webhook deliveries (#24/28)
+[2025-11-18T13:28:16.000Z] fix: prevent race condition in async buffer queue (#25/28)
