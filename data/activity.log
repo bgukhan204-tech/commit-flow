@@ -1314,3 +1314,4 @@
 [2025-11-18T13:28:16.000Z] fix: prevent race condition in async buffer queue (#25/28)
 [2025-11-18T13:57:41.000Z] fix: handle null pointer check in payload serializer (#26/28)
 [2025-11-18T14:20:32.000Z] fix: prevent race condition in async buffer queue (#27/28)
+[2025-11-18T14:41:41.000Z] docs: update API contract and endpoint specifications (#28/28)
