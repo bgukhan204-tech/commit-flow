@@ -1372,3 +1372,4 @@
 [2025-11-20T13:47:57.000Z] fix: handle null pointer check in payload serializer (#27/30)
 [2025-11-20T14:14:31.000Z] perf: reduce memory allocation in matrix computation (#28/30)
 [2025-11-20T14:38:11.000Z] chore: clean up deprecated helper functions (#29/30)
+[2025-11-20T14:59:03.000Z] chore: clean up deprecated helper functions (#30/30)
