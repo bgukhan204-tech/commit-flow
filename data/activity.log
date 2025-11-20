@@ -1358,3 +1358,4 @@
 [2025-11-20T08:29:01.000Z] test: expand integration suite for webhook deliveries (#13/30)
 [2025-11-20T08:48:07.000Z] fix: resolve timezone offset discrepancy in scheduler (#14/30)
 [2025-11-20T09:12:17.000Z] fix: prevent race condition in async buffer queue (#15/30)
+[2025-11-20T09:36:04.000Z] docs: add visual sequence diagrams for authentication flow (#16/30)
