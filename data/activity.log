@@ -1381,3 +1381,4 @@
 [2025-11-21T05:50:49.000Z] refactor: extract reusable validator utility methods (#6/29)
 [2025-11-21T06:17:19.000Z] test: expand integration suite for webhook deliveries (#7/29)
 [2025-11-21T06:40:39.000Z] test: expand integration suite for webhook deliveries (#8/29)
+[2025-11-21T07:04:01.000Z] refactor: decouple configuration loader from runtime core (#9/29)
