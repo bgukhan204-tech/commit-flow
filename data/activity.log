@@ -1393,3 +1393,4 @@
 [2025-11-21T10:44:31.000Z] docs: add visual sequence diagrams for authentication flow (#18/29)
 [2025-11-21T11:09:09.000Z] test: expand integration suite for webhook deliveries (#19/29)
 [2025-11-21T11:33:02.000Z] style: enforce consistent lint formatting across modules (#20/29)
+[2025-11-21T11:52:45.000Z] refactor: decouple configuration loader from runtime core (#21/29)
