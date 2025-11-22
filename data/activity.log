@@ -1402,3 +1402,4 @@
 [2025-11-21T14:21:00.000Z] fix: resolve timezone offset discrepancy in scheduler (#27/29)
 [2025-11-21T14:39:22.000Z] perf: debounce high-frequency state update dispatchers (#28/29)
 [2025-11-21T15:06:55.000Z] feat: add structured JSON log formatter (#29/29)
+[2025-11-22T03:55:01.000Z] docs: clarify deployment environment variable requirements (#1/31)
