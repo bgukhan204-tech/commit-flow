@@ -1458,3 +1458,4 @@
 [2025-11-23T12:43:51.000Z] test: expand integration suite for webhook deliveries (#23/29)
 [2025-11-23T13:02:13.000Z] style: enforce consistent lint formatting across modules (#24/29)
 [2025-11-23T13:29:17.000Z] docs: clarify deployment environment variable requirements (#25/29)
+[2025-11-23T13:55:01.000Z] feat: optimize event bus telemetry and trace logging (#26/29)
