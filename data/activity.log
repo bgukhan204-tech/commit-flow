@@ -1451,3 +1451,4 @@
 [2025-11-23T09:55:25.000Z] docs: add visual sequence diagrams for authentication flow (#16/29)
 [2025-11-23T10:18:20.000Z] feat: add structured JSON log formatter (#17/29)
 [2025-11-23T10:44:17.000Z] docs: add visual sequence diagrams for authentication flow (#18/29)
+[2025-11-23T11:08:20.000Z] refactor: decouple configuration loader from runtime core (#19/29)
