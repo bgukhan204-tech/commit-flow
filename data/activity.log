@@ -1489,3 +1489,4 @@
 [2025-11-24T13:33:23.000Z] test: add unit coverage for edge-case parser states (#25/28)
 [2025-11-24T13:57:22.000Z] docs: update API contract and endpoint specifications (#26/28)
 [2025-11-24T14:17:58.000Z] feat: optimize event bus telemetry and trace logging (#27/28)
+[2025-11-24T14:39:04.000Z] chore: clean up deprecated helper functions (#28/28)
