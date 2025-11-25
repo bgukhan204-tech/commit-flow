@@ -1515,3 +1515,4 @@
 [2025-11-25T11:34:41.000Z] docs: add visual sequence diagrams for authentication flow (#23/32)
 [2025-11-25T11:56:53.000Z] docs: update API contract and endpoint specifications (#24/32)
 [2025-11-25T12:13:43.000Z] docs: add visual sequence diagrams for authentication flow (#25/32)
+[2025-11-25T12:39:50.000Z] fix: resolve timezone offset discrepancy in scheduler (#26/32)
