@@ -1512,3 +1512,4 @@
 [2025-11-25T10:27:56.000Z] test: expand integration suite for webhook deliveries (#20/32)
 [2025-11-25T10:49:16.000Z] feat: add structured JSON log formatter (#21/32)
 [2025-11-25T11:13:20.000Z] fix: handle null pointer check in payload serializer (#22/32)
+[2025-11-25T11:34:41.000Z] docs: add visual sequence diagrams for authentication flow (#23/32)
