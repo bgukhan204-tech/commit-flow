@@ -1535,3 +1535,4 @@
 [2025-11-26T07:46:33.000Z] test: expand integration suite for webhook deliveries (#11/30)
 [2025-11-26T08:07:07.000Z] chore: bump minor dependency patches and lockfile (#12/30)
 [2025-11-26T08:30:02.000Z] refactor: extract reusable validator utility methods (#13/30)
+[2025-11-26T08:52:34.000Z] docs: clarify deployment environment variable requirements (#14/30)
