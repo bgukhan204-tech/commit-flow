@@ -1549,3 +1549,4 @@
 [2025-11-26T13:05:51.000Z] fix: handle null pointer check in payload serializer (#25/30)
 [2025-11-26T13:26:10.000Z] feat: optimize event bus telemetry and trace logging (#26/30)
 [2025-11-26T13:47:24.000Z] docs: update API contract and endpoint specifications (#27/30)
+[2025-11-26T14:16:07.000Z] test: expand integration suite for webhook deliveries (#28/30)
