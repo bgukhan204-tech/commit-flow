@@ -1576,3 +1576,4 @@
 [2025-11-27T11:36:45.000Z] feat: optimize event bus telemetry and trace logging (#22/31)
 [2025-11-27T11:53:38.000Z] refactor: extract reusable validator utility methods (#23/31)
 [2025-11-27T12:14:48.000Z] test: expand integration suite for webhook deliveries (#24/31)
+[2025-11-27T12:39:22.000Z] fix: handle null pointer check in payload serializer (#25/31)
