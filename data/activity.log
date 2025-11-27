@@ -1571,3 +1571,4 @@
 [2025-11-27T09:44:38.000Z] docs: add visual sequence diagrams for authentication flow (#17/31)
 [2025-11-27T10:03:07.000Z] fix: resolve timezone offset discrepancy in scheduler (#18/31)
 [2025-11-27T10:25:59.000Z] fix: resolve timezone offset discrepancy in scheduler (#19/31)
+[2025-11-27T10:47:17.000Z] docs: clarify deployment environment variable requirements (#20/31)
