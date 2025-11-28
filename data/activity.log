@@ -1607,3 +1607,4 @@
 [2025-11-28T12:16:31.000Z] feat: optimize event bus telemetry and trace logging (#22/29)
 [2025-11-28T12:40:33.000Z] test: expand integration suite for webhook deliveries (#23/29)
 [2025-11-28T13:07:11.000Z] fix: prevent race condition in async buffer queue (#24/29)
+[2025-11-28T13:27:07.000Z] chore: clean up deprecated helper functions (#25/29)
