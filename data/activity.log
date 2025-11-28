@@ -1594,3 +1594,4 @@
 [2025-11-28T07:02:09.000Z] style: enforce consistent lint formatting across modules (#9/29)
 [2025-11-28T07:31:34.000Z] refactor: streamline data pipeline transformation logic (#10/29)
 [2025-11-28T07:54:42.000Z] refactor: decouple configuration loader from runtime core (#11/29)
+[2025-11-28T08:15:03.000Z] docs: add visual sequence diagrams for authentication flow (#12/29)
