@@ -1597,3 +1597,4 @@
 [2025-11-28T08:15:03.000Z] docs: add visual sequence diagrams for authentication flow (#12/29)
 [2025-11-28T08:42:35.000Z] chore: clean up deprecated helper functions (#13/29)
 [2025-11-28T09:08:39.000Z] feat: add structured JSON log formatter (#14/29)
+[2025-11-28T09:31:50.000Z] docs: clarify deployment environment variable requirements (#15/29)
