@@ -1610,3 +1610,4 @@
 [2025-11-28T13:27:07.000Z] chore: clean up deprecated helper functions (#25/29)
 [2025-11-28T13:52:32.000Z] chore: bump minor dependency patches and lockfile (#26/29)
 [2025-11-28T14:20:11.000Z] refactor: streamline data pipeline transformation logic (#27/29)
+[2025-11-28T14:45:19.000Z] docs: add visual sequence diagrams for authentication flow (#28/29)
