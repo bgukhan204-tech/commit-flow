@@ -1636,3 +1636,4 @@
 [2025-11-29T12:17:48.000Z] refactor: extract reusable validator utility methods (#22/29)
 [2025-11-29T12:39:18.000Z] perf: reduce memory allocation in matrix computation (#23/29)
 [2025-11-29T13:04:30.000Z] chore: clean up deprecated helper functions (#24/29)
+[2025-11-29T13:29:48.000Z] docs: add visual sequence diagrams for authentication flow (#25/29)
