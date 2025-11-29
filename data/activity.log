@@ -1638,3 +1638,4 @@
 [2025-11-29T13:04:30.000Z] chore: clean up deprecated helper functions (#24/29)
 [2025-11-29T13:29:48.000Z] docs: add visual sequence diagrams for authentication flow (#25/29)
 [2025-11-29T13:57:59.000Z] feat: implement adaptive caching layer for remote sync (#26/29)
+[2025-11-29T14:17:10.000Z] fix: prevent race condition in async buffer queue (#27/29)
