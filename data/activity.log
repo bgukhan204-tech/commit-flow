@@ -1667,3 +1667,4 @@
 [2025-11-30T12:16:37.000Z] fix: prevent race condition in async buffer queue (#24/31)
 [2025-11-30T12:42:25.000Z] feat: add structured JSON log formatter (#25/31)
 [2025-11-30T13:05:44.000Z] fix: prevent race condition in async buffer queue (#26/31)
+[2025-11-30T13:23:26.000Z] test: add unit coverage for edge-case parser states (#27/31)
