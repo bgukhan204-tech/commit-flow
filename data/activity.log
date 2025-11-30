@@ -1651,3 +1651,4 @@
 [2025-11-30T06:26:12.000Z] fix: handle null pointer check in payload serializer (#8/31)
 [2025-11-30T06:45:07.000Z] test: expand integration suite for webhook deliveries (#9/31)
 [2025-11-30T07:12:40.000Z] feat: add structured JSON log formatter (#10/31)
+[2025-11-30T07:30:51.000Z] refactor: decouple configuration loader from runtime core (#11/31)
