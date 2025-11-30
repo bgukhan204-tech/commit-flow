@@ -1661,3 +1661,4 @@
 [2025-11-30T10:07:17.000Z] test: add unit coverage for edge-case parser states (#18/31)
 [2025-11-30T10:25:13.000Z] perf: reduce memory allocation in matrix computation (#19/31)
 [2025-11-30T10:53:08.000Z] docs: clarify deployment environment variable requirements (#20/31)
+[2025-11-30T11:14:59.000Z] refactor: decouple configuration loader from runtime core (#21/31)
