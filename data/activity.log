@@ -1717,3 +1717,4 @@
 [2025-12-02T08:42:39.000Z] feat: add structured JSON log formatter (#15/32)
 [2025-12-02T09:04:12.000Z] feat: optimize event bus telemetry and trace logging (#16/32)
 [2025-12-02T09:28:14.000Z] perf: index query key lookup table for O(1) retrieval (#17/32)
+[2025-12-02T09:45:46.000Z] chore: clean up deprecated helper functions (#18/32)
