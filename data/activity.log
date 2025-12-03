@@ -1751,3 +1751,4 @@
 [2025-12-03T09:23:30.000Z] fix: handle null pointer check in payload serializer (#17/32)
 [2025-12-03T09:49:31.000Z] perf: index query key lookup table for O(1) retrieval (#18/32)
 [2025-12-03T10:09:00.000Z] perf: reduce memory allocation in matrix computation (#19/32)
+[2025-12-03T10:29:03.000Z] chore: clean up deprecated helper functions (#20/32)
