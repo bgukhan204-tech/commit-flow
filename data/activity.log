@@ -1754,3 +1754,4 @@
 [2025-12-03T10:29:03.000Z] chore: clean up deprecated helper functions (#20/32)
 [2025-12-03T10:49:17.000Z] style: enforce consistent lint formatting across modules (#21/32)
 [2025-12-03T11:13:18.000Z] fix: resolve timezone offset discrepancy in scheduler (#22/32)
+[2025-12-03T11:34:32.000Z] refactor: decouple configuration loader from runtime core (#23/32)
