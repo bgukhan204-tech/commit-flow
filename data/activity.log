@@ -1798,3 +1798,4 @@
 [2025-12-05T03:54:41.000Z] test: expand integration suite for webhook deliveries (#1/29)
 [2025-12-05T04:21:28.000Z] refactor: decouple configuration loader from runtime core (#2/29)
 [2025-12-05T04:42:46.000Z] test: expand integration suite for webhook deliveries (#3/29)
+[2025-12-05T05:02:27.000Z] feat: add structured JSON log formatter (#4/29)
