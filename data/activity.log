@@ -1838,3 +1838,4 @@
 [2025-12-06T07:52:37.000Z] fix: prevent race condition in async buffer queue (#12/31)
 [2025-12-06T08:18:14.000Z] style: enforce consistent lint formatting across modules (#13/31)
 [2025-12-06T08:38:08.000Z] test: expand integration suite for webhook deliveries (#14/31)
+[2025-12-06T08:56:14.000Z] test: add unit coverage for edge-case parser states (#15/31)
