@@ -1839,3 +1839,4 @@
 [2025-12-06T08:18:14.000Z] style: enforce consistent lint formatting across modules (#13/31)
 [2025-12-06T08:38:08.000Z] test: expand integration suite for webhook deliveries (#14/31)
 [2025-12-06T08:56:14.000Z] test: add unit coverage for edge-case parser states (#15/31)
+[2025-12-06T09:25:12.000Z] docs: update API contract and endpoint specifications (#16/31)
