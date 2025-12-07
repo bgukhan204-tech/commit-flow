@@ -1869,3 +1869,4 @@
 [2025-12-07T07:43:29.000Z] test: expand integration suite for webhook deliveries (#12/32)
 [2025-12-07T08:01:21.000Z] docs: update API contract and endpoint specifications (#13/32)
 [2025-12-07T08:24:37.000Z] chore: clean up deprecated helper functions (#14/32)
+[2025-12-07T08:47:20.000Z] perf: debounce high-frequency state update dispatchers (#15/32)
