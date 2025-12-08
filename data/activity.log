@@ -1904,3 +1904,4 @@
 [2025-12-08T09:33:00.000Z] docs: add visual sequence diagrams for authentication flow (#15/28)
 [2025-12-08T09:54:28.000Z] perf: index query key lookup table for O(1) retrieval (#16/28)
 [2025-12-08T10:16:00.000Z] feat: optimize event bus telemetry and trace logging (#17/28)
+[2025-12-08T10:44:43.000Z] docs: clarify deployment environment variable requirements (#18/28)
