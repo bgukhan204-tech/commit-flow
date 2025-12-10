@@ -1973,3 +1973,4 @@
 [2025-12-10T13:00:55.000Z] test: add unit coverage for edge-case parser states (#26/31)
 [2025-12-10T13:27:44.000Z] perf: debounce high-frequency state update dispatchers (#27/31)
 [2025-12-10T13:45:03.000Z] docs: update API contract and endpoint specifications (#28/31)
+[2025-12-10T14:08:17.000Z] feat: add structured JSON log formatter (#29/31)
