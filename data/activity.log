@@ -1947,3 +1947,4 @@
 [2025-12-09T15:02:52.000Z] chore: clean up deprecated helper functions (#30/30)
 [2025-12-10T03:50:01.000Z] fix: handle null pointer check in payload serializer (#1/31)
 [2025-12-10T04:13:41.000Z] chore: bump minor dependency patches and lockfile (#2/31)
+[2025-12-10T04:33:14.000Z] chore: clean up deprecated helper functions (#3/31)
