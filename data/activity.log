@@ -1970,3 +1970,4 @@
 [2025-12-10T11:55:35.000Z] style: enforce consistent lint formatting across modules (#23/31)
 [2025-12-10T12:15:53.000Z] feat: optimize event bus telemetry and trace logging (#24/31)
 [2025-12-10T12:41:58.000Z] feat: optimize event bus telemetry and trace logging (#25/31)
+[2025-12-10T13:00:55.000Z] test: add unit coverage for edge-case parser states (#26/31)
