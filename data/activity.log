@@ -1949,3 +1949,4 @@
 [2025-12-10T04:13:41.000Z] chore: bump minor dependency patches and lockfile (#2/31)
 [2025-12-10T04:33:14.000Z] chore: clean up deprecated helper functions (#3/31)
 [2025-12-10T05:00:24.000Z] style: enforce consistent lint formatting across modules (#4/31)
+[2025-12-10T05:20:09.000Z] docs: add visual sequence diagrams for authentication flow (#5/31)
