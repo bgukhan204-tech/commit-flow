@@ -2040,3 +2040,4 @@
 [2025-12-13T04:45:39.000Z] refactor: extract reusable validator utility methods (#3/28)
 [2025-12-13T05:02:34.000Z] docs: update API contract and endpoint specifications (#4/28)
 [2025-12-13T05:31:24.000Z] test: add unit coverage for edge-case parser states (#5/28)
+[2025-12-13T05:52:52.000Z] docs: clarify deployment environment variable requirements (#6/28)
