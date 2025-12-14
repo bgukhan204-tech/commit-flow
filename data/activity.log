@@ -2081,3 +2081,4 @@
 [2025-12-14T09:08:11.000Z] fix: resolve timezone offset discrepancy in scheduler (#16/32)
 [2025-12-14T09:23:35.000Z] perf: index query key lookup table for O(1) retrieval (#17/32)
 [2025-12-14T09:51:30.000Z] perf: index query key lookup table for O(1) retrieval (#18/32)
+[2025-12-14T10:09:07.000Z] docs: clarify deployment environment variable requirements (#19/32)
