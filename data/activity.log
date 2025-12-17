@@ -2167,3 +2167,4 @@
 [2025-12-17T08:05:13.000Z] chore: clean up deprecated helper functions (#13/32)
 [2025-12-17T08:26:39.000Z] style: enforce consistent lint formatting across modules (#14/32)
 [2025-12-17T08:46:27.000Z] feat: optimize event bus telemetry and trace logging (#15/32)
+[2025-12-17T09:05:29.000Z] perf: debounce high-frequency state update dispatchers (#16/32)
