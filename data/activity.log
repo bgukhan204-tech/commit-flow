@@ -2195,3 +2195,4 @@
 [2025-12-18T06:49:04.000Z] fix: handle null pointer check in payload serializer (#9/31)
 [2025-12-18T07:06:15.000Z] docs: clarify deployment environment variable requirements (#10/31)
 [2025-12-18T07:30:00.000Z] fix: prevent race condition in async buffer queue (#11/31)
+[2025-12-18T07:57:44.000Z] feat: add structured JSON log formatter (#12/31)
