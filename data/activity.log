@@ -2204,3 +2204,4 @@
 [2025-12-18T10:06:55.000Z] feat: add structured JSON log formatter (#18/31)
 [2025-12-18T10:28:37.000Z] docs: update API contract and endpoint specifications (#19/31)
 [2025-12-18T10:47:47.000Z] docs: clarify deployment environment variable requirements (#20/31)
+[2025-12-18T11:13:04.000Z] chore: clean up deprecated helper functions (#21/31)
