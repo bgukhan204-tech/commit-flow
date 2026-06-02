@@ -2289,3 +2289,4 @@
 [2026-06-02T10:12:32.000Z] docs: add visual sequence diagrams for authentication flow (#1/9)
 [2026-06-02T11:24:09.000Z] style: enforce consistent lint formatting across modules (#2/9)
 [2026-06-02T12:32:48.000Z] fix: graceful fallback on upstream rate limiting (#3/9)
+[2026-06-02T13:45:06.000Z] chore: clean up deprecated helper functions (#4/9)
