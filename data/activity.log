@@ -2293,3 +2293,4 @@
 [2026-06-02T14:56:03.000Z] fix: graceful fallback on upstream rate limiting (#5/9)
 [2026-06-02T16:08:54.000Z] docs: clarify deployment environment variable requirements (#6/9)
 [2026-06-02T17:25:56.000Z] docs: update API contract and endpoint specifications (#7/9)
+[2026-06-02T18:37:17.000Z] feat: integrate automated health check probes (#8/9)
