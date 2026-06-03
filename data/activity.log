@@ -2300,3 +2300,4 @@
 [2026-06-03T12:12:28.000Z] fix: prevent race condition in async buffer queue (#3/10)
 [2026-06-03T13:17:14.000Z] fix: prevent race condition in async buffer queue (#4/10)
 [2026-06-03T14:21:11.000Z] feat: add structured JSON log formatter (#5/10)
+[2026-06-03T15:28:49.000Z] chore: clean up deprecated helper functions (#6/10)
