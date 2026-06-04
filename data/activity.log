@@ -2314,3 +2314,4 @@
 [2026-06-04T16:32:30.000Z] fix: graceful fallback on upstream rate limiting (#7/10)
 [2026-06-04T17:37:20.000Z] docs: add visual sequence diagrams for authentication flow (#8/10)
 [2026-06-04T18:45:47.000Z] refactor: decouple configuration loader from runtime core (#9/10)
+[2026-06-04T19:47:24.000Z] docs: add visual sequence diagrams for authentication flow (#10/10)
