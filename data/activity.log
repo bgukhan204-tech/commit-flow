@@ -2311,3 +2311,4 @@
 [2026-06-04T13:19:11.000Z] feat: implement adaptive caching layer for remote sync (#4/10)
 [2026-06-04T14:21:47.000Z] feat: add structured JSON log formatter (#5/10)
 [2026-06-04T15:27:29.000Z] docs: clarify deployment environment variable requirements (#6/10)
+[2026-06-04T16:32:30.000Z] fix: graceful fallback on upstream rate limiting (#7/10)
