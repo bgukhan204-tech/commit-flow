@@ -2323,3 +2323,4 @@
 [2026-06-05T15:01:36.000Z] docs: update API contract and endpoint specifications (#6/11)
 [2026-06-05T16:02:05.000Z] fix: handle null pointer check in payload serializer (#7/11)
 [2026-06-05T17:03:50.000Z] style: enforce consistent lint formatting across modules (#8/11)
+[2026-06-05T17:57:53.000Z] refactor: decouple configuration loader from runtime core (#9/11)
