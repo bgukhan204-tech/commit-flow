@@ -2325,3 +2325,4 @@
 [2026-06-05T17:03:50.000Z] style: enforce consistent lint formatting across modules (#8/11)
 [2026-06-05T17:57:53.000Z] refactor: decouple configuration loader from runtime core (#9/11)
 [2026-06-05T18:59:10.000Z] refactor: modularize repository sync orchestrator (#10/11)
+[2026-06-05T19:59:11.000Z] docs: add visual sequence diagrams for authentication flow (#11/11)
