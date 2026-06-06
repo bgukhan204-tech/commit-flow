@@ -2329,3 +2329,4 @@
 [2026-06-06T09:57:09.000Z] feat: integrate automated health check probes (#1/12)
 [2026-06-06T10:52:51.000Z] refactor: modularize repository sync orchestrator (#2/12)
 [2026-06-06T11:47:04.000Z] fix: resolve timezone offset discrepancy in scheduler (#3/12)
+[2026-06-06T12:41:59.000Z] docs: clarify deployment environment variable requirements (#4/12)
