@@ -2360,3 +2360,4 @@
 [2026-06-08T18:03:34.000Z] refactor: modularize repository sync orchestrator (#9/11)
 [2026-06-08T19:02:47.000Z] feat: add structured JSON log formatter (#10/11)
 [2026-06-08T19:57:27.000Z] docs: update API contract and endpoint specifications (#11/11)
+[2026-06-09T09:53:50.000Z] refactor: decouple configuration loader from runtime core (#1/12)
