@@ -2361,3 +2361,4 @@
 [2026-06-08T19:02:47.000Z] feat: add structured JSON log formatter (#10/11)
 [2026-06-08T19:57:27.000Z] docs: update API contract and endpoint specifications (#11/11)
 [2026-06-09T09:53:50.000Z] refactor: decouple configuration loader from runtime core (#1/12)
+[2026-06-09T10:47:45.000Z] docs: add visual sequence diagrams for authentication flow (#2/12)
