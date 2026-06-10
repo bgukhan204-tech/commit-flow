@@ -2378,3 +2378,4 @@
 [2026-06-10T12:41:31.000Z] docs: clarify deployment environment variable requirements (#4/12)
 [2026-06-10T13:31:28.000Z] chore: clean up deprecated helper functions (#5/12)
 [2026-06-10T14:29:18.000Z] feat: optimize event bus telemetry and trace logging (#6/12)
+[2026-06-10T15:25:54.000Z] docs: clarify deployment environment variable requirements (#7/12)
