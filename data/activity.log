@@ -2390,3 +2390,4 @@
 [2026-06-11T13:18:47.000Z] fix: handle null pointer check in payload serializer (#4/10)
 [2026-06-11T14:27:46.000Z] feat: integrate automated health check probes (#5/10)
 [2026-06-11T15:27:47.000Z] style: enforce consistent lint formatting across modules (#6/10)
+[2026-06-11T16:37:49.000Z] docs: clarify deployment environment variable requirements (#7/10)
