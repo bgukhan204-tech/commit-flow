@@ -2393,3 +2393,4 @@
 [2026-06-11T16:37:49.000Z] docs: clarify deployment environment variable requirements (#7/10)
 [2026-06-11T17:43:14.000Z] fix: graceful fallback on upstream rate limiting (#8/10)
 [2026-06-11T18:47:52.000Z] feat: add structured JSON log formatter (#9/10)
+[2026-06-11T19:47:44.000Z] docs: update API contract and endpoint specifications (#10/10)
