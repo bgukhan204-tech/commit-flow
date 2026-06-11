@@ -2386,3 +2386,4 @@
 [2026-06-10T20:03:30.000Z] test: expand integration suite for webhook deliveries (#12/12)
 [2026-06-11T10:08:01.000Z] fix: prevent race condition in async buffer queue (#1/10)
 [2026-06-11T11:07:04.000Z] fix: resolve timezone offset discrepancy in scheduler (#2/10)
+[2026-06-11T12:18:43.000Z] docs: clarify deployment environment variable requirements (#3/10)
