@@ -2425,3 +2425,4 @@
 [2026-06-15T09:56:54.000Z] perf: reduce memory allocation in matrix computation (#1/12)
 [2026-06-15T10:52:49.000Z] test: add unit coverage for edge-case parser states (#2/12)
 [2026-06-15T11:45:50.000Z] test: expand integration suite for webhook deliveries (#3/12)
+[2026-06-15T12:42:22.000Z] chore: clean up deprecated helper functions (#4/12)
