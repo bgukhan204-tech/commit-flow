@@ -2434,3 +2434,4 @@
 [2026-06-15T18:10:17.000Z] chore: clean up deprecated helper functions (#10/12)
 [2026-06-15T19:04:16.000Z] refactor: extract reusable validator utility methods (#11/12)
 [2026-06-15T19:58:30.000Z] test: expand integration suite for webhook deliveries (#12/12)
+[2026-06-16T09:52:25.000Z] refactor: decouple configuration loader from runtime core (#1/12)
