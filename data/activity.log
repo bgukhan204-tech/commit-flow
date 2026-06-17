@@ -2446,3 +2446,4 @@
 [2026-06-16T18:06:48.000Z] fix: graceful fallback on upstream rate limiting (#10/12)
 [2026-06-16T19:02:49.000Z] refactor: decouple configuration loader from runtime core (#11/12)
 [2026-06-16T19:59:26.000Z] perf: reduce memory allocation in matrix computation (#12/12)
+[2026-06-17T10:01:44.000Z] fix: resolve timezone offset discrepancy in scheduler (#1/10)
