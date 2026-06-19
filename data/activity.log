@@ -2468,3 +2468,4 @@
 [2026-06-18T18:10:35.000Z] feat: add structured JSON log formatter (#10/12)
 [2026-06-18T19:02:04.000Z] test: add unit coverage for edge-case parser states (#11/12)
 [2026-06-18T20:00:37.000Z] chore: bump minor dependency patches and lockfile (#12/12)
+[2026-06-19T10:19:47.000Z] docs: clarify deployment environment variable requirements (#1/8)
