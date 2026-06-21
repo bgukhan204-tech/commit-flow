@@ -2496,3 +2496,4 @@
 [2026-06-21T17:12:40.000Z] fix: graceful fallback on upstream rate limiting (#9/12)
 [2026-06-21T18:12:40.000Z] fix: resolve timezone offset discrepancy in scheduler (#10/12)
 [2026-06-21T19:06:58.000Z] style: enforce consistent lint formatting across modules (#11/12)
+[2026-06-21T19:56:22.000Z] chore: clean up deprecated helper functions (#12/12)
