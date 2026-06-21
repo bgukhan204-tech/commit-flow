@@ -2493,3 +2493,4 @@
 [2026-06-21T14:26:16.000Z] feat: optimize event bus telemetry and trace logging (#6/12)
 [2026-06-21T15:27:09.000Z] refactor: streamline data pipeline transformation logic (#7/12)
 [2026-06-21T16:21:05.000Z] docs: clarify deployment environment variable requirements (#8/12)
+[2026-06-21T17:12:40.000Z] fix: graceful fallback on upstream rate limiting (#9/12)
