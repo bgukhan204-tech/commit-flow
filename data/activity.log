@@ -2522,3 +2522,4 @@
 [2026-06-24T13:02:10.000Z] docs: update API contract and endpoint specifications (#4/11)
 [2026-06-24T13:58:16.000Z] feat: add structured JSON log formatter (#5/11)
 [2026-06-24T15:03:05.000Z] feat: add structured JSON log formatter (#6/11)
+[2026-06-24T15:58:01.000Z] fix: handle null pointer check in payload serializer (#7/11)
