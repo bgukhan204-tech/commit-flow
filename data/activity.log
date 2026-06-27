@@ -2546,3 +2546,4 @@
 [2026-06-26T17:58:19.000Z] feat: optimize event bus telemetry and trace logging (#9/11)
 [2026-06-26T18:58:42.000Z] chore: bump minor dependency patches and lockfile (#10/11)
 [2026-06-26T19:56:19.000Z] test: expand integration suite for webhook deliveries (#11/11)
+[2026-06-27T10:01:28.000Z] feat: add structured JSON log formatter (#1/10)
