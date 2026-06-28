@@ -2560,3 +2560,4 @@
 [2026-06-28T10:57:20.000Z] feat: optimize event bus telemetry and trace logging (#2/11)
 [2026-06-28T12:03:43.000Z] fix: handle null pointer check in payload serializer (#3/11)
 [2026-06-28T12:57:27.000Z] feat: add structured JSON log formatter (#4/11)
+[2026-06-28T14:02:10.000Z] chore: clean up deprecated helper functions (#5/11)
