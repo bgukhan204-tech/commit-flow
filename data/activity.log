@@ -2582,3 +2582,4 @@
 [2026-06-30T15:38:03.000Z] feat: add structured JSON log formatter (#5/8)
 [2026-06-30T17:01:11.000Z] fix: graceful fallback on upstream rate limiting (#6/8)
 [2026-06-30T18:22:39.000Z] style: enforce consistent lint formatting across modules (#7/8)
+[2026-06-30T19:36:23.000Z] fix: prevent race condition in async buffer queue (#8/8)
