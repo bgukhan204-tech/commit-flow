@@ -2693,3 +2693,4 @@
 [2026-07-12T13:02:54.000Z] chore: bump minor dependency patches and lockfile (#3/8)
 [2026-07-12T14:21:32.000Z] fix: graceful fallback on upstream rate limiting (#4/8)
 [2026-07-12T15:39:43.000Z] test: expand integration suite for webhook deliveries (#5/8)
+[2026-07-12T16:56:32.000Z] fix: prevent race condition in async buffer queue (#6/8)
