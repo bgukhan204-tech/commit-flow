@@ -2706,3 +2706,4 @@
 [2026-07-13T17:40:20.000Z] chore: bump minor dependency patches and lockfile (#8/10)
 [2026-07-13T18:48:41.000Z] fix: prevent race condition in async buffer queue (#9/10)
 [2026-07-13T19:47:50.000Z] docs: clarify deployment environment variable requirements (#10/10)
+[2026-07-14T10:13:00.000Z] fix: graceful fallback on upstream rate limiting (#1/9)
