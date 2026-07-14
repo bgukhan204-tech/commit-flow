@@ -2708,3 +2708,4 @@
 [2026-07-13T19:47:50.000Z] docs: clarify deployment environment variable requirements (#10/10)
 [2026-07-14T10:13:00.000Z] fix: graceful fallback on upstream rate limiting (#1/9)
 [2026-07-14T11:23:25.000Z] test: add unit coverage for edge-case parser states (#2/9)
+[2026-07-14T12:37:00.000Z] docs: update API contract and endpoint specifications (#3/9)
