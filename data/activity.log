@@ -2743,3 +2743,4 @@
 [2026-07-17T14:22:19.000Z] refactor: streamline data pipeline transformation logic (#5/10)
 [2026-07-17T15:28:26.000Z] fix: resolve timezone offset discrepancy in scheduler (#6/10)
 [2026-07-17T16:34:54.000Z] feat: implement adaptive caching layer for remote sync (#7/10)
+[2026-07-17T17:43:40.000Z] docs: clarify deployment environment variable requirements (#8/10)
