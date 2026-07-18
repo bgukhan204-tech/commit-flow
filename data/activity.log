@@ -2753,3 +2753,4 @@
 [2026-07-18T15:00:53.000Z] fix: graceful fallback on upstream rate limiting (#5/9)
 [2026-07-18T16:11:54.000Z] docs: clarify deployment environment variable requirements (#6/9)
 [2026-07-18T17:24:30.000Z] chore: clean up deprecated helper functions (#7/9)
+[2026-07-18T18:34:14.000Z] test: add unit coverage for edge-case parser states (#8/9)
