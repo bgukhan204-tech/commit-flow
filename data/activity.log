@@ -2777,3 +2777,4 @@
 [2026-07-20T19:01:40.000Z] fix: prevent race condition in async buffer queue (#11/12)
 [2026-07-20T20:02:50.000Z] refactor: modularize repository sync orchestrator (#12/12)
 [2026-07-21T10:16:38.000Z] feat: optimize event bus telemetry and trace logging (#1/8)
+[2026-07-21T11:42:41.000Z] docs: update API contract and endpoint specifications (#2/8)
