@@ -2788,3 +2788,4 @@
 [2026-07-22T10:57:50.000Z] feat: implement adaptive caching layer for remote sync (#2/11)
 [2026-07-22T11:59:10.000Z] fix: handle null pointer check in payload serializer (#3/11)
 [2026-07-22T13:03:55.000Z] feat: implement adaptive caching layer for remote sync (#4/11)
+[2026-07-22T13:56:00.000Z] fix: resolve timezone offset discrepancy in scheduler (#5/11)
