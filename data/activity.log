@@ -2802,3 +2802,4 @@
 [2026-07-23T14:27:29.000Z] refactor: extract reusable validator utility methods (#5/10)
 [2026-07-23T15:27:34.000Z] perf: reduce memory allocation in matrix computation (#6/10)
 [2026-07-23T16:36:08.000Z] fix: resolve timezone offset discrepancy in scheduler (#7/10)
+[2026-07-23T17:38:36.000Z] fix: graceful fallback on upstream rate limiting (#8/10)
