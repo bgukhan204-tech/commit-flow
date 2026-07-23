@@ -2804,3 +2804,4 @@
 [2026-07-23T16:36:08.000Z] fix: resolve timezone offset discrepancy in scheduler (#7/10)
 [2026-07-23T17:38:36.000Z] fix: graceful fallback on upstream rate limiting (#8/10)
 [2026-07-23T18:44:16.000Z] test: add unit coverage for edge-case parser states (#9/10)
+[2026-07-23T19:48:07.000Z] docs: clarify deployment environment variable requirements (#10/10)
