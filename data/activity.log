@@ -2813,3 +2813,4 @@
 [2026-07-24T16:56:09.000Z] refactor: extract reusable validator utility methods (#6/8)
 [2026-07-24T18:16:43.000Z] perf: reduce memory allocation in matrix computation (#7/8)
 [2026-07-24T19:36:43.000Z] perf: reduce memory allocation in matrix computation (#8/8)
+[2026-07-25T09:59:13.000Z] docs: clarify deployment environment variable requirements (#1/11)
