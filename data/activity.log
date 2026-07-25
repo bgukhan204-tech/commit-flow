@@ -2819,3 +2819,4 @@
 [2026-07-25T13:00:12.000Z] chore: bump minor dependency patches and lockfile (#4/11)
 [2026-07-25T13:56:27.000Z] feat: optimize event bus telemetry and trace logging (#5/11)
 [2026-07-25T15:02:12.000Z] chore: bump minor dependency patches and lockfile (#6/11)
+[2026-07-25T15:58:28.000Z] refactor: decouple configuration loader from runtime core (#7/11)
