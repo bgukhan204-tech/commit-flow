@@ -2859,3 +2859,4 @@
 [2026-07-29T12:37:23.000Z] test: add unit coverage for edge-case parser states (#3/9)
 [2026-07-29T13:47:22.000Z] docs: clarify deployment environment variable requirements (#4/9)
 [2026-07-29T15:03:18.000Z] perf: reduce memory allocation in matrix computation (#5/9)
+[2026-07-29T16:11:30.000Z] fix: graceful fallback on upstream rate limiting (#6/9)
