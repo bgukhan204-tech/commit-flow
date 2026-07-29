@@ -2861,3 +2861,4 @@
 [2026-07-29T15:03:18.000Z] perf: reduce memory allocation in matrix computation (#5/9)
 [2026-07-29T16:11:30.000Z] fix: graceful fallback on upstream rate limiting (#6/9)
 [2026-07-29T17:20:39.000Z] docs: clarify deployment environment variable requirements (#7/9)
+[2026-07-29T18:38:24.000Z] fix: graceful fallback on upstream rate limiting (#8/9)
