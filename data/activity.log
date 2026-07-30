@@ -2870,3 +2870,4 @@
 [2026-07-30T14:25:08.000Z] fix: prevent race condition in async buffer queue (#5/10)
 [2026-07-30T15:33:26.000Z] fix: graceful fallback on upstream rate limiting (#6/10)
 [2026-07-30T16:31:51.000Z] docs: add visual sequence diagrams for authentication flow (#7/10)
+[2026-07-30T17:42:41.000Z] chore: bump minor dependency patches and lockfile (#8/10)
