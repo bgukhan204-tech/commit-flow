@@ -2864,3 +2864,4 @@
 [2026-07-29T18:38:24.000Z] fix: graceful fallback on upstream rate limiting (#8/9)
 [2026-07-29T19:50:56.000Z] refactor: streamline data pipeline transformation logic (#9/9)
 [2026-07-30T10:07:06.000Z] test: add unit coverage for edge-case parser states (#1/10)
+[2026-07-30T11:06:58.000Z] fix: prevent race condition in async buffer queue (#2/10)
