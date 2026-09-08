@@ -1,0 +1,26 @@
+name: Auto Commit
+
+on:
+  schedule:
+    # This runs every day at 12:00 PM UTC (Adjust as needed)
+    - cron: '0 12 * * *'
+  workflow_dispatch: # Allows you to trigger it manually
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Make changes to a log file
+      run: |
+        echo "Last automated commit: $(date)" > last-commit.txt
+
+    - name: Commit and Push changes
+      run: |
+        git config --global user.name "github-actions[bot]"
+        git config --global user.email "41898282+github-actions[bot]@://github.com"
+        git add last-commit.txt
+        git commit -m "chore: automated daily update [skip ci]"
+        git push
