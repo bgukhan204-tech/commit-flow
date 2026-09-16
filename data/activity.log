@@ -3116,3 +3116,4 @@
 [2026-09-16T17:55:15.000Z] test: add unit coverage for edge-case parser states (#41/51)
 [2026-09-16T18:06:06.000Z] docs: clarify deployment environment variable requirements (#42/51)
 [2026-09-16T18:21:30.000Z] fix: prevent race condition in async buffer queue (#43/51)
+[2026-09-16T18:35:30.000Z] docs: clarify deployment environment variable requirements (#44/51)
