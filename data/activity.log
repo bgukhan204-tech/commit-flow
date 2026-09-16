@@ -3111,3 +3111,4 @@
 [2026-09-16T16:46:53.000Z] refactor: streamline data pipeline transformation logic (#36/51)
 [2026-09-16T17:00:49.000Z] style: enforce consistent lint formatting across modules (#37/51)
 [2026-09-16T17:11:20.000Z] perf: debounce high-frequency state update dispatchers (#38/51)
+[2026-09-16T17:29:29.000Z] docs: clarify deployment environment variable requirements (#39/51)
