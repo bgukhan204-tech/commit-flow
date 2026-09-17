@@ -3170,3 +3170,4 @@
 [2026-09-17T18:33:52.000Z] test: expand integration suite for webhook deliveries (#44/51)
 [2026-09-17T18:41:31.000Z] feat: optimize event bus telemetry and trace logging (#45/51)
 [2026-09-17T18:58:57.000Z] fix: resolve timezone offset discrepancy in scheduler (#46/51)
+[2026-09-17T19:08:34.000Z] refactor: decouple configuration loader from runtime core (#47/51)
