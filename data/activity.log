@@ -3144,3 +3144,4 @@
 [2026-09-17T12:55:33.000Z] refactor: extract reusable validator utility methods (#18/51)
 [2026-09-17T13:03:59.000Z] perf: reduce memory allocation in matrix computation (#19/51)
 [2026-09-17T13:20:51.000Z] chore: bump minor dependency patches and lockfile (#20/51)
+[2026-09-17T13:34:48.000Z] fix: graceful fallback on upstream rate limiting (#21/51)
