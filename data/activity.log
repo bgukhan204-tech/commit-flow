@@ -3155,3 +3155,4 @@
 [2026-09-17T15:17:22.000Z] fix: resolve timezone offset discrepancy in scheduler (#29/51)
 [2026-09-17T15:28:05.000Z] chore: bump minor dependency patches and lockfile (#30/51)
 [2026-09-17T15:46:37.000Z] perf: reduce memory allocation in matrix computation (#31/51)
+[2026-09-17T15:58:11.000Z] refactor: decouple configuration loader from runtime core (#32/51)
