@@ -3180,3 +3180,4 @@
 [2026-09-18T09:42:13.000Z] test: expand integration suite for webhook deliveries (#3/48)
 [2026-09-18T09:56:02.000Z] docs: update API contract and endpoint specifications (#4/48)
 [2026-09-18T10:09:19.000Z] fix: prevent race condition in async buffer queue (#5/48)
+[2026-09-18T10:23:37.000Z] docs: update API contract and endpoint specifications (#6/48)
