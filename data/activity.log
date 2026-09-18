@@ -3178,3 +3178,4 @@
 [2026-09-18T09:11:57.000Z] perf: debounce high-frequency state update dispatchers (#1/48)
 [2026-09-18T09:27:25.000Z] chore: bump minor dependency patches and lockfile (#2/48)
 [2026-09-18T09:42:13.000Z] test: expand integration suite for webhook deliveries (#3/48)
+[2026-09-18T09:56:02.000Z] docs: update API contract and endpoint specifications (#4/48)
