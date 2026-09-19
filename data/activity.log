@@ -3253,3 +3253,4 @@
 [2026-09-19T15:33:22.000Z] feat: integrate automated health check probes (#28/48)
 [2026-09-19T15:48:33.000Z] refactor: decouple configuration loader from runtime core (#29/48)
 [2026-09-19T16:02:56.000Z] test: expand integration suite for webhook deliveries (#30/48)
+[2026-09-19T16:10:50.000Z] chore: clean up deprecated helper functions (#31/48)
