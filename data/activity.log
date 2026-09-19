@@ -3261,3 +3261,4 @@
 [2026-09-19T17:22:18.000Z] docs: add visual sequence diagrams for authentication flow (#36/48)
 [2026-09-19T17:39:08.000Z] fix: resolve timezone offset discrepancy in scheduler (#37/48)
 [2026-09-19T17:52:44.000Z] chore: bump minor dependency patches and lockfile (#38/48)
+[2026-09-19T18:04:08.000Z] refactor: decouple configuration loader from runtime core (#39/48)
