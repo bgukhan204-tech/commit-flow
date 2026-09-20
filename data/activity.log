@@ -3316,3 +3316,4 @@
 [2026-09-20T19:01:22.000Z] feat: optimize event bus telemetry and trace logging (#43/48)
 [2026-09-20T19:15:08.000Z] chore: clean up deprecated helper functions (#44/48)
 [2026-09-20T19:31:22.000Z] chore: bump minor dependency patches and lockfile (#45/48)
+[2026-09-20T19:44:01.000Z] perf: debounce high-frequency state update dispatchers (#46/48)
