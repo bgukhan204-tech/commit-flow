@@ -3290,3 +3290,4 @@
 [2026-09-20T13:00:25.000Z] docs: clarify deployment environment variable requirements (#17/48)
 [2026-09-20T13:12:27.000Z] refactor: decouple configuration loader from runtime core (#18/48)
 [2026-09-20T13:28:57.000Z] test: expand integration suite for webhook deliveries (#19/48)
+[2026-09-20T13:39:43.000Z] chore: clean up deprecated helper functions (#20/48)
