@@ -3304,3 +3304,4 @@
 [2026-09-20T16:14:25.000Z] feat: optimize event bus telemetry and trace logging (#31/48)
 [2026-09-20T16:28:51.000Z] perf: index query key lookup table for O(1) retrieval (#32/48)
 [2026-09-20T16:40:41.000Z] perf: index query key lookup table for O(1) retrieval (#33/48)
+[2026-09-20T16:56:57.000Z] test: add unit coverage for edge-case parser states (#34/48)
