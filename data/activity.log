@@ -3286,3 +3286,4 @@
 [2026-09-20T11:58:38.000Z] fix: graceful fallback on upstream rate limiting (#13/48)
 [2026-09-20T12:13:53.000Z] refactor: decouple configuration loader from runtime core (#14/48)
 [2026-09-20T12:30:47.000Z] docs: update API contract and endpoint specifications (#15/48)
+[2026-09-20T12:44:26.000Z] fix: prevent race condition in async buffer queue (#16/48)
