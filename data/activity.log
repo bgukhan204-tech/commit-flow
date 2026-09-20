@@ -3271,3 +3271,4 @@
 [2026-09-19T19:45:13.000Z] fix: graceful fallback on upstream rate limiting (#46/48)
 [2026-09-19T19:58:43.000Z] docs: clarify deployment environment variable requirements (#47/48)
 [2026-09-19T20:13:22.000Z] test: add unit coverage for edge-case parser states (#48/48)
+[2026-09-20T09:14:32.000Z] refactor: decouple configuration loader from runtime core (#1/48)
