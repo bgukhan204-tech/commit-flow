@@ -3295,3 +3295,4 @@
 [2026-09-20T14:06:07.000Z] perf: debounce high-frequency state update dispatchers (#22/48)
 [2026-09-20T14:19:21.000Z] test: expand integration suite for webhook deliveries (#23/48)
 [2026-09-20T14:35:48.000Z] perf: debounce high-frequency state update dispatchers (#24/48)
+[2026-09-20T14:47:40.000Z] docs: add visual sequence diagrams for authentication flow (#25/48)
