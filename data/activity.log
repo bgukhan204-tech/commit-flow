@@ -3283,3 +3283,4 @@
 [2026-09-20T11:18:07.000Z] feat: add structured JSON log formatter (#10/48)
 [2026-09-20T11:32:01.000Z] docs: update API contract and endpoint specifications (#11/48)
 [2026-09-20T11:47:56.000Z] feat: optimize event bus telemetry and trace logging (#12/48)
+[2026-09-20T11:58:38.000Z] fix: graceful fallback on upstream rate limiting (#13/48)
