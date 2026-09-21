@@ -3364,3 +3364,4 @@
 [2026-09-21T18:59:40.000Z] perf: debounce high-frequency state update dispatchers (#43/48)
 [2026-09-21T19:14:46.000Z] refactor: modularize repository sync orchestrator (#44/48)
 [2026-09-21T19:33:54.000Z] test: add unit coverage for edge-case parser states (#45/48)
+[2026-09-21T19:40:46.000Z] fix: graceful fallback on upstream rate limiting (#46/48)
