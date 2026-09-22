@@ -3377,3 +3377,4 @@
 [2026-09-22T10:54:50.000Z] docs: clarify deployment environment variable requirements (#8/50)
 [2026-09-22T11:03:43.000Z] docs: add visual sequence diagrams for authentication flow (#9/50)
 [2026-09-22T11:21:59.000Z] refactor: modularize repository sync orchestrator (#10/50)
+[2026-09-22T11:33:59.000Z] refactor: decouple configuration loader from runtime core (#11/50)
