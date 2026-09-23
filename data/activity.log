@@ -3451,3 +3451,4 @@
 [2026-09-23T16:30:02.000Z] docs: clarify deployment environment variable requirements (#32/48)
 [2026-09-23T16:45:44.000Z] fix: handle null pointer check in payload serializer (#33/48)
 [2026-09-23T16:55:39.000Z] perf: debounce high-frequency state update dispatchers (#34/48)
+[2026-09-23T17:09:32.000Z] fix: graceful fallback on upstream rate limiting (#35/48)
