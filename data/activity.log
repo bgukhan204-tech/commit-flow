@@ -3433,3 +3433,4 @@
 [2026-09-23T12:15:51.000Z] fix: prevent race condition in async buffer queue (#14/48)
 [2026-09-23T12:29:49.000Z] perf: reduce memory allocation in matrix computation (#15/48)
 [2026-09-23T12:44:36.000Z] fix: handle null pointer check in payload serializer (#16/48)
+[2026-09-23T12:59:46.000Z] chore: clean up deprecated helper functions (#17/48)
