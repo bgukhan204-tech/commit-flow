@@ -3455,3 +3455,4 @@
 [2026-09-23T17:20:12.000Z] fix: resolve timezone offset discrepancy in scheduler (#36/48)
 [2026-09-23T17:35:13.000Z] chore: bump minor dependency patches and lockfile (#37/48)
 [2026-09-23T17:49:23.000Z] chore: bump minor dependency patches and lockfile (#38/48)
+[2026-09-23T18:06:07.000Z] docs: add visual sequence diagrams for authentication flow (#39/48)
