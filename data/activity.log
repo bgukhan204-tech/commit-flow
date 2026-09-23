@@ -3424,3 +3424,4 @@
 [2026-09-23T10:11:23.000Z] fix: handle null pointer check in payload serializer (#5/48)
 [2026-09-23T10:22:03.000Z] feat: add structured JSON log formatter (#6/48)
 [2026-09-23T10:38:22.000Z] feat: implement adaptive caching layer for remote sync (#7/48)
+[2026-09-23T10:55:29.000Z] refactor: decouple configuration loader from runtime core (#8/48)
