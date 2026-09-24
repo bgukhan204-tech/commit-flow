@@ -3496,3 +3496,4 @@
 [2026-09-24T15:47:22.000Z] perf: debounce high-frequency state update dispatchers (#29/49)
 [2026-09-24T15:56:02.000Z] fix: graceful fallback on upstream rate limiting (#30/49)
 [2026-09-24T16:17:52.000Z] style: enforce consistent lint formatting across modules (#31/49)
+[2026-09-24T16:24:33.000Z] fix: prevent race condition in async buffer queue (#32/49)
