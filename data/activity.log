@@ -3494,3 +3494,4 @@
 [2026-09-24T15:14:01.000Z] feat: integrate automated health check probes (#27/49)
 [2026-09-24T15:35:52.000Z] style: enforce consistent lint formatting across modules (#28/49)
 [2026-09-24T15:47:22.000Z] perf: debounce high-frequency state update dispatchers (#29/49)
+[2026-09-24T15:56:02.000Z] fix: graceful fallback on upstream rate limiting (#30/49)
