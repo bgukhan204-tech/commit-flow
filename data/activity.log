@@ -3498,3 +3498,4 @@
 [2026-09-24T16:17:52.000Z] style: enforce consistent lint formatting across modules (#31/49)
 [2026-09-24T16:24:33.000Z] fix: prevent race condition in async buffer queue (#32/49)
 [2026-09-24T16:44:21.000Z] fix: graceful fallback on upstream rate limiting (#33/49)
+[2026-09-24T16:54:45.000Z] docs: clarify deployment environment variable requirements (#34/49)
