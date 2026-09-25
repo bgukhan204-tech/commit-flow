@@ -3515,3 +3515,4 @@
 [2026-09-24T20:11:08.000Z] fix: prevent race condition in async buffer queue (#48/49)
 [2026-09-24T20:28:46.000Z] feat: optimize event bus telemetry and trace logging (#49/49)
 [2026-09-25T09:11:05.000Z] fix: resolve timezone offset discrepancy in scheduler (#1/47)
+[2026-09-25T09:28:51.000Z] perf: debounce high-frequency state update dispatchers (#2/47)
