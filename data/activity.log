@@ -3560,3 +3560,4 @@
 [2026-09-25T20:01:14.000Z] docs: clarify deployment environment variable requirements (#44/47)
 [2026-09-25T20:13:17.000Z] docs: clarify deployment environment variable requirements (#45/47)
 [2026-09-25T20:26:33.000Z] chore: bump minor dependency patches and lockfile (#46/47)
+[2026-09-25T20:48:38.000Z] docs: add visual sequence diagrams for authentication flow (#47/47)
