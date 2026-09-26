@@ -3587,3 +3587,4 @@
 [2026-09-26T14:58:38.000Z] chore: clean up deprecated helper functions (#24/47)
 [2026-09-26T15:11:34.000Z] docs: add visual sequence diagrams for authentication flow (#25/47)
 [2026-09-26T15:31:06.000Z] feat: optimize event bus telemetry and trace logging (#26/47)
+[2026-09-26T15:43:52.000Z] chore: clean up deprecated helper functions (#27/47)
