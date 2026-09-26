@@ -3564,3 +3564,4 @@
 [2026-09-26T09:15:12.000Z] docs: update API contract and endpoint specifications (#1/47)
 [2026-09-26T09:33:46.000Z] refactor: modularize repository sync orchestrator (#2/47)
 [2026-09-26T09:45:16.000Z] refactor: modularize repository sync orchestrator (#3/47)
+[2026-09-26T09:59:51.000Z] refactor: decouple configuration loader from runtime core (#4/47)
