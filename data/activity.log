@@ -3585,3 +3585,4 @@
 [2026-09-26T14:33:31.000Z] fix: prevent race condition in async buffer queue (#22/47)
 [2026-09-26T14:43:57.000Z] style: enforce consistent lint formatting across modules (#23/47)
 [2026-09-26T14:58:38.000Z] chore: clean up deprecated helper functions (#24/47)
+[2026-09-26T15:11:34.000Z] docs: add visual sequence diagrams for authentication flow (#25/47)
