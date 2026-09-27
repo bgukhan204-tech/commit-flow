@@ -3634,3 +3634,4 @@
 [2026-09-27T14:35:01.000Z] style: enforce consistent lint formatting across modules (#24/50)
 [2026-09-27T14:49:58.000Z] fix: handle null pointer check in payload serializer (#25/50)
 [2026-09-27T15:05:19.000Z] perf: index query key lookup table for O(1) retrieval (#26/50)
+[2026-09-27T15:18:18.000Z] docs: clarify deployment environment variable requirements (#27/50)
