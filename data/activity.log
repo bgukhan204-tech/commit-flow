@@ -3694,3 +3694,4 @@
 [2026-09-28T16:58:13.000Z] chore: clean up deprecated helper functions (#34/48)
 [2026-09-28T17:12:25.000Z] perf: debounce high-frequency state update dispatchers (#35/48)
 [2026-09-28T17:27:50.000Z] docs: update API contract and endpoint specifications (#36/48)
+[2026-09-28T17:36:23.000Z] fix: resolve timezone offset discrepancy in scheduler (#37/48)
