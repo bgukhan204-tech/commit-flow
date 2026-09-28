@@ -3686,3 +3686,4 @@
 [2026-09-28T15:01:24.000Z] fix: prevent race condition in async buffer queue (#26/48)
 [2026-09-28T15:15:57.000Z] perf: reduce memory allocation in matrix computation (#27/48)
 [2026-09-28T15:28:56.000Z] feat: add structured JSON log formatter (#28/48)
+[2026-09-28T15:45:06.000Z] refactor: decouple configuration loader from runtime core (#29/48)
