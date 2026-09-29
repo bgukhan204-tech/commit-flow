@@ -3725,3 +3725,4 @@
 [2026-09-29T13:00:19.000Z] refactor: decouple configuration loader from runtime core (#17/49)
 [2026-09-29T13:10:37.000Z] fix: prevent race condition in async buffer queue (#18/49)
 [2026-09-29T13:29:17.000Z] feat: add structured JSON log formatter (#19/49)
+[2026-09-29T13:42:05.000Z] fix: resolve timezone offset discrepancy in scheduler (#20/49)
