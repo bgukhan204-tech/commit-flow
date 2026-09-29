@@ -3722,3 +3722,4 @@
 [2026-09-29T12:19:28.000Z] feat: optimize event bus telemetry and trace logging (#14/49)
 [2026-09-29T12:33:35.000Z] chore: bump minor dependency patches and lockfile (#15/49)
 [2026-09-29T12:43:51.000Z] feat: integrate automated health check probes (#16/49)
+[2026-09-29T13:00:19.000Z] refactor: decouple configuration loader from runtime core (#17/49)
