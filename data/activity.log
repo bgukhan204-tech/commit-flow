@@ -3746,3 +3746,4 @@
 [2026-09-29T17:53:18.000Z] chore: bump minor dependency patches and lockfile (#38/49)
 [2026-09-29T18:03:18.000Z] feat: optimize event bus telemetry and trace logging (#39/49)
 [2026-09-29T18:23:58.000Z] feat: optimize event bus telemetry and trace logging (#40/49)
+[2026-09-29T18:30:56.000Z] docs: add visual sequence diagrams for authentication flow (#41/49)
