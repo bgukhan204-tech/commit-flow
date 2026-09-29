@@ -3713,3 +3713,4 @@
 [2026-09-29T10:13:12.000Z] style: enforce consistent lint formatting across modules (#5/49)
 [2026-09-29T10:25:13.000Z] refactor: decouple configuration loader from runtime core (#6/49)
 [2026-09-29T10:34:16.000Z] docs: update API contract and endpoint specifications (#7/49)
+[2026-09-29T10:51:28.000Z] feat: add structured JSON log formatter (#8/49)
