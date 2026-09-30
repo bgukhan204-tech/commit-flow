@@ -3794,3 +3794,4 @@
 [2026-09-30T17:39:15.000Z] test: expand integration suite for webhook deliveries (#37/49)
 [2026-09-30T17:49:35.000Z] docs: update API contract and endpoint specifications (#38/49)
 [2026-09-30T18:09:03.000Z] docs: add visual sequence diagrams for authentication flow (#39/49)
+[2026-09-30T18:20:59.000Z] fix: handle null pointer check in payload serializer (#40/49)
