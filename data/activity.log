@@ -3790,3 +3790,4 @@
 [2026-09-30T16:41:36.000Z] refactor: modularize repository sync orchestrator (#33/49)
 [2026-09-30T16:59:16.000Z] fix: graceful fallback on upstream rate limiting (#34/49)
 [2026-09-30T17:07:06.000Z] fix: prevent race condition in async buffer queue (#35/49)
+[2026-09-30T17:21:30.000Z] fix: graceful fallback on upstream rate limiting (#36/49)
