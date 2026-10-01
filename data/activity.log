@@ -3830,3 +3830,4 @@
 [2026-10-01T14:09:13.000Z] fix: handle null pointer check in payload serializer (#24/51)
 [2026-10-01T14:26:59.000Z] docs: update API contract and endpoint specifications (#25/51)
 [2026-10-01T14:41:27.000Z] docs: update API contract and endpoint specifications (#26/51)
+[2026-10-01T14:54:55.000Z] docs: add visual sequence diagrams for authentication flow (#27/51)
