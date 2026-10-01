@@ -3813,3 +3813,4 @@
 [2026-10-01T10:34:56.000Z] test: add unit coverage for edge-case parser states (#7/51)
 [2026-10-01T10:47:27.000Z] docs: clarify deployment environment variable requirements (#8/51)
 [2026-10-01T10:55:43.000Z] style: enforce consistent lint formatting across modules (#9/51)
+[2026-10-01T11:13:21.000Z] chore: clean up deprecated helper functions (#10/51)
