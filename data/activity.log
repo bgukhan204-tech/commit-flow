@@ -3826,3 +3826,4 @@
 [2026-10-01T13:21:09.000Z] fix: handle null pointer check in payload serializer (#20/51)
 [2026-10-01T13:34:29.000Z] fix: graceful fallback on upstream rate limiting (#21/51)
 [2026-10-01T13:47:25.000Z] refactor: decouple configuration loader from runtime core (#22/51)
+[2026-10-01T13:56:13.000Z] fix: graceful fallback on upstream rate limiting (#23/51)
