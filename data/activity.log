@@ -3952,3 +3952,4 @@
 [2026-10-03T19:30:47.000Z] fix: resolve timezone offset discrepancy in scheduler (#45/50)
 [2026-10-03T19:40:29.000Z] docs: add visual sequence diagrams for authentication flow (#46/50)
 [2026-10-03T19:57:13.000Z] docs: clarify deployment environment variable requirements (#47/50)
+[2026-10-03T20:09:38.000Z] chore: clean up deprecated helper functions (#48/50)
