@@ -3948,3 +3948,4 @@
 [2026-10-03T18:30:36.000Z] chore: bump minor dependency patches and lockfile (#41/50)
 [2026-10-03T18:50:10.000Z] docs: clarify deployment environment variable requirements (#42/50)
 [2026-10-03T19:03:16.000Z] test: expand integration suite for webhook deliveries (#43/50)
+[2026-10-03T19:18:23.000Z] docs: add visual sequence diagrams for authentication flow (#44/50)
