@@ -3946,3 +3946,4 @@
 [2026-10-03T18:07:13.000Z] docs: update API contract and endpoint specifications (#39/50)
 [2026-10-03T18:18:57.000Z] style: enforce consistent lint formatting across modules (#40/50)
 [2026-10-03T18:30:36.000Z] chore: bump minor dependency patches and lockfile (#41/50)
+[2026-10-03T18:50:10.000Z] docs: clarify deployment environment variable requirements (#42/50)
