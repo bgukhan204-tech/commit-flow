@@ -3921,3 +3921,4 @@
 [2026-10-03T12:19:35.000Z] fix: handle null pointer check in payload serializer (#14/50)
 [2026-10-03T12:32:03.000Z] test: expand integration suite for webhook deliveries (#15/50)
 [2026-10-03T12:44:40.000Z] refactor: streamline data pipeline transformation logic (#16/50)
+[2026-10-03T13:00:55.000Z] refactor: decouple configuration loader from runtime core (#17/50)
