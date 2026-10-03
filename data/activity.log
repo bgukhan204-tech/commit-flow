@@ -3937,3 +3937,4 @@
 [2026-10-03T16:02:46.000Z] style: enforce consistent lint formatting across modules (#30/50)
 [2026-10-03T16:12:57.000Z] chore: bump minor dependency patches and lockfile (#31/50)
 [2026-10-03T16:30:25.000Z] perf: reduce memory allocation in matrix computation (#32/50)
+[2026-10-03T16:38:17.000Z] refactor: decouple configuration loader from runtime core (#33/50)
