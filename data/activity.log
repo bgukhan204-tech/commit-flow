@@ -4000,3 +4000,4 @@
 [2026-10-04T19:44:03.000Z] perf: reduce memory allocation in matrix computation (#43/47)
 [2026-10-04T19:56:14.000Z] docs: update API contract and endpoint specifications (#44/47)
 [2026-10-04T20:16:59.000Z] test: expand integration suite for webhook deliveries (#45/47)
+[2026-10-04T20:30:22.000Z] fix: graceful fallback on upstream rate limiting (#46/47)
