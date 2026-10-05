@@ -4046,3 +4046,4 @@
 [2026-10-05T19:31:31.000Z] chore: bump minor dependency patches and lockfile (#42/47)
 [2026-10-05T19:48:16.000Z] chore: bump minor dependency patches and lockfile (#43/47)
 [2026-10-05T19:59:22.000Z] perf: reduce memory allocation in matrix computation (#44/47)
+[2026-10-05T20:12:15.000Z] docs: clarify deployment environment variable requirements (#45/47)
