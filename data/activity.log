@@ -4015,3 +4015,4 @@
 [2026-10-05T11:41:50.000Z] docs: update API contract and endpoint specifications (#11/47)
 [2026-10-05T11:57:48.000Z] chore: bump minor dependency patches and lockfile (#12/47)
 [2026-10-05T12:13:36.000Z] feat: add structured JSON log formatter (#13/47)
+[2026-10-05T12:30:52.000Z] refactor: decouple configuration loader from runtime core (#14/47)
