@@ -4002,3 +4002,4 @@
 [2026-10-04T20:16:59.000Z] test: expand integration suite for webhook deliveries (#45/47)
 [2026-10-04T20:30:22.000Z] fix: graceful fallback on upstream rate limiting (#46/47)
 [2026-10-04T20:48:20.000Z] fix: resolve timezone offset discrepancy in scheduler (#47/47)
+[2026-10-05T09:15:38.000Z] docs: add visual sequence diagrams for authentication flow (#1/47)
