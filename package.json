@@ -1,0 +1,25 @@
+{
+  "name": "commit-flow",
+  "version": "1.0.0",
+  "description": "Smart GitHub Contribution Booster & 10 Commits/Day Automation Suite",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "backfill": "node scripts/backfill.js",
+    "daily": "node scripts/daily.js"
+  },
+  "keywords": [
+    "github",
+    "contributions",
+    "git-commit",
+    "automation",
+    "github-actions",
+    "green-wall"
+  ],
+  "author": "CommitFlow",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
