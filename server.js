@@ -13,7 +13,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Helper to safely execute git commands
 function execGit(cmd, fallback = '') {
   try {
-    return execSync(cmd, { cwd: repoRoot, encoding: 'utf8' }).trim();
+    return execSync(cmd, { cwd: repoRoot, encoding: 'utf8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
   } catch {
     return fallback;
   }
@@ -29,6 +29,29 @@ function ensureGitRepo() {
       execSync('git branch -M main', { cwd: repoRoot, stdio: 'ignore' });
     } catch {}
   }
+
+  // Ensure default git user config if missing
+  try {
+    const name = execGit('git config user.name', '');
+    if (!name) {
+      execSync('git config user.name "CommitFlow Developer"', { cwd: repoRoot, stdio: 'ignore' });
+    }
+    const email = execGit('git config user.email', '');
+    if (!email) {
+      execSync('git config user.email "developer@users.noreply.github.com"', { cwd: repoRoot, stdio: 'ignore' });
+    }
+  } catch {}
+
+  // Auto-set remote origin if missing (especially in cloud hosting environments like Render)
+  try {
+    const remotes = execGit('git remote', '');
+    if (!remotes.split('\n').includes('origin')) {
+      const defaultRepo = process.env.GIT_REMOTE_URL || process.env.REPO_URL || 'https://github.com/bgukhan204-tech/commit-flow.git';
+      if (defaultRepo) {
+        execSync(`git remote add origin "${defaultRepo}"`, { cwd: repoRoot, stdio: 'ignore' });
+      }
+    }
+  } catch {}
 }
 
 ensureGitRepo();
@@ -39,7 +62,19 @@ app.get('/api/git-info', (req, res) => {
   const userName = execGit('git config user.name', '');
   const userEmail = execGit('git config user.email', '');
   const branch = execGit('git branch --show-current', 'main') || 'main';
-  const remoteUrl = execGit('git remote get-url origin', '');
+
+  let remoteUrl = '';
+  const remotes = execGit('git remote', '');
+  if (remotes.split('\n').includes('origin')) {
+    remoteUrl = execGit('git remote get-url origin', '');
+  } else if (remotes.trim().length > 0) {
+    const first = remotes.trim().split('\n')[0].trim();
+    if (first) remoteUrl = execGit(`git remote get-url ${first}`, '');
+  }
+  if (!remoteUrl) {
+    remoteUrl = process.env.GIT_REMOTE_URL || process.env.REPO_URL || '';
+  }
+
   const commitCountStr = execGit('git rev-list --count HEAD', '0');
   const commitCount = parseInt(commitCountStr, 10) || 0;
 
@@ -247,10 +282,16 @@ app.get('/api/stream-commits', (req, res) => {
     if (shouldPush) {
       sendEvent('log', { text: `Pushing commits to remote origin...`, type: 'info' });
       try {
-        execSync('git push origin main', { cwd: repoRoot });
-        sendEvent('log', { text: `✅ Successfully pushed to GitHub!`, type: 'success' });
+        const remotes = execGit('git remote', '');
+        if (!remotes.split('\n').includes('origin')) {
+          sendEvent('log', { text: `⚠️ Remote 'origin' is not configured yet. Configure your GitHub repo URL below.`, type: 'warning' });
+        } else {
+          execSync('git push origin main', { cwd: repoRoot, stdio: ['pipe', 'pipe', 'pipe'] });
+          sendEvent('log', { text: `✅ Successfully pushed to GitHub!`, type: 'success' });
+        }
       } catch (pushErr) {
-        sendEvent('log', { text: `⚠️ Git push failed: ${pushErr.message}`, type: 'warning' });
+        const errMsg = pushErr.stderr ? pushErr.stderr.toString() : pushErr.message;
+        sendEvent('log', { text: `⚠️ Git push failed: ${errMsg.trim()}`, type: 'warning' });
       }
     }
 
@@ -267,26 +308,35 @@ app.get('/api/stream-commits', (req, res) => {
 
 // 4. Git Push endpoint
 app.post('/api/git-push', (req, res) => {
+  ensureGitRepo();
   try {
-    const output = execSync('git push origin main', { cwd: repoRoot, encoding: 'utf8' });
+    const remotes = execGit('git remote', '');
+    if (!remotes.split('\n').includes('origin')) {
+      return res.status(400).json({
+        error: 'No git remote "origin" is configured. Please set your GitHub repository URL in the Remote Sync section first.'
+      });
+    }
+    const output = execSync('git push origin main', { cwd: repoRoot, encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] });
     res.json({ success: true, output });
   } catch (err) {
-    res.status(500).json({ error: err.message, stderr: err.stderr ? err.stderr.toString() : '' });
+    const stderr = err.stderr ? err.stderr.toString() : err.message;
+    res.status(500).json({ error: stderr || err.message, stderr });
   }
 });
 
-// 5. Add remote URL
+// 5. Add / Update remote URL
 app.post('/api/set-remote', (req, res) => {
+  ensureGitRepo();
   const { remoteUrl } = req.body;
   if (!remoteUrl) return res.status(400).json({ error: 'Remote URL is required' });
   try {
-    const existing = execGit('git remote get-url origin', '');
-    if (existing) {
-      execSync(`git remote set-url origin "${remoteUrl.trim()}"`, { cwd: repoRoot });
+    const remotes = execGit('git remote', '');
+    if (remotes.split('\n').includes('origin')) {
+      execSync(`git remote set-url origin "${remoteUrl.trim()}"`, { cwd: repoRoot, stdio: 'ignore' });
     } else {
-      execSync(`git remote add origin "${remoteUrl.trim()}"`, { cwd: repoRoot });
+      execSync(`git remote add origin "${remoteUrl.trim()}"`, { cwd: repoRoot, stdio: 'ignore' });
     }
-    res.json({ success: true, message: 'Remote origin updated successfully!' });
+    res.json({ success: true, message: 'Remote origin updated successfully!', remoteUrl: remoteUrl.trim() });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
