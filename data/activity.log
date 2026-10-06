@@ -4059,3 +4059,4 @@
 [2026-10-06T10:58:13.000Z] feat: optimize event bus telemetry and trace logging (#8/47)
 [2026-10-06T11:11:59.000Z] docs: clarify deployment environment variable requirements (#9/47)
 [2026-10-06T11:32:54.000Z] refactor: decouple configuration loader from runtime core (#10/47)
+[2026-10-06T11:41:17.000Z] docs: add visual sequence diagrams for authentication flow (#11/47)
