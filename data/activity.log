@@ -4096,3 +4096,4 @@
 [2026-10-06T20:15:50.000Z] feat: integrate automated health check probes (#45/47)
 [2026-10-06T20:32:41.000Z] style: enforce consistent lint formatting across modules (#46/47)
 [2026-10-06T20:45:00.000Z] style: enforce consistent lint formatting across modules (#47/47)
+[2026-10-07T09:15:21.000Z] docs: add visual sequence diagrams for authentication flow (#1/48)
