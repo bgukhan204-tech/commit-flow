@@ -2892,3 +2892,4 @@
 [2026-10-07T20:59:14.586Z] test: add unit coverage for edge-case parser states (#7/10)
 [2026-10-07T20:59:16.599Z] fix: prevent race condition in async buffer queue (#8/10)
 [2026-10-07T20:59:18.613Z] test: add unit coverage for edge-case parser states (#9/10)
+[2026-10-07T20:59:20.625Z] docs: update API contract and endpoint specifications (#10/10)
