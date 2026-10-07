@@ -4134,3 +4134,4 @@
 [2026-10-07T17:25:02.000Z] refactor: streamline data pipeline transformation logic (#36/48)
 [2026-10-07T17:37:55.000Z] refactor: modularize repository sync orchestrator (#37/48)
 [2026-10-07T17:55:13.000Z] feat: add structured JSON log formatter (#38/48)
+[2026-10-07T18:04:59.000Z] docs: clarify deployment environment variable requirements (#39/48)
