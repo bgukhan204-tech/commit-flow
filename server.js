@@ -60,6 +60,11 @@ function ensureGitRepo() {
     } catch {}
   }
 
+  // Ensure branch is main and not in detached HEAD
+  try {
+    execSync('git checkout -B main', { cwd: repoRoot, stdio: 'ignore' });
+  } catch {}
+
   // Ensure default git user config if missing
   try {
     const name = execGit('git config user.name', '');
@@ -301,6 +306,11 @@ app.get('/api/stream-commits', (req, res) => {
   const name = authorName || execGit('git config user.name', 'Developer') || 'Developer';
   const email = authorEmail || execGit('git config user.email', 'developer@users.noreply.github.com') || 'developer@users.noreply.github.com';
 
+  // Explicitly ensure branch is active and checked out (prevents detached HEAD state on Render/Cloud)
+  try {
+    execSync(`git checkout -B ${branch}`, { cwd: repoRoot, stdio: 'ignore' });
+  } catch {}
+
   // Apply git config
   try {
     execSync(`git config user.name "${name.replace(/"/g, '\\"')}"`, { cwd: repoRoot });
@@ -490,8 +500,17 @@ app.get('/api/stream-commits', (req, res) => {
           execSync(`git remote add origin "${pushTargetUrl}"`, { cwd: repoRoot, stdio: 'ignore' });
         }
 
-        // Push to remote branch
-        const pushResult = execSync(`git push -u origin ${branch}`, {
+        // Pull / rebase remote changes first to prevent non-fast-forward push rejection
+        try {
+          execSync(`git pull --rebase "${pushTargetUrl}" ${branch}`, {
+            cwd: repoRoot,
+            stdio: 'ignore',
+            env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+          });
+        } catch {}
+
+        // Push HEAD explicitly to refs/heads/${branch} on remote
+        const pushResult = execSync(`git push "${pushTargetUrl}" HEAD:refs/heads/${branch}`, {
           cwd: repoRoot,
           encoding: 'utf8',
           stdio: ['pipe', 'pipe', 'pipe'],
@@ -500,6 +519,9 @@ app.get('/api/stream-commits', (req, res) => {
 
         pushSuccess = true;
         sendEvent('log', { text: `🎉 Successfully pushed ${totalCommits} commits to GitHub (${branch})!`, type: 'success' });
+        if (pushResult && pushResult.trim()) {
+          sendEvent('log', { text: `Git: ${maskToken(pushResult.trim())}`, type: 'info' });
+        }
         if (parsedRepo) {
           sendEvent('log', {
             text: `🌟 GitHub Contribution Heatmap updated! Visit: https://github.com/${parsedRepo.owner}`,
@@ -563,7 +585,7 @@ app.post('/api/git-push', (req, res) => {
       execSync(`git remote add origin "${pushTargetUrl}"`, { cwd: repoRoot, stdio: 'ignore' });
     }
 
-    const output = execSync(`git push -u origin ${branch}`, {
+    const output = execSync(`git push "${pushTargetUrl}" HEAD:refs/heads/${branch}`, {
       cwd: repoRoot,
       encoding: 'utf8',
       stdio: ['pipe', 'pipe', 'pipe'],
