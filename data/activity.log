@@ -4121,3 +4121,4 @@
 [2026-10-07T14:24:40.000Z] feat: integrate automated health check probes (#23/48)
 [2026-10-07T14:35:59.000Z] test: expand integration suite for webhook deliveries (#24/48)
 [2026-10-07T14:46:23.000Z] fix: graceful fallback on upstream rate limiting (#25/48)
+[2026-10-07T15:01:46.000Z] docs: clarify deployment environment variable requirements (#26/48)
