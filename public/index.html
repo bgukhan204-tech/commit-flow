@@ -27,7 +27,7 @@
         </div>
         <div class="brand-text">
           <div class="brand-title">Commit<span>Flow</span></div>
-          <div class="brand-tagline">GitHub 10 Commits/Day Automation & Contribution Booster</div>
+          <div class="brand-tagline">GitHub 10 Commits/Day Automation & Contribution Heatmap Booster</div>
         </div>
       </div>
 
@@ -42,6 +42,87 @@
         </a>
       </div>
     </header>
+
+    <!-- Top Connection & Auth Section -->
+    <section class="card auth-banner-card">
+      <div class="card-header">
+        <div class="card-title-group">
+          <div class="auth-card-title-row">
+            <span class="step-pill">Step 1</span>
+            <h2 class="card-title">GitHub Repository & Authentication Link</h2>
+          </div>
+          <p class="card-subtitle">Connect your repository URL and Personal Access Token (PAT) so commits push automatically to your GitHub profile.</p>
+        </div>
+        <div class="auth-header-actions">
+          <a href="https://github.com/settings/tokens/new?scopes=repo&description=CommitFlow" target="_blank" rel="noreferrer" class="btn-token-link">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            Generate GitHub Token (30s) ↗
+          </a>
+          <button type="button" class="btn btn-sm btn-secondary" id="btnVerifyGithub">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+            Verify Connection
+          </button>
+        </div>
+      </div>
+
+      <div class="auth-fields-grid">
+        <!-- Repo URL -->
+        <div class="form-group">
+          <label for="remoteUrlInput" class="form-label">
+            GitHub Repository URL <span class="required">*</span>
+            <span class="tooltip-icon" title="Your GitHub repo where commits will be pushed">ⓘ</span>
+          </label>
+          <div class="input-with-icon">
+            <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+            <input type="text" id="remoteUrlInput" class="form-input" placeholder="https://github.com/bgukhan204-tech/commit-flow.git">
+          </div>
+        </div>
+
+        <!-- GitHub Personal Access Token -->
+        <div class="form-group">
+          <label for="githubTokenInput" class="form-label">
+            GitHub Personal Access Token (PAT) <span class="required">*</span>
+            <span class="tooltip-icon" title="Required for Render/Cloud push without username prompts. Generate with 'repo' scope.">ⓘ</span>
+          </label>
+          <div class="input-with-icon input-password-wrapper">
+            <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" id="githubTokenInput" class="form-input" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+            <button type="button" class="btn-toggle-visibility" id="btnToggleToken" title="Show/Hide Token">
+              <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Git Author Email -->
+        <div class="form-group">
+          <label for="authorEmail" class="form-label">
+            Git Author Email <span class="required">*</span>
+            <span class="badge-tag green">Turns Heatmap Green</span>
+          </label>
+          <div class="input-with-icon">
+            <svg class="field-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input type="email" id="authorEmail" class="form-input" placeholder="e.g. bgukhan204@gmail.com" required>
+          </div>
+        </div>
+
+        <!-- Git Author Name & Branch -->
+        <div class="form-row form-row-2">
+          <div class="form-group">
+            <label for="authorName" class="form-label">Author Name</label>
+            <input type="text" id="authorName" class="form-input" placeholder="e.g. Gukhan B">
+          </div>
+          <div class="form-group">
+            <label for="branchInput" class="form-label">Target Branch</label>
+            <input type="text" id="branchInput" class="form-input" value="main">
+          </div>
+        </div>
+      </div>
+
+      <!-- Auth Feedback / Verification Banner -->
+      <div class="auth-feedback-banner" id="authFeedbackBanner" style="display: none;">
+        <div class="auth-feedback-content" id="authFeedbackContent"></div>
+      </div>
+    </section>
 
     <!-- Stat Highlights Row -->
     <div class="stats-grid">
@@ -81,7 +162,7 @@
         </div>
         <div class="stat-data">
           <div class="stat-value" id="statLocalTotal">0</div>
-          <div class="stat-label">Total Local Commits</div>
+          <div class="stat-label">Total Repository Commits</div>
         </div>
       </div>
     </div>
@@ -90,11 +171,11 @@
     <nav class="main-tabs" id="mainTabs">
       <button class="tab-btn active" data-tab="tab-generator">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-        Contribution Generator & Heatmap
+        Step 2: Generate & Push Commits
       </button>
       <button class="tab-btn" data-tab="tab-actions">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"/><rect x="2" y="14" width="20" height="8" rx="2" ry="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>
-        Cloud Automation (GitHub Actions)
+        Cloud Automation (GitHub Actions 24/7)
       </button>
       <button class="tab-btn" data-tab="tab-cli">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
@@ -102,7 +183,7 @@
       </button>
       <button class="tab-btn" data-tab="tab-guide">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        Green Graph Setup Guide
+        Green Heatmap Rules & Troubleshooting
       </button>
     </nav>
 
@@ -112,14 +193,16 @@
       <section class="card heatmap-card">
         <div class="card-header">
           <div class="card-title-group">
-            <h2 class="card-title">Contribution Heatmap Simulator</h2>
-            <p class="card-subtitle">Live 52-week visual simulation of your 10 commits/day activity graph.</p>
+            <h2 class="card-title">Live 52-Week Contribution Heatmap Simulator</h2>
+            <p class="card-subtitle">Real-time visual preview of how your GitHub profile contribution squares will look once pushed.</p>
           </div>
           <div class="heatmap-presets">
             <span class="preset-label">Presets:</span>
             <button class="btn-preset active" id="preset30Days">Last 30 Days</button>
             <button class="btn-preset" id="preset90Days">Last 90 Days</button>
-            <button class="btn-preset" id="preset1Year">Full Year (365 Days)</button>
+            <button class="btn-preset" id="preset180Days">6 Months</button>
+            <button class="btn-preset" id="preset1Year">Full Year (365d)</button>
+            <button class="btn-preset" id="preset2Years">2 Years (730d)</button>
             <button class="btn-preset" id="presetNatural">Natural Wave</button>
             <button class="btn-preset" id="presetClear">Clear</button>
           </div>
@@ -147,10 +230,10 @@
             <div class="legend-cell level-2"></div>
             <div class="legend-cell level-3"></div>
             <div class="legend-cell level-4"></div>
-            <span>More (10+ commits)</span>
+            <span>More (10+ commits/day)</span>
           </div>
           <div class="heatmap-info">
-            <span id="hoveredCellInfo">Hover over any day to see details or click to paint!</span>
+            <span id="hoveredCellInfo">Hover over any day to see details or click to paint custom squares!</span>
           </div>
         </div>
       </section>
@@ -161,27 +244,24 @@
         <section class="card config-card">
           <div class="card-header">
             <div class="card-title-group">
-              <h3 class="card-title">Generator Settings</h3>
-              <p class="card-subtitle">Configure commit frequency and identity.</p>
+              <h3 class="card-title">Commit Frequency & Date Range</h3>
+              <p class="card-subtitle">Select how many commits per day and the target date span.</p>
             </div>
           </div>
 
           <form id="generatorForm" class="config-form">
-            <!-- Git Identity -->
-            <div class="form-row form-row-2">
-              <div class="form-group">
-                <label for="authorName" class="form-label">
-                  Git Author Name
-                  <span class="tooltip-icon" title="Should match your GitHub profile display name">ⓘ</span>
-                </label>
-                <input type="text" id="authorName" class="form-input" placeholder="e.g. John Doe">
-              </div>
-              <div class="form-group">
-                <label for="authorEmail" class="form-label">
-                  Git Author Email <span class="required">*</span>
-                  <span class="tooltip-icon" title="CRITICAL: Must match your primary GitHub email to make contributions turn green!">ⓘ</span>
-                </label>
-                <input type="email" id="authorEmail" class="form-input" placeholder="e.g. your_github_email@gmail.com" required>
+            <!-- Quick Date Select Buttons -->
+            <div class="form-group">
+              <label class="form-label">Quick Period Presets</label>
+              <div class="quick-dates-container">
+                <button type="button" class="btn-quick-date" data-days="7">7 Days</button>
+                <button type="button" class="btn-quick-date active" data-days="30">30 Days</button>
+                <button type="button" class="btn-quick-date" data-days="90">90 Days</button>
+                <button type="button" class="btn-quick-date" data-days="180">6 Months</button>
+                <button type="button" class="btn-quick-date" data-days="365">1 Year</button>
+                <button type="button" class="btn-quick-date" data-days="730">2 Years</button>
+                <button type="button" class="btn-quick-date" data-year="2026">Year 2026</button>
+                <button type="button" class="btn-quick-date" data-year="2025">Year 2025</button>
               </div>
             </div>
 
@@ -197,28 +277,19 @@
               </div>
             </div>
 
-            <!-- Quick Date Select Buttons -->
-            <div class="quick-dates-container">
-              <button type="button" class="btn-quick-date" data-days="7">7 Days</button>
-              <button type="button" class="btn-quick-date active" data-days="30">30 Days</button>
-              <button type="button" class="btn-quick-date" data-days="90">90 Days</button>
-              <button type="button" class="btn-quick-date" data-days="180">6 Months</button>
-              <button type="button" class="btn-quick-date" data-days="365">1 Year</button>
-            </div>
-
             <!-- Commit Count Slider -->
             <div class="form-group slider-group">
               <div class="slider-header">
-                <label for="commitCountSlider" class="form-label">Commits Per Day</label>
+                <label for="commitCountSlider" class="form-label">Daily Commits Count</label>
                 <span class="slider-badge" id="sliderValue">10 commits/day</span>
               </div>
-              <input type="range" id="commitCountSlider" class="form-slider" min="1" max="30" value="10">
-              <div class="slider-marks">
-                <span>1/day</span>
-                <span>5/day</span>
-                <span class="highlight">10/day (Recommended)</span>
-                <span>20/day</span>
-                <span>30/day</span>
+              <input type="range" id="commitCountSlider" class="form-slider" min="1" max="50" value="10">
+              <div class="slider-quick-buttons">
+                <button type="button" class="btn-slider-quick" data-count="5">5/day</button>
+                <button type="button" class="btn-slider-quick active" data-count="10">10/day (Recommended)</button>
+                <button type="button" class="btn-slider-quick" data-count="15">15/day</button>
+                <button type="button" class="btn-slider-quick" data-count="20">20/day</button>
+                <button type="button" class="btn-slider-quick" data-count="30">30/day</button>
               </div>
             </div>
 
@@ -227,17 +298,17 @@
               <div class="form-group">
                 <label for="variationSelect" class="form-label">Natural Random Variation</label>
                 <select id="variationSelect" class="form-select">
-                  <option value="0">Exact (Strictly 10 commits every day)</option>
-                  <option value="2" selected>±2 Commits (8 to 12 commits/day)</option>
-                  <option value="4">±4 Commits (6 to 14 commits/day)</option>
+                  <option value="0">Exact (Strictly specified commits)</option>
+                  <option value="2" selected>±2 Commits (Natural fluctuation)</option>
+                  <option value="4">±4 Commits (Wide natural spread)</option>
                 </select>
               </div>
 
               <div class="form-group">
                 <label for="messageStyleSelect" class="form-label">Commit Message Style</label>
                 <select id="messageStyleSelect" class="form-select">
-                  <option value="realistic" selected>Realistic Engineering Commits (feat, fix, docs...)</option>
-                  <option value="emoji">Emoji & Conventional Commits (✨, ⚡, 🐛...)</option>
+                  <option value="realistic" selected>Realistic Engineering (feat, fix, docs, perf...)</option>
+                  <option value="emoji">Emoji Conventional (✨ feat, ⚡ perf, 🐛 fix...)</option>
                   <option value="minimal">Minimal Timestamp Logs</option>
                 </select>
               </div>
@@ -254,15 +325,15 @@
               <label class="custom-checkbox">
                 <input type="checkbox" id="autoPush" checked>
                 <span class="checkmark"></span>
-                <span class="checkbox-label">Auto-Push to GitHub Remote (if configured)</span>
+                <span class="checkbox-label">Auto-Push to GitHub Remote (Updates green graph immediately)</span>
               </label>
             </div>
 
-            <!-- Action Buttons -->
+            <!-- Action CTA Button -->
             <div class="form-actions">
               <button type="button" id="btnGenerateNow" class="btn btn-primary btn-glow">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-                <span>Generate 10 Commits/Day Now</span>
+                <span>Generate & Push to GitHub (Increase Heatmap)</span>
               </button>
 
               <button type="button" id="btnCopyCommand" class="btn btn-secondary">
@@ -278,7 +349,7 @@
           <div class="card-header">
             <div class="card-title-group">
               <h3 class="card-title">Live Execution Console</h3>
-              <p class="card-subtitle">Real-time commit creation stream and git hash logger.</p>
+              <p class="card-subtitle">Real-time commit creation and authenticated GitHub push stream.</p>
             </div>
             <div class="terminal-actions">
               <button class="btn-terminal-clear" id="btnClearTerminal">Clear</button>
@@ -298,18 +369,27 @@
 
           <!-- Console Screen -->
           <div class="terminal-screen" id="terminalScreen">
-            <div class="terminal-line info"><span class="prompt">$</span> CommitFlow Console ready. Press "Generate 10 Commits/Day Now" to start.</div>
+            <div class="terminal-line info"><span class="prompt">$</span> CommitFlow Console ready. Configure settings and click "Generate & Push to GitHub".</div>
           </div>
 
-          <!-- Remote Config Bar -->
-          <div class="remote-sync-bar">
-            <div class="remote-input-wrapper">
-              <input type="text" id="remoteUrlInput" class="form-input remote-input" placeholder="https://github.com/your-username/your-repo.git">
-              <button type="button" id="btnSaveRemote" class="btn btn-sm btn-secondary">Set Origin</button>
+          <!-- Celebratory Success Banner (Shown after push) -->
+          <div class="push-success-card" id="pushSuccessCard" style="display: none;">
+            <div class="success-icon">🎉</div>
+            <div class="success-details">
+              <h4>Commits Pushed to GitHub Successfully!</h4>
+              <p>Your contribution calendar is now updating on GitHub.</p>
+              <a href="https://github.com" target="_blank" rel="noreferrer" class="btn btn-sm btn-emerald" id="btnViewProfile">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                View Your Green Heatmap on GitHub ↗
+              </a>
             </div>
-            <button type="button" id="btnPushRemote" class="btn btn-sm btn-emerald">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
-              Push to GitHub
+          </div>
+
+          <!-- Manual Push Fallback Bar -->
+          <div class="remote-sync-bar">
+            <button type="button" id="btnPushRemote" class="btn btn-sm btn-emerald" style="width: 100%;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+              Manual Push Existing Commits to GitHub Remote
             </button>
           </div>
         </section>
@@ -322,7 +402,7 @@
         <div class="card-header">
           <div class="card-title-group">
             <h2 class="card-title">GitHub Actions 24/7 Cloud Automation</h2>
-            <p class="card-subtitle">Free, zero-maintenance background workflow running directly on GitHub's cloud servers.</p>
+            <p class="card-subtitle">Zero-maintenance automated workflow that pushes 10 commits every day directly from GitHub cloud servers.</p>
           </div>
           <button class="btn btn-secondary" id="btnCopyWorkflow">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
@@ -333,23 +413,23 @@
         <div class="features-row">
           <div class="feature-item">
             <div class="feature-icon">☁️</div>
-            <div class="feature-title">Runs in Cloud</div>
-            <div class="feature-desc">Your computer does NOT need to stay on. GitHub runs it automatically.</div>
+            <div class="feature-title">Runs in Cloud 24/7</div>
+            <div class="feature-desc">Your computer does NOT need to stay on. GitHub runs the scheduler automatically.</div>
           </div>
           <div class="feature-item">
             <div class="feature-icon">📅</div>
             <div class="feature-title">10 Daily Commits</div>
-            <div class="feature-desc">Scheduled cron triggers distribute 10 realistic commits every 24 hours.</div>
+            <div class="feature-desc">Automated cron runs distribute 10 realistic commits across every 24 hours.</div>
           </div>
           <div class="feature-item">
             <div class="feature-icon">🔒</div>
-            <div class="feature-title">Zero API Keys</div>
-            <div class="feature-desc">Uses GitHub's native <code>GITHUB_TOKEN</code> permissions out-of-the-box.</div>
+            <div class="feature-title">No External Keys</div>
+            <div class="feature-desc">Uses GitHub's native <code>GITHUB_TOKEN</code> permissions with zero external secrets.</div>
           </div>
           <div class="feature-item">
             <div class="feature-icon">🎯</div>
-            <div class="feature-title">One-Click Dispatch</div>
-            <div class="feature-desc">Trigger extra commits anytime directly from GitHub's Actions tab.</div>
+            <div class="feature-title">One-Click Trigger</div>
+            <div class="feature-desc">Run on-demand commits anytime directly from the GitHub Actions tab.</div>
           </div>
         </div>
 
@@ -357,8 +437,8 @@
         <div class="setup-steps">
           <div class="step-card">
             <div class="step-badge">Step 1</div>
-            <h4>Create Workflow File</h4>
-            <p>Ensure <code>.github/workflows/commit-flow.yml</code> exists in your repository (Already created in this repo!).</p>
+            <h4>Workflow File Exists</h4>
+            <p>Ensure <code>.github/workflows/commit-flow.yml</code> is pushed to your repository (already created!).</p>
           </div>
           <div class="step-card">
             <div class="step-badge">Step 2</div>
@@ -367,8 +447,8 @@
           </div>
           <div class="step-card">
             <div class="step-badge">Step 3</div>
-            <h4>Push & Relax</h4>
-            <p>Push the code to GitHub. Your daily 10 commits will automatically trigger every day!</p>
+            <h4>Automatic Daily Green Squares</h4>
+            <p>GitHub will run the workflow daily, maintaining your 10 commits/day streak forever!</p>
           </div>
         </div>
 
@@ -382,7 +462,7 @@
 
 on:
   schedule:
-    # Triggers distributed throughout the day
+    # Runs automatically across the day
     - cron: '0 4,10,16,22 * * *'
   workflow_dispatch:
     inputs:
@@ -390,6 +470,7 @@ on:
         description: 'Number of commits to generate'
         required: true
         default: '10'
+        type: string
 
 permissions:
   contents: write
@@ -408,6 +489,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+
+      - name: 🔧 Configure Git Identity
+        run: |
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
 
       - name: 🚀 Generate 10 Daily Commits
         env:
@@ -446,7 +532,7 @@ jobs:
           <!-- CLI 2 -->
           <div class="command-box">
             <div class="command-header">
-              <span class="command-title">📅 Custom Date Range (1 Year Backfill)</span>
+              <span class="command-title">📅 Custom Date Range (1 Year Backfill with Push)</span>
               <button class="btn-copy-mini" onclick="navigator.clipboard.writeText('node scripts/backfill.js --days 365 --count 10 --variation 2 --push')">Copy</button>
             </div>
             <code>node scripts/backfill.js --days 365 --count 10 --variation 2 --push</code>
@@ -473,13 +559,13 @@ jobs:
       </section>
     </div>
 
-    <!-- Tab 4: Green Graph Setup Guide -->
+    <!-- Tab 4: Green Graph Setup & Troubleshooting Guide -->
     <div class="tab-content" id="tab-guide">
       <section class="card" id="quickGuide">
         <div class="card-header">
           <div class="card-title-group">
-            <h2 class="card-title">Why Contributions Turn Green (Official Rules)</h2>
-            <p class="card-subtitle">GitHub has 4 strict rules for counting commits on your contribution calendar.</p>
+            <h2 class="card-title">GitHub Contribution Heatmap Rules & Troubleshooting</h2>
+            <p class="card-subtitle">GitHub enforces 4 strict criteria before coloring squares green on your profile heatmap.</p>
           </div>
         </div>
 
@@ -487,32 +573,50 @@ jobs:
           <div class="guide-item">
             <div class="guide-number">1</div>
             <div class="guide-content">
-              <h4>Git Email Must Match GitHub Account</h4>
-              <p>The email used to author the commits <strong>must</strong> be added under your <a href="https://github.com/settings/emails" target="_blank" rel="noreferrer">GitHub Email Settings</a>. If they don't match, GitHub attributes commits to an anonymous user and will not color your graph.</p>
+              <h4>Git Author Email Must Match Your GitHub Account</h4>
+              <p>GitHub matches commits to accounts by the author email. The email entered in CommitFlow <strong>must</strong> be listed under your <a href="https://github.com/settings/emails" target="_blank" rel="noreferrer">GitHub Email Settings</a>. If they don't match, GitHub treats commits as anonymous.</p>
             </div>
           </div>
 
           <div class="guide-item">
             <div class="guide-number">2</div>
             <div class="guide-content">
-              <h4>Commits Must Be on the Default Branch</h4>
-              <p>GitHub only counts contributions made on the repository's default branch (usually <code>main</code> or <code>master</code>) or the <code>gh-pages</code> branch.</p>
+              <h4>GitHub Personal Access Token (PAT) for Cloud / Render</h4>
+              <p>When running on Render or any cloud server, git cannot prompt for passwords. You need a GitHub Personal Access Token with <code>repo</code> permissions. Add it in the top authentication bar or in Render as <code>GITHUB_TOKEN</code>.</p>
             </div>
           </div>
 
           <div class="guide-item">
             <div class="guide-number">3</div>
             <div class="guide-content">
-              <h4>Enable Private Contributions (If Repo is Private)</h4>
-              <p>If your repo is private, go to your GitHub Profile &rarr; click <strong>Contribution settings</strong> (dropdown above the heatmap) &rarr; check <strong>"Private contributions"</strong>.</p>
+              <h4>Commits Must Be on the Default Branch (main)</h4>
+              <p>GitHub only counts contributions on the repository default branch (e.g. <code>main</code> or <code>master</code>) or <code>gh-pages</code> branch.</p>
             </div>
           </div>
 
           <div class="guide-item">
             <div class="guide-number">4</div>
             <div class="guide-content">
-              <h4>Push Commits to Remote GitHub</h4>
-              <p>Commits stored solely on your local hard drive are not visible to GitHub. Make sure to run <code>git push origin main</code> after generating them!</p>
+              <h4>Enable "Private Contributions" (If Repo is Private)</h4>
+              <p>If your repository is private, visit your GitHub profile &rarr; click <strong>Contribution settings</strong> (dropdown directly above your heatmap) &rarr; check <strong>"Private contributions"</strong>.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Render Deployment Tips Card -->
+        <div class="render-setup-box">
+          <div class="render-setup-title">
+            <span>🚀 Render Deployment Environment Variables (Optional Setup)</span>
+          </div>
+          <p>If you have deployed this app on Render.com, you can set the following Environment Variables in your Render Dashboard (<strong>Environment</strong> tab) so authentication happens automatically:</p>
+          <div class="env-table">
+            <div class="env-row">
+              <span class="env-key">GITHUB_TOKEN</span>
+              <span class="env-val">Your GitHub Personal Access Token (with repo scope)</span>
+            </div>
+            <div class="env-row">
+              <span class="env-key">GIT_REMOTE_URL</span>
+              <span class="env-val">https://github.com/your-username/your-repo.git</span>
             </div>
           </div>
         </div>
@@ -521,7 +625,7 @@ jobs:
 
     <!-- Footer -->
     <footer class="app-footer">
-      <div>CommitFlow v1.0.0 &bull; Built for ambitious developers to automate and boost their GitHub streak.</div>
+      <div>CommitFlow v1.0.0 &bull; Smart GitHub Contribution Booster & Streak Automation Suite</div>
     </footer>
   </div>
 

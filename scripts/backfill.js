@@ -21,6 +21,8 @@ const options = {
   push: false,
   authorName: null,
   authorEmail: null,
+  token: process.env.GITHUB_TOKEN || process.env.GH_TOKEN || null,
+  remoteUrl: process.env.GIT_REMOTE_URL || null,
   targetFile: 'data/activity.log',
   branch: 'main',
   dryRun: false,
@@ -39,7 +41,20 @@ for (let i = 0; i < args.length; i++) {
   else if (arg === '--dry-run') options.dryRun = true;
   else if (arg === '--author-name' && args[i + 1]) options.authorName = args[++i];
   else if (arg === '--author-email' && args[i + 1]) options.authorEmail = args[++i];
+  else if (arg === '--token' && args[i + 1]) options.token = args[++i];
+  else if (arg === '--remote' && args[i + 1]) options.remoteUrl = args[++i];
+  else if (arg === '--branch' && args[i + 1]) options.branch = args[++i];
   else if (arg === '--message-style' && args[i + 1]) options.messageStyle = args[++i];
+}
+
+// Helper to mask tokens
+function maskToken(str) {
+  if (!str || typeof str !== 'string') return '';
+  return str
+    .replace(/https:\/\/[^@:]+:[^@]+@github\.com/gi, 'https://***@github.com')
+    .replace(/https:\/\/[^@]+@github\.com/gi, 'https://***@github.com')
+    .replace(/ghp_[a-zA-Z0-9]{20,}/g, 'ghp_********************')
+    .replace(/github_pat_[a-zA-Z0-9_]{20,}/g, 'github_pat_********************');
 }
 
 // Ensure Git repository is initialized
@@ -58,7 +73,6 @@ function checkGitRepo() {
   }
 }
 
-// Get configured git author if not provided
 function getGitConfig(key) {
   try {
     return execSync(`git config ${key}`, { encoding: 'utf8' }).trim();
@@ -87,11 +101,7 @@ const REALISTIC_MESSAGES = [
   'fix: resolve timezone offset discrepancy in scheduler',
   'refactor: decouple configuration loader from runtime core',
   'docs: add visual sequence diagrams for authentication flow',
-  'perf: debounce high-frequency state update dispatchers',
-  'feat: support graceful worker shutdown on interrupt signal',
-  'fix: sanitize user input against markdown injection',
-  'test: mock external network service timeouts',
-  'chore: prune unused imports and dead code paths'
+  'perf: debounce high-frequency state update dispatchers'
 ];
 
 const EMOJI_MESSAGES = [
@@ -147,12 +157,10 @@ function run() {
     startDate = new Date(endDate);
     startDate.setDate(startDate.getDate() - options.days + 1);
   } else {
-    // Default: Past 30 days
     startDate = new Date(endDate);
     startDate.setDate(startDate.getDate() - 29);
   }
 
-  // Ensure data directory exists
   const targetDir = path.dirname(path.join(repoRoot, options.targetFile));
   if (!fs.existsSync(targetDir)) {
     fs.mkdirSync(targetDir, { recursive: true });
@@ -183,7 +191,6 @@ function run() {
       continue;
     }
 
-    // Determine number of commits for this day
     let dailyCount = options.count;
     if (options.variation > 0) {
       const delta = Math.floor(Math.random() * (options.variation * 2 + 1)) - options.variation;
@@ -192,7 +199,6 @@ function run() {
 
     const dateISO = formatDateISO(day);
 
-    // Spread commits between 09:00 and 21:45
     const startHour = 9;
     const endHour = 21;
     const totalMinutes = (endHour - startHour) * 60;
@@ -210,20 +216,19 @@ function run() {
       const dateStringISO = commitDate.toISOString();
       const message = getRandomCommitMessage(options.messageStyle, c, dateISO);
 
-      // Append content to activity log
       const logEntry = `[${dateStringISO}] ${message} (seq: ${c + 1}/${dailyCount})\n`;
 
       if (!options.dryRun) {
         fs.appendFileSync(path.join(repoRoot, options.targetFile), logEntry, 'utf8');
 
-        // Execute Git Commit with backdated env variables
         const env = Object.assign({}, process.env, {
           GIT_AUTHOR_NAME: authorName,
           GIT_AUTHOR_EMAIL: authorEmail,
           GIT_AUTHOR_DATE: dateStringISO,
           GIT_COMMITTER_NAME: authorName,
           GIT_COMMITTER_EMAIL: authorEmail,
-          GIT_COMMITTER_DATE: dateStringISO
+          GIT_COMMITTER_DATE: dateStringISO,
+          GIT_TERMINAL_PROMPT: '0'
         });
 
         execSync(`git add "${options.targetFile}"`, { cwd: repoRoot, stdio: 'ignore' });
@@ -247,19 +252,47 @@ function run() {
   if (options.push && !options.dryRun) {
     console.log('\n[CommitFlow] Pushing commits to remote repository...');
     try {
-      execSync(`git push origin ${options.branch}`, { cwd: repoRoot, stdio: 'inherit' });
+      let pushUrl = options.remoteUrl;
+      const token = options.token;
+
+      if (!pushUrl) {
+        try {
+          pushUrl = execSync('git remote get-url origin', { encoding: 'utf8' }).trim();
+        } catch {}
+      }
+
+      if (token && pushUrl) {
+        const match = pushUrl.match(/github\.com[/:]([^/]+)\/([^/.]+)/);
+        if (match) {
+          const authUrl = `https://x-access-token:${token}@github.com/${match[1]}/${match[2]}.git`;
+          execSync(`git push -u "${authUrl}" ${options.branch}`, {
+            cwd: repoRoot,
+            stdio: 'inherit',
+            env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+          });
+          console.log(`✅ Successfully pushed commits to GitHub! (https://github.com/${match[1]})`);
+          return;
+        }
+      }
+
+      execSync(`git push origin ${options.branch}`, {
+        cwd: repoRoot,
+        stdio: 'inherit',
+        env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+      });
       console.log('✅ Successfully pushed to remote origin!');
     } catch (err) {
-      console.error('⚠️ Could not push to remote. Please ensure remote is configured:');
-      console.error('   git remote add origin <your-repo-url>');
-      console.error('   git push -u origin main');
+      console.error('\n⚠️ Git push failed.');
+      console.error('💡 If pushing to GitHub without password prompt, provide your Personal Access Token:');
+      console.error('   node scripts/backfill.js --token ghp_your_token --push');
+      console.error('   Or set GITHUB_TOKEN environment variable.\n');
     }
   }
 
   console.log('\n[Tips for Green Graph]:');
   console.log('1. Ensure your git email matches your GitHub account primary email.');
   console.log('2. Make sure commits are on your repository default branch (usually "main").');
-  console.log('3. Push your commits to GitHub: `git push origin main`\n');
+  console.log('3. Push your commits to GitHub.\n');
 }
 
 if (require.main === module) {

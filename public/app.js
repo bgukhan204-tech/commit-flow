@@ -3,7 +3,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // State
+  // Application State
   const state = {
     gitInfo: null,
     heatmapData: new Map(), // key: 'YYYY-MM-DD', value: { date, count, level }
@@ -12,24 +12,37 @@ document.addEventListener('DOMContentLoaded', () => {
     variation: 2,
     skipWeekends: false,
     autoPush: true,
-    isGenerating: false
+    isGenerating: false,
+    verifiedUser: null
   };
 
-  // DOM Elements
+  // DOM Elements - Auth & Headers
   const gitStatusBadge = document.getElementById('gitStatusBadge');
   const gitStatusText = document.getElementById('gitStatusText');
+  const remoteUrlInput = document.getElementById('remoteUrlInput');
+  const githubTokenInput = document.getElementById('githubTokenInput');
+  const btnToggleToken = document.getElementById('btnToggleToken');
+  const eyeIcon = document.getElementById('eyeIcon');
+  const authorEmailInput = document.getElementById('authorEmail');
+  const authorNameInput = document.getElementById('authorName');
+  const branchInput = document.getElementById('branchInput');
+  const btnVerifyGithub = document.getElementById('btnVerifyGithub');
+  const authFeedbackBanner = document.getElementById('authFeedbackBanner');
+  const authFeedbackContent = document.getElementById('authFeedbackContent');
+
+  // DOM Elements - Stats
   const statDailyTarget = document.getElementById('statDailyTarget');
   const statSimulatedCommits = document.getElementById('statSimulatedCommits');
   const statDaysRange = document.getElementById('statDaysRange');
   const statLocalTotal = document.getElementById('statLocalTotal');
 
+  // DOM Elements - Heatmap
   const mainTabs = document.getElementById('mainTabs');
   const heatmapGrid = document.getElementById('heatmapGrid');
   const heatmapMonths = document.getElementById('heatmapMonths');
   const hoveredCellInfo = document.getElementById('hoveredCellInfo');
 
-  const authorNameInput = document.getElementById('authorName');
-  const authorEmailInput = document.getElementById('authorEmail');
+  // DOM Elements - Generator Controls
   const startDateInput = document.getElementById('startDate');
   const endDateInput = document.getElementById('endDate');
   const commitCountSlider = document.getElementById('commitCountSlider');
@@ -39,6 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const skipWeekendsCheckbox = document.getElementById('skipWeekends');
   const autoPushCheckbox = document.getElementById('autoPush');
 
+  // DOM Elements - Terminal & Progress
   const btnGenerateNow = document.getElementById('btnGenerateNow');
   const btnCopyCommand = document.getElementById('btnCopyCommand');
   const btnClearTerminal = document.getElementById('btnClearTerminal');
@@ -47,13 +61,50 @@ document.addEventListener('DOMContentLoaded', () => {
   const progressBarFill = document.getElementById('progressBarFill');
   const progressPercent = document.getElementById('progressPercent');
   const progressStatus = document.getElementById('progressStatus');
-
-  const remoteUrlInput = document.getElementById('remoteUrlInput');
-  const btnSaveRemote = document.getElementById('btnSaveRemote');
+  const pushSuccessCard = document.getElementById('pushSuccessCard');
+  const btnViewProfile = document.getElementById('btnViewProfile');
   const btnPushRemote = document.getElementById('btnPushRemote');
   const btnCopyWorkflow = document.getElementById('btnCopyWorkflow');
 
-  // Initialize Dates to default (Last 30 Days)
+  // Load Saved Auth from localStorage
+  const savedToken = localStorage.getItem('cf_github_token');
+  if (savedToken) githubTokenInput.value = savedToken;
+
+  const savedRepo = localStorage.getItem('cf_github_repo');
+  if (savedRepo) remoteUrlInput.value = savedRepo;
+
+  const savedEmail = localStorage.getItem('cf_author_email');
+  if (savedEmail) authorEmailInput.value = savedEmail;
+
+  const savedName = localStorage.getItem('cf_author_name');
+  if (savedName) authorNameInput.value = savedName;
+
+  // Persist Inputs to localStorage on input
+  githubTokenInput.addEventListener('input', () => {
+    localStorage.setItem('cf_github_token', githubTokenInput.value.trim());
+  });
+  remoteUrlInput.addEventListener('input', () => {
+    localStorage.setItem('cf_github_repo', remoteUrlInput.value.trim());
+  });
+  authorEmailInput.addEventListener('input', () => {
+    localStorage.setItem('cf_author_email', authorEmailInput.value.trim());
+  });
+  authorNameInput.addEventListener('input', () => {
+    localStorage.setItem('cf_author_name', authorNameInput.value.trim());
+  });
+
+  // Toggle Password Visibility
+  btnToggleToken.addEventListener('click', () => {
+    if (githubTokenInput.type === 'password') {
+      githubTokenInput.type = 'text';
+      eyeIcon.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+    } else {
+      githubTokenInput.type = 'password';
+      eyeIcon.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+    }
+  });
+
+  // Initialize Dates (Default: Last 30 Days)
   const today = new Date();
   const thirtyDaysAgo = new Date();
   thirtyDaysAgo.setDate(today.getDate() - 29);
@@ -68,24 +119,29 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = await res.json();
       state.gitInfo = data;
 
-      if (data.userEmail) {
+      if (data.userEmail && !authorEmailInput.value) {
         authorEmailInput.value = data.userEmail;
       }
-      if (data.userName) {
+      if (data.userName && !authorNameInput.value) {
         authorNameInput.value = data.userName;
       }
-      if (data.remoteUrl) {
+      if (data.remoteUrl && !remoteUrlInput.value) {
         remoteUrlInput.value = data.remoteUrl;
+      }
+      if (data.branch) {
+        branchInput.value = data.branch;
       }
 
       statLocalTotal.textContent = data.commitCount || 0;
       gitStatusText.textContent = `${data.branch} • ${data.commitCount} commits`;
-      logToTerminal(`Git repository connected: branch [${data.branch}], commits: ${data.commitCount}`, 'info');
+      logToTerminal(`Git repository connected: branch [${data.branch}], total commits: ${data.commitCount}`, 'info');
 
       if (data.remoteUrl) {
         logToTerminal(`Remote origin: ${data.remoteUrl}`, 'info');
-      } else {
-        logToTerminal(`Note: No remote origin set yet. Enter your GitHub repo URL below.`, 'warning');
+      }
+
+      if (data.hasServerToken) {
+        logToTerminal(`🔒 Server environment has GITHUB_TOKEN configured!`, 'success');
       }
     } catch (err) {
       gitStatusText.textContent = 'Git Local Ready';
@@ -93,19 +149,97 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // 2. Heatmap Engine (52 Weeks x 7 Days Grid)
+  // 2. Verify GitHub Connection (Token, Repo, Email)
+  btnVerifyGithub.addEventListener('click', async () => {
+    const repoUrl = remoteUrlInput.value.trim();
+    const token = githubTokenInput.value.trim();
+    const email = authorEmailInput.value.trim();
+
+    if (!repoUrl) {
+      alert('Please enter your GitHub Repository URL first.');
+      remoteUrlInput.focus();
+      return;
+    }
+
+    btnVerifyGithub.disabled = true;
+    btnVerifyGithub.innerHTML = `<svg class="spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Verifying...`;
+    authFeedbackBanner.style.display = 'block';
+    authFeedbackContent.innerHTML = `<span class="feedback-loading">Connecting to GitHub API...</span>`;
+
+    try {
+      const res = await fetch('/api/verify-github', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ repoUrl, token, authorEmail: email })
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        let authUserHtml = '';
+        if (data.authenticatedUser) {
+          authUserHtml = `
+            <div class="user-pill">
+              <img src="${data.authenticatedUser.avatar_url}" class="user-avatar" alt="Avatar" />
+              <span>Authenticated as <strong>@${data.authenticatedUser.login}</strong></span>
+            </div>
+          `;
+        }
+
+        const emailMatchHtml = data.emailMatched
+          ? `<span class="match-badge match-yes">✅ Author email verified on GitHub</span>`
+          : (email ? `<span class="match-badge match-info">ℹ️ Email: ${email}</span>` : `<span class="match-badge match-warn">⚠️ Enter Author Email to ensure heatmap turns green</span>`);
+
+        const pushBadgeHtml = data.canPush
+          ? `<span class="match-badge match-yes">🚀 Push Access: Granted</span>`
+          : `<span class="match-badge match-warn">⚠️ Read-only or Public access (Add Token for Push)</span>`;
+
+        authFeedbackContent.innerHTML = `
+          <div class="feedback-success-row">
+            <div class="feedback-title">
+              <span>✅ Repository Found: <strong>${data.full_name}</strong> (${data.isPrivate ? 'Private' : 'Public'})</span>
+            </div>
+            <div class="feedback-badges">
+              ${authUserHtml}
+              ${pushBadgeHtml}
+              ${emailMatchHtml}
+            </div>
+          </div>
+        `;
+
+        if (data.default_branch) {
+          branchInput.value = data.default_branch;
+        }
+
+        logToTerminal(`✅ GitHub connection verified: ${data.full_name} [${data.default_branch}]`, 'success');
+      } else {
+        authFeedbackContent.innerHTML = `
+          <div class="feedback-error-row">
+            <span>❌ Verification Failed: ${data.error}</span>
+          </div>
+        `;
+        logToTerminal(`❌ GitHub verification failed: ${data.error}`, 'error');
+      }
+    } catch (err) {
+      authFeedbackContent.innerHTML = `<div class="feedback-error-row"><span>❌ Network error: ${err.message}</span></div>`;
+      logToTerminal(`Verification error: ${err.message}`, 'error');
+    } finally {
+      btnVerifyGithub.disabled = false;
+      btnVerifyGithub.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg> Verify Connection`;
+    }
+  });
+
+  // 3. Heatmap Simulator Engine (52 Weeks x 7 Days Grid)
   function initHeatmapGrid() {
     heatmapGrid.innerHTML = '';
     heatmapMonths.innerHTML = '';
     state.heatmapData.clear();
 
     const endDate = new Date();
-    // End on current day, figure out 52 weeks ago
     const startDate = new Date(endDate);
     startDate.setDate(startDate.getDate() - (52 * 7 - 1));
 
     // Align startDate to Sunday or Monday
-    const dayOfWeek = startDate.getDay(); // 0 = Sun
+    const dayOfWeek = startDate.getDay();
     startDate.setDate(startDate.getDate() - dayOfWeek);
 
     const monthsSet = new Set();
@@ -118,7 +252,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const dateISO = formatDateISO(cur);
       const mName = cur.toLocaleString('default', { month: 'short' });
 
-      // Determine level based on form date range
       const inActiveRange = isInSelectedRange(cur);
       const count = inActiveRange ? state.commitsPerDay : 0;
       const level = getLevelForCount(count);
@@ -161,7 +294,7 @@ document.addEventListener('DOMContentLoaded', () => {
       heatmapGrid.appendChild(cell);
 
       // Track months for headers
-      if (cur.getDay() === 0) { // Start of week column
+      if (cur.getDay() === 0) {
         colIndex++;
         if (!monthsSet.has(mName) && cur.getDate() <= 7) {
           monthsSet.add(mName);
@@ -172,7 +305,6 @@ document.addEventListener('DOMContentLoaded', () => {
       cur.setDate(cur.getDate() + 1);
     }
 
-    // Render Month Headers
     renderMonthHeaders(monthLabels);
     updateStats();
   }
@@ -195,7 +327,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (count <= 3) return 1;
     if (count <= 6) return 2;
     if (count <= 9) return 3;
-    return 4; // 10+ commits is max dark emerald glow!
+    return 4; // 10+ commits is max dark emerald glow
   }
 
   function isInSelectedRange(date) {
@@ -259,7 +391,7 @@ document.addEventListener('DOMContentLoaded', () => {
     statDaysRange.textContent = `${activeDays} Active Days`;
   }
 
-  // 3. Preset Handlers
+  // 4. Presets Handlers
   document.getElementById('preset30Days').addEventListener('click', (e) => {
     setActivePreset(e.target);
     setDaysOffset(30);
@@ -268,9 +400,17 @@ document.addEventListener('DOMContentLoaded', () => {
     setActivePreset(e.target);
     setDaysOffset(90);
   });
+  document.getElementById('preset180Days').addEventListener('click', (e) => {
+    setActivePreset(e.target);
+    setDaysOffset(180);
+  });
   document.getElementById('preset1Year').addEventListener('click', (e) => {
     setActivePreset(e.target);
     setDaysOffset(365);
+  });
+  document.getElementById('preset2Years').addEventListener('click', (e) => {
+    setActivePreset(e.target);
+    setDaysOffset(730);
   });
   document.getElementById('presetNatural').addEventListener('click', (e) => {
     setActivePreset(e.target);
@@ -308,18 +448,42 @@ document.addEventListener('DOMContentLoaded', () => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.btn-quick-date').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-      const days = parseInt(btn.dataset.days, 10);
-      setDaysOffset(days);
+
+      if (btn.dataset.year) {
+        const year = parseInt(btn.dataset.year, 10);
+        startDateInput.value = `${year}-01-01`;
+        const endMonth = (year === today.getFullYear()) ? today : new Date(year, 11, 31);
+        endDateInput.value = formatDateISO(endMonth);
+        updateHeatmapFromRange();
+      } else if (btn.dataset.days) {
+        const days = parseInt(btn.dataset.days, 10);
+        setDaysOffset(days);
+      }
     });
   });
 
-  // Slider change
+  // Slider & Quick Count Buttons
   commitCountSlider.addEventListener('input', (e) => {
     const val = parseInt(e.target.value, 10);
+    setCommitCount(val);
+  });
+
+  document.querySelectorAll('.btn-slider-quick').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const count = parseInt(btn.dataset.count, 10);
+      commitCountSlider.value = count;
+      setCommitCount(count);
+    });
+  });
+
+  function setCommitCount(val) {
     state.commitsPerDay = val;
     sliderValue.textContent = `${val} commits/day`;
+    document.querySelectorAll('.btn-slider-quick').forEach(b => {
+      b.classList.toggle('active', parseInt(b.dataset.count, 10) === val);
+    });
     updateHeatmapFromRange();
-  });
+  }
 
   variationSelect.addEventListener('change', (e) => {
     state.variation = parseInt(e.target.value, 10);
@@ -348,16 +512,25 @@ document.addEventListener('DOMContentLoaded', () => {
     if (targetEl) targetEl.classList.add('active');
   });
 
-  // 4. Generate Commits (Streaming Execution)
+  // 5. Generate & Push Commits (Streaming Execution)
   btnGenerateNow.addEventListener('click', async () => {
     if (state.isGenerating) return;
 
     const authorEmail = authorEmailInput.value.trim();
     const authorName = authorNameInput.value.trim() || 'Developer';
+    const repoUrl = remoteUrlInput.value.trim();
+    const token = githubTokenInput.value.trim();
+    const branch = branchInput.value.trim() || 'main';
 
     if (!authorEmail) {
-      alert('Please enter your Git Author Email! (Matches your GitHub account to turn your graph green)');
+      alert('Please enter your Git Author Email! (It must match your GitHub account so contributions turn green)');
       authorEmailInput.focus();
+      return;
+    }
+
+    if (!repoUrl) {
+      alert('Please enter your GitHub Repository URL!');
+      remoteUrlInput.focus();
       return;
     }
 
@@ -365,13 +538,14 @@ document.addEventListener('DOMContentLoaded', () => {
     btnGenerateNow.disabled = true;
     btnGenerateNow.innerHTML = `
       <svg class="spin" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg>
-      <span>Generating Commits...</span>
+      <span>Generating & Pushing Commits...</span>
     `;
 
     progressWrapper.style.display = 'block';
     progressBarFill.style.width = '0%';
     progressPercent.textContent = '0%';
     progressStatus.textContent = 'Preparing commits...';
+    pushSuccessCard.style.display = 'none';
 
     logToTerminal(`▶ Starting commit generator for ${startDateInput.value} to ${endDateInput.value}...`, 'info');
 
@@ -384,6 +558,9 @@ document.addEventListener('DOMContentLoaded', () => {
       messageStyle: messageStyleSelect.value,
       authorName: authorName,
       authorEmail: authorEmail,
+      repoUrl: repoUrl,
+      token: token,
+      branch: branch,
       push: autoPushCheckbox.checked
     });
 
@@ -398,12 +575,22 @@ document.addEventListener('DOMContentLoaded', () => {
       const data = JSON.parse(e.data);
       progressBarFill.style.width = `${data.percent}%`;
       progressPercent.textContent = `${data.percent}%`;
-      progressStatus.textContent = `Generated ${data.totalCommits} commits (${data.currentDate})`;
+      progressStatus.textContent = `Created ${data.totalCommits} commits (${data.currentDate})`;
     });
 
     eventSource.addEventListener('complete', (e) => {
       const data = JSON.parse(e.data);
-      logToTerminal(`🎉 FINISHED: Created ${data.totalCommits} commits successfully!`, 'success');
+      logToTerminal(`🎉 FINISHED: Created ${data.totalCommits} commits across ${data.daysCount} days!`, 'success');
+
+      if (data.pushSuccess && data.owner) {
+        pushSuccessCard.style.display = 'flex';
+        btnViewProfile.href = `https://github.com/${data.owner}`;
+        btnViewProfile.innerHTML = `
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          View Green Heatmap on GitHub (@${data.owner}) ↗
+        `;
+      }
+
       finishGeneration();
       eventSource.close();
       fetchGitInfo();
@@ -414,7 +601,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = JSON.parse(e.data);
         logToTerminal(`❌ Error: ${data.message}`, 'error');
       } catch {
-        logToTerminal(`Generation ended.`, 'info');
+        logToTerminal(`Generation complete.`, 'info');
       }
       finishGeneration();
       eventSource.close();
@@ -427,57 +614,55 @@ document.addEventListener('DOMContentLoaded', () => {
     btnGenerateNow.disabled = false;
     btnGenerateNow.innerHTML = `
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-      <span>Generate 10 Commits/Day Now</span>
+      <span>Generate & Push to GitHub (Increase Heatmap)</span>
     `;
   }
 
-  // 5. Save Remote Origin
-  btnSaveRemote.addEventListener('click', async () => {
-    const url = remoteUrlInput.value.trim();
-    if (!url) {
-      alert('Please enter a valid GitHub repository URL.');
-      return;
-    }
+  // 6. Manual Push to GitHub Remote
+  btnPushRemote.addEventListener('click', async () => {
+    btnPushRemote.disabled = true;
+    btnPushRemote.innerHTML = `<svg class="spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> Pushing...`;
+    logToTerminal(`Pushing commits to remote GitHub repository...`, 'info');
+
+    const repoUrl = remoteUrlInput.value.trim();
+    const token = githubTokenInput.value.trim();
+    const branch = branchInput.value.trim() || 'main';
+
     try {
-      const res = await fetch('/api/set-remote', {
+      const res = await fetch('/api/git-push', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ remoteUrl: url })
+        body: JSON.stringify({ repoUrl, token, branch })
       });
       const data = await res.json();
       if (data.success) {
-        logToTerminal(`✅ Remote origin set to: ${url}`, 'success');
-      } else {
-        logToTerminal(`❌ Failed to set remote: ${data.error}`, 'error');
-      }
-    } catch (err) {
-      logToTerminal(`Error: ${err.message}`, 'error');
-    }
-  });
-
-  // 6. Push to GitHub
-  btnPushRemote.addEventListener('click', async () => {
-    btnPushRemote.disabled = true;
-    logToTerminal(`Pushing commits to remote GitHub...`, 'info');
-    try {
-      const res = await fetch('/api/git-push', { method: 'POST' });
-      const data = await res.json();
-      if (data.success) {
-        logToTerminal(`✅ Successfully pushed commits to GitHub!`, 'success');
+        logToTerminal(`✅ Successfully pushed commits to GitHub (${branch})!`, 'success');
+        if (data.owner) {
+          pushSuccessCard.style.display = 'flex';
+          btnViewProfile.href = `https://github.com/${data.owner}`;
+          logToTerminal(`🌟 View your updated profile: https://github.com/${data.owner}`, 'highlight');
+        }
         fetchGitInfo();
       } else {
         logToTerminal(`❌ Push error: ${data.error || data.stderr}`, 'error');
+        if ((data.error || '').includes('Username') || (data.error || '').includes('No such device')) {
+          logToTerminal(`💡 Please provide your GitHub Personal Access Token in Step 1.`, 'warning');
+        }
       }
     } catch (err) {
       logToTerminal(`Push error: ${err.message}`, 'error');
     } finally {
       btnPushRemote.disabled = false;
+      btnPushRemote.innerHTML = `
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+        Manual Push Existing Commits to GitHub Remote
+      `;
     }
   });
 
   // 7. Copy CLI command
   btnCopyCommand.addEventListener('click', () => {
-    const cmd = `node scripts/backfill.js --start ${startDateInput.value} --end ${endDateInput.value} --count ${state.commitsPerDay} --variation ${state.variation} ${state.skipWeekends ? '--skip-weekends ' : ''}--author-email "${authorEmailInput.value || 'your@email.com'}"`;
+    const cmd = `node scripts/backfill.js --start ${startDateInput.value} --end ${endDateInput.value} --count ${state.commitsPerDay} --variation ${state.variation} ${state.skipWeekends ? '--skip-weekends ' : ''}--author-email "${authorEmailInput.value || 'your@email.com'}" --push`;
     navigator.clipboard.writeText(cmd);
     btnCopyCommand.innerHTML = '<span>✓ Copied to Clipboard!</span>';
     setTimeout(() => {
