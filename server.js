@@ -500,9 +500,9 @@ app.get('/api/stream-commits', (req, res) => {
           execSync(`git remote add origin "${pushTargetUrl}"`, { cwd: repoRoot, stdio: 'ignore' });
         }
 
-        // Pull / rebase remote changes first to prevent non-fast-forward push rejection
+        // Pull / rebase remote changes first (allows merging with any user's repo history)
         try {
-          execSync(`git pull --rebase "${pushTargetUrl}" ${branch}`, {
+          execSync(`git pull --rebase "${pushTargetUrl}" ${branch} --allow-unrelated-histories`, {
             cwd: repoRoot,
             stdio: 'ignore',
             env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
@@ -510,12 +510,23 @@ app.get('/api/stream-commits', (req, res) => {
         } catch {}
 
         // Push HEAD explicitly to refs/heads/${branch} on remote
-        const pushResult = execSync(`git push "${pushTargetUrl}" HEAD:refs/heads/${branch}`, {
-          cwd: repoRoot,
-          encoding: 'utf8',
-          stdio: ['pipe', 'pipe', 'pipe'],
-          env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
-        });
+        let pushResult = '';
+        try {
+          pushResult = execSync(`git push "${pushTargetUrl}" HEAD:refs/heads/${branch}`, {
+            cwd: repoRoot,
+            encoding: 'utf8',
+            stdio: ['pipe', 'pipe', 'pipe'],
+            env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+          });
+        } catch (initialPushErr) {
+          // If remote rejected due to force/unrelated history, push with force-with-lease
+          pushResult = execSync(`git push "${pushTargetUrl}" HEAD:refs/heads/${branch} --force-with-lease`, {
+            cwd: repoRoot,
+            encoding: 'utf8',
+            stdio: ['pipe', 'pipe', 'pipe'],
+            env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+          });
+        }
 
         pushSuccess = true;
         sendEvent('log', { text: `🎉 Successfully pushed ${totalCommits} commits to GitHub (${branch})!`, type: 'success' });
