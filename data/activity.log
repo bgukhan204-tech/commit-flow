@@ -4190,3 +4190,4 @@
 [2026-10-08T19:14:19.000Z] feat: add structured JSON log formatter (#44/48)
 [2026-10-08T19:28:08.000Z] fix: handle null pointer check in payload serializer (#45/48)
 [2026-10-08T19:45:29.000Z] fix: resolve timezone offset discrepancy in scheduler (#46/48)
+[2026-10-08T19:57:22.000Z] docs: clarify deployment environment variable requirements (#47/48)
