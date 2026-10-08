@@ -4182,3 +4182,4 @@
 [2026-10-08T17:24:16.000Z] fix: resolve timezone offset discrepancy in scheduler (#36/48)
 [2026-10-08T17:39:21.000Z] perf: index query key lookup table for O(1) retrieval (#37/48)
 [2026-10-08T17:50:03.000Z] fix: prevent race condition in async buffer queue (#38/48)
+[2026-10-08T18:05:48.000Z] chore: clean up deprecated helper functions (#39/48)
