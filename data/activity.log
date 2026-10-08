@@ -4151,3 +4151,4 @@
 [2026-10-08T10:10:18.000Z] refactor: streamline data pipeline transformation logic (#5/48)
 [2026-10-08T10:25:36.000Z] test: expand integration suite for webhook deliveries (#6/48)
 [2026-10-08T10:41:37.000Z] chore: bump minor dependency patches and lockfile (#7/48)
+[2026-10-08T10:50:49.000Z] docs: add visual sequence diagrams for authentication flow (#8/48)
