@@ -4191,3 +4191,4 @@
 [2026-10-08T19:28:08.000Z] fix: handle null pointer check in payload serializer (#45/48)
 [2026-10-08T19:45:29.000Z] fix: resolve timezone offset discrepancy in scheduler (#46/48)
 [2026-10-08T19:57:22.000Z] docs: clarify deployment environment variable requirements (#47/48)
+[2026-10-08T20:15:48.000Z] chore: clean up deprecated helper functions (#48/48)
