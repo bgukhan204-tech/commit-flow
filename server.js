@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
+const os = require('os');
 const { execSync } = require('child_process');
 
 const app = express();
@@ -35,11 +36,35 @@ function parseGitHubUrl(url) {
   return null;
 }
 
-// Helper to safely execute git commands
-function execGit(cmd, fallback = '', customEnv = {}) {
+// Clean up any leftover Git lock files or abort stuck rebase/merge
+function cleanupStuckGit(dir) {
+  try {
+    const gitDir = path.join(dir, '.git');
+    if (!fs.existsSync(gitDir)) return;
+
+    const lockFiles = [
+      path.join(gitDir, 'index.lock'),
+      path.join(gitDir, 'HEAD.lock'),
+      path.join(gitDir, 'refs', 'heads', 'main.lock'),
+      path.join(gitDir, 'refs', 'heads', 'master.lock')
+    ];
+
+    for (const lf of lockFiles) {
+      if (fs.existsSync(lf)) {
+        try { fs.unlinkSync(lf); } catch {}
+      }
+    }
+
+    try { execSync('git rebase --abort', { cwd: dir, stdio: 'ignore' }); } catch {}
+    try { execSync('git merge --abort', { cwd: dir, stdio: 'ignore' }); } catch {}
+  } catch {}
+}
+
+// Helper to safely execute git commands in a specific working directory
+function execGit(cmd, fallback = '', customEnv = {}, cwd = repoRoot) {
   try {
     return execSync(cmd, {
-      cwd: repoRoot,
+      cwd: cwd,
       encoding: 'utf8',
       stdio: ['pipe', 'pipe', 'ignore'],
       env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' }, customEnv)
@@ -49,8 +74,9 @@ function execGit(cmd, fallback = '', customEnv = {}) {
   }
 }
 
-// Ensure Git repo is initialized and configured
+// Ensure Git repo is initialized and configured in repoRoot (for local standalone mode)
 function ensureGitRepo() {
+  cleanupStuckGit(repoRoot);
   try {
     execSync('git rev-parse --is-inside-work-tree', { cwd: repoRoot, stdio: 'ignore' });
   } catch {
@@ -77,7 +103,7 @@ function ensureGitRepo() {
     }
   } catch {}
 
-  // Auto-set remote origin if missing (especially in cloud hosting environments like Render)
+  // Auto-set remote origin if missing
   try {
     const remotes = execGit('git remote', '');
     const remoteList = remotes ? remotes.split('\n').map(r => r.trim()).filter(Boolean) : [];
@@ -270,13 +296,15 @@ app.post('/api/set-git-identity', (req, res) => {
   }
 });
 
-// 4. Generate Commits (Server-Sent Events streaming for real-time progress)
-app.get('/api/stream-commits', (req, res) => {
-  ensureGitRepo();
-
+// 4. Generate Commits (Server-Sent Events streaming with isolated workspace)
+app.get('/api/stream-commits', async (req, res) => {
   res.setHeader('Content-Type', 'text/event-stream');
   res.setHeader('Cache-Control', 'no-cache');
   res.setHeader('Connection', 'keep-alive');
+
+  const sendEvent = (event, data) => {
+    res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+  };
 
   const {
     days,
@@ -306,20 +334,15 @@ app.get('/api/stream-commits', (req, res) => {
   const name = authorName || execGit('git config user.name', 'Developer') || 'Developer';
   const email = authorEmail || execGit('git config user.email', 'developer@users.noreply.github.com') || 'developer@users.noreply.github.com';
 
-  // Explicitly ensure branch is active and checked out (prevents detached HEAD state on Render/Cloud)
+  // Create isolated temp workspace for this job to prevent repo locking and multi-user collisions
+  let jobDir = null;
   try {
-    execSync(`git checkout -B ${branch}`, { cwd: repoRoot, stdio: 'ignore' });
-  } catch {}
+    jobDir = fs.mkdtempSync(path.join(os.tmpdir(), 'commitflow-job-'));
+  } catch {
+    jobDir = repoRoot;
+  }
 
-  // Apply git config
-  try {
-    execSync(`git config user.name "${name.replace(/"/g, '\\"')}"`, { cwd: repoRoot });
-    execSync(`git config user.email "${email.replace(/"/g, '\\"')}"`, { cwd: repoRoot });
-  } catch {}
-
-  const sendEvent = (event, data) => {
-    res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
-  };
+  const isTempJob = (jobDir !== repoRoot);
 
   sendEvent('log', { text: `🚀 Initializing CommitFlow Engine...`, type: 'info' });
   sendEvent('log', { text: `Author Identity: ${name} <${email}>`, type: 'info' });
@@ -328,80 +351,149 @@ app.get('/api/stream-commits', (req, res) => {
     sendEvent('log', { text: `Target Repository: https://github.com/${parsedRepo.owner}/${parsedRepo.repo} [branch: ${branch}]`, type: 'info' });
   }
 
-  const today = new Date();
-  let endDate = today;
-  let startDate;
-
-  if (qEnd) {
-    endDate = new Date(qEnd);
+  let pushTargetUrl = effectiveRepoUrl;
+  if (token && parsedRepo) {
+    pushTargetUrl = `https://x-access-token:${encodeURIComponent(token)}@github.com/${parsedRepo.owner}/${parsedRepo.repo}.git`;
   }
-  if (qStart) {
-    startDate = new Date(qStart);
-  } else if (days) {
-    startDate = new Date(endDate);
-    startDate.setDate(startDate.getDate() - parseInt(days, 10) + 1);
-  } else {
-    startDate = new Date(endDate);
-    startDate.setDate(startDate.getDate() - 29); // 30 days
-  }
-
-  const daysList = [];
-  let cur = new Date(startDate);
-  while (cur <= endDate) {
-    daysList.push(new Date(cur));
-    cur.setDate(cur.getDate() + 1);
-  }
-
-  sendEvent('log', {
-    text: `Date Range: ${startDate.toISOString().split('T')[0]} to ${endDate.toISOString().split('T')[0]} (${daysList.length} days total)`,
-    type: 'info'
-  });
-
-  const targetFile = path.join(repoRoot, 'data', 'activity.log');
-  fs.mkdirSync(path.dirname(targetFile), { recursive: true });
-
-  const REALISTIC_MESSAGES = [
-    'feat: optimize event bus telemetry and trace logging',
-    'fix: prevent race condition in async buffer queue',
-    'refactor: streamline data pipeline transformation logic',
-    'docs: update API contract and endpoint specifications',
-    'perf: reduce memory allocation in matrix computation',
-    'test: add unit coverage for edge-case parser states',
-    'chore: bump minor dependency patches and lockfile',
-    'style: enforce consistent lint formatting across modules',
-    'feat: implement adaptive caching layer for remote sync',
-    'fix: handle null pointer check in payload serializer',
-    'refactor: extract reusable validator utility methods',
-    'docs: clarify deployment environment variable requirements',
-    'perf: index query key lookup table for O(1) retrieval',
-    'test: expand integration suite for webhook deliveries',
-    'chore: clean up deprecated helper functions',
-    'feat: add structured JSON log formatter',
-    'fix: resolve timezone offset discrepancy in scheduler',
-    'refactor: decouple configuration loader from runtime core',
-    'docs: add visual sequence diagrams for authentication flow',
-    'perf: debounce high-frequency state update dispatchers',
-    'feat: integrate automated health check probes',
-    'fix: graceful fallback on upstream rate limiting',
-    'refactor: modularize repository sync orchestrator'
-  ];
-
-  const EMOJI_MESSAGES = [
-    '✨ feat: add fast data serialization helper',
-    '🐛 fix: patch unexpected null state in processor',
-    '⚡ perf: optimize database query execution time',
-    '📝 docs: document setup and configuration guidelines',
-    '♻️ refactor: modularize core business logic handlers',
-    '✅ test: add comprehensive test suites for handlers',
-    '🔧 chore: update dependencies and build scripts',
-    '🎨 style: polish code layout and formatting rules',
-    '🚀 feat: enhance background sync dispatcher',
-    '🛡️ fix: strengthen boundary validation checks'
-  ];
-
-  let totalCommits = 0;
 
   try {
+    // 1. Prepare Workspace in jobDir
+    if (isTempJob) {
+      if (token && parsedRepo) {
+        sendEvent('log', { text: `📦 Connecting to GitHub repository ${parsedRepo.owner}/${parsedRepo.repo}...`, type: 'info' });
+        let clonedSuccessfully = false;
+
+        // Try shallow clone of existing target branch
+        try {
+          execSync(`git clone --depth 1 --branch ${branch} "${pushTargetUrl}" .`, {
+            cwd: jobDir,
+            stdio: 'pipe',
+            env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+          });
+          clonedSuccessfully = true;
+        } catch {
+          // If branch doesn't exist yet, try shallow clone of default repo
+          try {
+            execSync(`git clone --depth 1 "${pushTargetUrl}" .`, {
+              cwd: jobDir,
+              stdio: 'pipe',
+              env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+            });
+            clonedSuccessfully = true;
+          } catch {
+            // Repo might be empty (0 commits) or new
+            execSync('git init', { cwd: jobDir, stdio: 'ignore' });
+            execSync(`git branch -M ${branch}`, { cwd: jobDir, stdio: 'ignore' });
+            execSync(`git remote add origin "${pushTargetUrl}"`, { cwd: jobDir, stdio: 'ignore' });
+          }
+        }
+
+        if (clonedSuccessfully) {
+          try {
+            execSync(`git checkout -B ${branch}`, { cwd: jobDir, stdio: 'ignore' });
+          } catch {}
+          try {
+            execSync(`git remote set-url origin "${pushTargetUrl}"`, { cwd: jobDir, stdio: 'ignore' });
+          } catch {}
+        }
+      } else {
+        // Standalone temp init
+        execSync('git init', { cwd: jobDir, stdio: 'ignore' });
+        execSync(`git branch -M ${branch}`, { cwd: jobDir, stdio: 'ignore' });
+        if (effectiveRepoUrl) {
+          try {
+            execSync(`git remote add origin "${pushTargetUrl}"`, { cwd: jobDir, stdio: 'ignore' });
+          } catch {}
+        }
+      }
+    } else {
+      // Local repoRoot fallback - clean any stuck lock files
+      cleanupStuckGit(repoRoot);
+      try {
+        execSync(`git checkout -B ${branch}`, { cwd: repoRoot, stdio: 'ignore' });
+      } catch {}
+    }
+
+    // Set local git author config in this workspace
+    cleanupStuckGit(jobDir);
+    try {
+      execSync(`git config user.name "${name.replace(/"/g, '\\"')}"`, { cwd: jobDir, stdio: 'ignore' });
+      execSync(`git config user.email "${email.replace(/"/g, '\\"')}"`, { cwd: jobDir, stdio: 'ignore' });
+    } catch {}
+
+    const today = new Date();
+    let endDate = today;
+    let startDate;
+
+    if (qEnd) {
+      endDate = new Date(qEnd);
+    }
+    if (qStart) {
+      startDate = new Date(qStart);
+    } else if (days) {
+      startDate = new Date(endDate);
+      startDate.setDate(startDate.getDate() - parseInt(days, 10) + 1);
+    } else {
+      startDate = new Date(endDate);
+      startDate.setDate(startDate.getDate() - 29); // 30 days
+    }
+
+    const daysList = [];
+    let cur = new Date(startDate);
+    while (cur <= endDate) {
+      daysList.push(new Date(cur));
+      cur.setDate(cur.getDate() + 1);
+    }
+
+    sendEvent('log', {
+      text: `Date Range: ${startDate.toISOString().split('T')[0]} to ${endDate.toISOString().split('T')[0]} (${daysList.length} days total)`,
+      type: 'info'
+    });
+
+    const targetFile = path.join(jobDir, 'data', 'activity.log');
+    fs.mkdirSync(path.dirname(targetFile), { recursive: true });
+
+    const REALISTIC_MESSAGES = [
+      'feat: optimize event bus telemetry and trace logging',
+      'fix: prevent race condition in async buffer queue',
+      'refactor: streamline data pipeline transformation logic',
+      'docs: update API contract and endpoint specifications',
+      'perf: reduce memory allocation in matrix computation',
+      'test: add unit coverage for edge-case parser states',
+      'chore: bump minor dependency patches and lockfile',
+      'style: enforce consistent lint formatting across modules',
+      'feat: implement adaptive caching layer for remote sync',
+      'fix: handle null pointer check in payload serializer',
+      'refactor: extract reusable validator utility methods',
+      'docs: clarify deployment environment variable requirements',
+      'perf: index query key lookup table for O(1) retrieval',
+      'test: expand integration suite for webhook deliveries',
+      'chore: clean up deprecated helper functions',
+      'feat: add structured JSON log formatter',
+      'fix: resolve timezone offset discrepancy in scheduler',
+      'refactor: decouple configuration loader from runtime core',
+      'docs: add visual sequence diagrams for authentication flow',
+      'perf: debounce high-frequency state update dispatchers',
+      'feat: integrate automated health check probes',
+      'fix: graceful fallback on upstream rate limiting',
+      'refactor: modularize repository sync orchestrator'
+    ];
+
+    const EMOJI_MESSAGES = [
+      '✨ feat: add fast data serialization helper',
+      '🐛 fix: patch unexpected null state in processor',
+      '⚡ perf: optimize database query execution time',
+      '📝 docs: document setup and configuration guidelines',
+      '♻️ refactor: modularize core business logic handlers',
+      '✅ test: add comprehensive test suites for handlers',
+      '🔧 chore: update dependencies and build scripts',
+      '🎨 style: polish code layout and formatting rules',
+      '🚀 feat: enhance background sync dispatcher',
+      '🛡️ fix: strengthen boundary validation checks'
+    ];
+
+    let totalCommits = 0;
+
     for (let d = 0; d < daysList.length; d++) {
       const day = daysList[d];
       const isWeekend = (day.getDay() === 0 || day.getDay() === 6);
@@ -454,11 +546,11 @@ app.get('/api/stream-commits', (req, res) => {
           GIT_TERMINAL_PROMPT: '0'
         });
 
-        execSync(`git add "data/activity.log"`, { cwd: repoRoot, stdio: 'ignore' });
-        execSync(`git commit --allow-empty -m "${msg}"`, {
-          cwd: repoRoot,
+        execSync(`git add "data/activity.log"`, { cwd: jobDir, stdio: 'ignore' });
+        execSync(`git commit --allow-empty -m "${msg.replace(/"/g, '\\"')}"`, {
+          cwd: jobDir,
           env: env,
-          stdio: 'ignore'
+          stdio: 'pipe'
         });
 
         totalCommits++;
@@ -484,44 +576,19 @@ app.get('/api/stream-commits', (req, res) => {
     if (shouldPush) {
       sendEvent('log', { text: `🚀 Authenticating and pushing commits to remote GitHub...`, type: 'info' });
 
-      let pushTargetUrl = effectiveRepoUrl;
-      if (token && parsedRepo) {
-        // Authenticated push URL using Personal Access Token
-        pushTargetUrl = `https://x-access-token:${encodeURIComponent(token)}@github.com/${parsedRepo.owner}/${parsedRepo.repo}.git`;
-      }
-
       try {
-        // Set remote origin url
-        const remotes = execGit('git remote', '');
-        const remoteList = remotes ? remotes.split('\n').map(r => r.trim()).filter(Boolean) : [];
-        if (remotes && remoteList.includes('origin')) {
-          execSync(`git remote set-url origin "${pushTargetUrl}"`, { cwd: repoRoot, stdio: 'ignore' });
-        } else {
-          execSync(`git remote add origin "${pushTargetUrl}"`, { cwd: repoRoot, stdio: 'ignore' });
-        }
-
-        // Pull / rebase remote changes first (allows merging with any user's repo history)
-        try {
-          execSync(`git pull --rebase "${pushTargetUrl}" ${branch} --allow-unrelated-histories`, {
-            cwd: repoRoot,
-            stdio: 'ignore',
-            env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
-          });
-        } catch {}
-
-        // Push HEAD explicitly to refs/heads/${branch} on remote
         let pushResult = '';
         try {
           pushResult = execSync(`git push "${pushTargetUrl}" HEAD:refs/heads/${branch}`, {
-            cwd: repoRoot,
+            cwd: jobDir,
             encoding: 'utf8',
             stdio: ['pipe', 'pipe', 'pipe'],
             env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
           });
         } catch (initialPushErr) {
-          // If remote rejected due to force/unrelated history, push with force-with-lease
+          // If branch needs force lease update
           pushResult = execSync(`git push "${pushTargetUrl}" HEAD:refs/heads/${branch} --force-with-lease`, {
-            cwd: repoRoot,
+            cwd: jobDir,
             encoding: 'utf8',
             stdio: ['pipe', 'pipe', 'pipe'],
             env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
@@ -545,11 +612,11 @@ app.get('/api/stream-commits', (req, res) => {
 
         if (cleanErrMsg.includes('could not read Username') || cleanErrMsg.includes('No such device or address') || cleanErrMsg.includes('Authentication failed') || cleanErrMsg.includes('403') || cleanErrMsg.includes('Permission to')) {
           sendEvent('log', {
-            text: `⚠️ Git push authentication required: GitHub requires a Personal Access Token (PAT) to push commits non-interactively from the cloud/Render.`,
+            text: `⚠️ Git push authentication required: GitHub requires a Personal Access Token (PAT) with 'repo' scope to push commits.`,
             type: 'warning'
           });
           sendEvent('log', {
-            text: `💡 Quick Fix: Enter your GitHub Personal Access Token (with 'repo' scope) in the top authentication bar or set GITHUB_TOKEN in your Render Environment Variables.`,
+            text: `💡 Quick Fix: Enter your GitHub Personal Access Token in the top authentication bar.`,
             type: 'info'
           });
         } else {
@@ -568,8 +635,16 @@ app.get('/api/stream-commits', (req, res) => {
       repo: parsedRepo ? parsedRepo.repo : null
     });
   } catch (err) {
-    sendEvent('error', { message: maskToken(err.message) });
+    const rawErrMsg = (err.stderr ? err.stderr.toString() : err.message) || 'Unknown error occurred';
+    const cleanErrMsg = maskToken(rawErrMsg.trim());
+    sendEvent('log', { text: `❌ Error: ${cleanErrMsg}`, type: 'error' });
+    sendEvent('error', { message: cleanErrMsg });
   } finally {
+    if (isTempJob && jobDir && fs.existsSync(jobDir)) {
+      try {
+        fs.rmSync(jobDir, { recursive: true, force: true, maxRetries: 3 });
+      } catch {}
+    }
     res.end();
   }
 });
@@ -588,6 +663,7 @@ app.post('/api/git-push', (req, res) => {
   }
 
   try {
+    cleanupStuckGit(repoRoot);
     const remotes = execGit('git remote', '');
     const remoteList = remotes ? remotes.split('\n').map(r => r.trim()).filter(Boolean) : [];
     if (remoteList.includes('origin')) {

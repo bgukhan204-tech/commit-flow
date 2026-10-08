@@ -61,7 +61,31 @@ function maskToken(str) {
 const repoRoot = path.resolve(__dirname, '..');
 process.chdir(repoRoot);
 
+function cleanupStuckGit(dir = repoRoot) {
+  try {
+    const gitDir = path.join(dir, '.git');
+    if (!fs.existsSync(gitDir)) return;
+
+    const lockFiles = [
+      path.join(gitDir, 'index.lock'),
+      path.join(gitDir, 'HEAD.lock'),
+      path.join(gitDir, 'refs', 'heads', 'main.lock'),
+      path.join(gitDir, 'refs', 'heads', 'master.lock')
+    ];
+
+    for (const lf of lockFiles) {
+      if (fs.existsSync(lf)) {
+        try { fs.unlinkSync(lf); } catch {}
+      }
+    }
+
+    try { execSync('git rebase --abort', { cwd: dir, stdio: 'ignore' }); } catch {}
+    try { execSync('git merge --abort', { cwd: dir, stdio: 'ignore' }); } catch {}
+  } catch {}
+}
+
 function checkGitRepo() {
+  cleanupStuckGit();
   try {
     execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore' });
   } catch (e) {
