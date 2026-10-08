@@ -336,9 +336,14 @@
                 <span>Generate & Push to GitHub (Increase Heatmap)</span>
               </button>
 
+              <button type="button" id="btnRemoveCommits" class="btn btn-danger-outline" title="Remove generated fake commits from GitHub repository">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                <span>Remove Latest Commits</span>
+              </button>
+
               <button type="button" id="btnCopyCommand" class="btn btn-secondary">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                <span>Copy CLI Command</span>
+                <span>Copy CLI</span>
               </button>
             </div>
           </form>
@@ -627,6 +632,70 @@ jobs:
     <footer class="app-footer">
       <div>CommitFlow v1.0.0 &bull; Smart GitHub Contribution Booster & Streak Automation Suite</div>
     </footer>
+  </div>
+
+  <!-- Remove / Rollback Commits Modal -->
+  <div class="modal-backdrop" id="removeModal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <div class="modal-icon-badge danger">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+          </div>
+          <div>
+            <h3 class="modal-title">Remove Generated Commits</h3>
+            <p class="modal-subtitle">Rollback automated commits and clear them from your GitHub heatmap.</p>
+          </div>
+        </div>
+        <button type="button" class="btn-modal-close" id="btnCloseRemoveModal" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="modal-alert-warning">
+          <svg class="warning-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <div>
+            <strong>Warning:</strong> This will rollback the latest commits on branch <code id="modalBranchLabel">main</code> and force-push to GitHub. GitHub will recalculate your contribution calendar and remove those commits from your profile.
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top: 14px;">
+          <label class="form-label">Target Repository</label>
+          <div class="modal-target-box" id="modalRepoTarget">https://github.com/...</div>
+        </div>
+
+        <div class="form-group" style="margin-top: 14px;">
+          <label class="form-label">Select How Many Commits to Remove</label>
+          <div class="remove-presets-grid">
+            <button type="button" class="btn-remove-preset" data-count="10">Last 10 Commits</button>
+            <button type="button" class="btn-remove-preset" data-count="50">Last 50 Commits</button>
+            <button type="button" class="btn-remove-preset" data-count="100">Last 100 Commits</button>
+            <button type="button" class="btn-remove-preset active" data-count="batch" id="btnPresetBatch">Current Batch (<span id="modalBatchCount">600</span>)</button>
+            <button type="button" class="btn-remove-preset" data-count="custom">Custom Count</button>
+          </div>
+        </div>
+
+        <div class="form-group" id="customRemoveGroup" style="display: none; margin-top: 10px;">
+          <label for="removeCustomCount" class="form-label">Exact Number of Commits to Rollback</label>
+          <input type="number" id="removeCustomCount" class="form-input" min="1" max="5000" value="600">
+        </div>
+
+        <div class="checkbox-group" style="margin-top: 14px;">
+          <label class="custom-checkbox">
+            <input type="checkbox" id="cleanActivityLogCheckbox" checked>
+            <span class="checkmark"></span>
+            <span class="checkbox-label">Clean and reset <code>data/activity.log</code> file</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="btnCancelRemoveModal">Cancel</button>
+        <button type="button" class="btn btn-danger-solid btn-danger-glow" id="btnConfirmRemoveCommits">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+          <span>Confirm & Remove from GitHub</span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <script src="app.js"></script>

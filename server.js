@@ -649,6 +649,163 @@ app.get('/api/stream-commits', async (req, res) => {
   }
 });
 
+// 5. Remove / Rollback Commits (SSE Streaming)
+app.get('/api/stream-remove-commits', async (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  const sendEvent = (event, data) => {
+    res.write(`event: ${event}\ndata: ${JSON.stringify(data)}\n\n`);
+  };
+
+  const {
+    repoUrl,
+    branch = 'main',
+    token: clientToken,
+    count = 10,
+    cleanActivityLog = 'true'
+  } = req.query;
+
+  const removeCount = parseInt(count, 10) || 10;
+  const token = (clientToken || process.env.GITHUB_TOKEN || process.env.GH_TOKEN || process.env.GIT_AUTH_TOKEN || '').trim();
+  const effectiveRepoUrl = (repoUrl || process.env.GIT_REMOTE_URL || process.env.REPO_URL || 'https://github.com/bgukhan204-tech/commit-flow.git').trim();
+  const parsedRepo = parseGitHubUrl(effectiveRepoUrl);
+
+  let jobDir = null;
+  try {
+    jobDir = fs.mkdtempSync(path.join(os.tmpdir(), 'commitflow-clean-'));
+  } catch {
+    jobDir = repoRoot;
+  }
+
+  const isTempJob = (jobDir !== repoRoot);
+
+  sendEvent('log', { text: `🧹 Initializing Commit Removal & Rollback Engine...`, type: 'info' });
+
+  if (parsedRepo) {
+    sendEvent('log', { text: `Target Repository: https://github.com/${parsedRepo.owner}/${parsedRepo.repo} [branch: ${branch}]`, type: 'info' });
+  }
+
+  let pushTargetUrl = effectiveRepoUrl;
+  if (token && parsedRepo) {
+    pushTargetUrl = `https://x-access-token:${encodeURIComponent(token)}@github.com/${parsedRepo.owner}/${parsedRepo.repo}.git`;
+  }
+
+  try {
+    if (isTempJob) {
+      if (token && parsedRepo) {
+        sendEvent('log', { text: `📦 Fetching commit history from GitHub (${parsedRepo.owner}/${parsedRepo.repo})...`, type: 'info' });
+        const fetchDepth = Math.max(removeCount + 100, 500);
+        let cloneSuccess = false;
+        try {
+          execSync(`git clone --depth ${fetchDepth} --branch ${branch} "${pushTargetUrl}" .`, {
+            cwd: jobDir,
+            stdio: 'pipe',
+            env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+          });
+          cloneSuccess = true;
+        } catch {
+          try {
+            execSync(`git clone --depth ${fetchDepth} "${pushTargetUrl}" .`, {
+              cwd: jobDir,
+              stdio: 'pipe',
+              env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+            });
+            cloneSuccess = true;
+          } catch (fullCloneErr) {
+            throw new Error(`Failed to clone repository from GitHub. Check your token and repository permissions.`);
+          }
+        }
+      } else {
+        throw new Error('Please provide your GitHub Personal Access Token (PAT) and repository URL to remove commits from remote GitHub.');
+      }
+    } else {
+      cleanupStuckGit(repoRoot);
+    }
+
+    // Check available commits
+    const totalCommitsInRepoStr = execGit('git rev-list --count HEAD', '0', {}, jobDir);
+    const totalCommitsInRepo = parseInt(totalCommitsInRepoStr, 10) || 0;
+
+    sendEvent('log', { text: `🔍 Found commit depth: ${totalCommitsInRepo} commits`, type: 'info' });
+
+    if (totalCommitsInRepo <= 1) {
+      sendEvent('log', { text: `ℹ️ Repository only has ${totalCommitsInRepo} commit. Nothing to rollback.`, type: 'warning' });
+      sendEvent('complete', { success: true, removedCount: 0 });
+      return;
+    }
+
+    const actualRemove = Math.min(removeCount, Math.max(1, totalCommitsInRepo - 1));
+
+    sendEvent('log', { text: `⚡ Rolling back the latest ${actualRemove} commits (HEAD~${actualRemove})...`, type: 'info' });
+
+    execSync(`git reset --hard HEAD~${actualRemove}`, {
+      cwd: jobDir,
+      stdio: 'pipe',
+      env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+    });
+
+    // Optionally reset data/activity.log if requested
+    if (cleanActivityLog === 'true' || cleanActivityLog === true) {
+      const actFile = path.join(jobDir, 'data', 'activity.log');
+      if (fs.existsSync(actFile)) {
+        try {
+          fs.writeFileSync(actFile, '# CommitFlow Activity Log (Reset)\n', 'utf8');
+          execSync('git add "data/activity.log"', { cwd: jobDir, stdio: 'ignore' });
+          execSync('git commit -m "chore: reset activity log"', {
+            cwd: jobDir,
+            stdio: 'ignore',
+            env: Object.assign({}, process.env, {
+              GIT_AUTHOR_NAME: 'CommitFlow Cleaner',
+              GIT_AUTHOR_EMAIL: 'cleaner@commitflow.dev',
+              GIT_COMMITTER_NAME: 'CommitFlow Cleaner',
+              GIT_COMMITTER_EMAIL: 'cleaner@commitflow.dev',
+              GIT_TERMINAL_PROMPT: '0'
+            })
+          });
+        } catch {}
+      }
+    }
+
+    sendEvent('log', { text: `🚀 Force-pushing rollback to GitHub (${branch})...`, type: 'info' });
+
+    const pushResult = execSync(`git push "${pushTargetUrl}" HEAD:refs/heads/${branch} --force`, {
+      cwd: jobDir,
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+    });
+
+    sendEvent('log', { text: `✅ Successfully removed ${actualRemove} commits from GitHub (${branch})!`, type: 'success' });
+    if (parsedRepo) {
+      sendEvent('log', {
+        text: `🌟 GitHub is recalculating your heatmap: https://github.com/${parsedRepo.owner}`,
+        type: 'highlight'
+      });
+    }
+
+    sendEvent('complete', {
+      success: true,
+      removedCount: actualRemove,
+      owner: parsedRepo ? parsedRepo.owner : null,
+      repo: parsedRepo ? parsedRepo.repo : null
+    });
+  } catch (err) {
+    const rawErrMsg = (err.stderr ? err.stderr.toString() : err.message) || 'Unknown error during commit removal';
+    const cleanErrMsg = maskToken(rawErrMsg.trim());
+    sendEvent('log', { text: `❌ Error: ${cleanErrMsg}`, type: 'error' });
+    sendEvent('error', { message: cleanErrMsg });
+  } finally {
+    if (isTempJob && jobDir && fs.existsSync(jobDir)) {
+      try {
+        fs.rmSync(jobDir, { recursive: true, force: true, maxRetries: 3 });
+      } catch {}
+    }
+    res.end();
+  }
+});
+
 // 5. Git Push Endpoint
 app.post('/api/git-push', (req, res) => {
   ensureGitRepo();

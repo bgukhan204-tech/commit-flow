@@ -54,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // DOM Elements - Terminal & Progress
   const btnGenerateNow = document.getElementById('btnGenerateNow');
+  const btnRemoveCommits = document.getElementById('btnRemoveCommits');
   const btnCopyCommand = document.getElementById('btnCopyCommand');
   const btnClearTerminal = document.getElementById('btnClearTerminal');
   const terminalScreen = document.getElementById('terminalScreen');
@@ -65,6 +66,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnViewProfile = document.getElementById('btnViewProfile');
   const btnPushRemote = document.getElementById('btnPushRemote');
   const btnCopyWorkflow = document.getElementById('btnCopyWorkflow');
+
+  // DOM Elements - Remove Commits Modal
+  const removeModal = document.getElementById('removeModal');
+  const btnCloseRemoveModal = document.getElementById('btnCloseRemoveModal');
+  const btnCancelRemoveModal = document.getElementById('btnCancelRemoveModal');
+  const modalRepoTarget = document.getElementById('modalRepoTarget');
+  const modalBranchLabel = document.getElementById('modalBranchLabel');
+  const modalBatchCount = document.getElementById('modalBatchCount');
+  const customRemoveGroup = document.getElementById('customRemoveGroup');
+  const removeCustomCount = document.getElementById('removeCustomCount');
+  const cleanActivityLogCheckbox = document.getElementById('cleanActivityLogCheckbox');
+  const btnConfirmRemoveCommits = document.getElementById('btnConfirmRemoveCommits');
 
   // Load Saved Auth from localStorage
   const savedToken = localStorage.getItem('cf_github_token');
@@ -580,6 +593,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     eventSource.addEventListener('complete', (e) => {
       const data = JSON.parse(e.data);
+      state.lastGeneratedCount = data.totalCommits || state.commitsPerDay;
       logToTerminal(`🎉 FINISHED: Created ${data.totalCommits} commits across ${data.daysCount} days!`, 'success');
 
       if (data.pushSuccess && data.owner) {
@@ -615,6 +629,147 @@ document.addEventListener('DOMContentLoaded', () => {
     btnGenerateNow.innerHTML = `
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
       <span>Generate & Push to GitHub (Increase Heatmap)</span>
+    `;
+  }
+
+  // 6. Remove / Rollback Fake Commits Logic
+  let selectedRemoveCount = 'batch';
+
+  btnRemoveCommits.addEventListener('click', () => {
+    const repoUrl = remoteUrlInput.value.trim() || 'No repository selected';
+    const branch = branchInput.value.trim() || 'main';
+    const suggestedBatch = state.lastGeneratedCount || parseInt(statSimulatedCommits.textContent, 10) || 10;
+
+    modalRepoTarget.textContent = repoUrl;
+    modalBranchLabel.textContent = branch;
+    modalBatchCount.textContent = suggestedBatch;
+    removeCustomCount.value = suggestedBatch;
+
+    selectedRemoveCount = 'batch';
+    document.querySelectorAll('.btn-remove-preset').forEach(b => {
+      b.classList.toggle('active', b.dataset.count === 'batch');
+    });
+    customRemoveGroup.style.display = 'none';
+    removeModal.style.display = 'flex';
+  });
+
+  function closeRemoveModal() {
+    removeModal.style.display = 'none';
+  }
+
+  btnCloseRemoveModal.addEventListener('click', closeRemoveModal);
+  btnCancelRemoveModal.addEventListener('click', closeRemoveModal);
+  removeModal.addEventListener('click', (e) => {
+    if (e.target === removeModal) closeRemoveModal();
+  });
+
+  document.querySelectorAll('.btn-remove-preset').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.btn-remove-preset').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const countVal = btn.dataset.count;
+      selectedRemoveCount = countVal;
+      if (countVal === 'custom') {
+        customRemoveGroup.style.display = 'block';
+        removeCustomCount.focus();
+      } else {
+        customRemoveGroup.style.display = 'none';
+      }
+    });
+  });
+
+  btnConfirmRemoveCommits.addEventListener('click', async () => {
+    const repoUrl = remoteUrlInput.value.trim();
+    const token = githubTokenInput.value.trim();
+    const branch = branchInput.value.trim() || 'main';
+    const cleanActivity = cleanActivityLogCheckbox.checked;
+
+    if (!repoUrl) {
+      alert('Please configure your GitHub Repository URL in Step 1!');
+      closeRemoveModal();
+      remoteUrlInput.focus();
+      return;
+    }
+
+    if (!token) {
+      alert('GitHub Personal Access Token is required to rollback commits from GitHub!');
+      closeRemoveModal();
+      githubTokenInput.focus();
+      return;
+    }
+
+    let removeCount = 10;
+    if (selectedRemoveCount === 'batch') {
+      removeCount = state.lastGeneratedCount || parseInt(statSimulatedCommits.textContent, 10) || 10;
+    } else if (selectedRemoveCount === 'custom') {
+      removeCount = parseInt(removeCustomCount.value, 10) || 10;
+    } else {
+      removeCount = parseInt(selectedRemoveCount, 10) || 10;
+    }
+
+    closeRemoveModal();
+
+    if (state.isGenerating) return;
+    state.isGenerating = true;
+    btnRemoveCommits.disabled = true;
+    btnGenerateNow.disabled = true;
+    btnRemoveCommits.innerHTML = `<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> <span>Removing...</span>`;
+
+    progressWrapper.style.display = 'block';
+    progressBarFill.style.width = '30%';
+    progressPercent.textContent = '30%';
+    progressStatus.textContent = `Rolling back latest ${removeCount} commits from GitHub...`;
+    pushSuccessCard.style.display = 'none';
+
+    logToTerminal(`▶ Starting rollback engine: Removing latest ${removeCount} commits from [${branch}]...`, 'warning');
+
+    const queryParams = new URLSearchParams({
+      repoUrl: repoUrl,
+      token: token,
+      branch: branch,
+      count: removeCount,
+      cleanActivityLog: cleanActivity
+    });
+
+    const eventSource = new EventSource(`/api/stream-remove-commits?${queryParams.toString()}`);
+
+    eventSource.addEventListener('log', (e) => {
+      const data = JSON.parse(e.data);
+      logToTerminal(data.text, data.type);
+    });
+
+    eventSource.addEventListener('complete', (e) => {
+      const data = JSON.parse(e.data);
+      progressBarFill.style.width = '100%';
+      progressPercent.textContent = '100%';
+      progressStatus.textContent = 'Rollback complete!';
+      logToTerminal(`🎉 Success: Removed ${data.removedCount} commits from GitHub!`, 'success');
+
+      finishRemoval();
+      eventSource.close();
+      fetchGitInfo();
+    });
+
+    eventSource.addEventListener('error', (e) => {
+      try {
+        const data = JSON.parse(e.data);
+        logToTerminal(`❌ Error: ${data.message}`, 'error');
+      } catch {
+        logToTerminal(`Rollback process finished.`, 'info');
+      }
+      finishRemoval();
+      eventSource.close();
+      fetchGitInfo();
+    });
+  });
+
+  function finishRemoval() {
+    state.isGenerating = false;
+    btnRemoveCommits.disabled = false;
+    btnGenerateNow.disabled = false;
+    btnRemoveCommits.innerHTML = `
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+      <span>Remove Latest Commits</span>
     `;
   }
 
