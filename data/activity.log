@@ -4162,3 +4162,4 @@
 [2026-10-08T12:46:40.000Z] test: expand integration suite for webhook deliveries (#16/48)
 [2026-10-08T12:57:20.000Z] perf: debounce high-frequency state update dispatchers (#17/48)
 [2026-10-08T13:13:42.000Z] test: expand integration suite for webhook deliveries (#18/48)
+[2026-10-08T13:24:00.000Z] docs: clarify deployment environment variable requirements (#19/48)
