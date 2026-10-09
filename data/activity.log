@@ -4202,3 +4202,4 @@
 [2026-10-09T10:53:11.000Z] fix: prevent race condition in async buffer queue (#8/49)
 [2026-10-09T11:04:51.000Z] refactor: extract reusable validator utility methods (#9/49)
 [2026-10-09T11:18:33.000Z] perf: debounce high-frequency state update dispatchers (#10/49)
+[2026-10-09T11:31:17.000Z] fix: graceful fallback on upstream rate limiting (#11/49)
