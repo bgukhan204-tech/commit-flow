@@ -74,10 +74,15 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalRepoTarget = document.getElementById('modalRepoTarget');
   const modalBranchLabel = document.getElementById('modalBranchLabel');
   const modalBatchCount = document.getElementById('modalBatchCount');
+  const modalRealCommitsCount = document.getElementById('modalRealCommitsCount');
+  const modalFakeCommitsCount = document.getElementById('modalFakeCommitsCount');
+  const modalAllFakeCount = document.getElementById('modalAllFakeCount');
   const customRemoveGroup = document.getElementById('customRemoveGroup');
   const removeCustomCount = document.getElementById('removeCustomCount');
   const cleanActivityLogCheckbox = document.getElementById('cleanActivityLogCheckbox');
   const btnConfirmRemoveCommits = document.getElementById('btnConfirmRemoveCommits');
+  const btnConfirmRemoveText = document.getElementById('btnConfirmRemoveText');
+  const statRealCommits = document.getElementById('statRealCommits');
 
   // Load Saved Auth from localStorage
   const savedToken = localStorage.getItem('cf_github_token');
@@ -146,8 +151,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       statLocalTotal.textContent = data.commitCount || 0;
-      gitStatusText.textContent = `${data.branch} • ${data.commitCount} commits`;
-      logToTerminal(`Git repository connected: branch [${data.branch}], total commits: ${data.commitCount}`, 'info');
+      if (statRealCommits) {
+        statRealCommits.textContent = data.realCommitsCount || 0;
+      }
+      gitStatusText.textContent = `${data.branch} • ${data.commitCount} total (${data.realCommitsCount || 0} real)`;
+      logToTerminal(`Git repository connected: branch [${data.branch}], total: ${data.commitCount} (${data.realCommitsCount || 0} real code commits, ${data.fakeCommitsCount || 0} CommitFlow commits)`, 'info');
 
       if (data.remoteUrl) {
         logToTerminal(`Remote origin: ${data.remoteUrl}`, 'info');
@@ -633,10 +641,28 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // 6. Remove / Rollback Fake Commits Logic
-  let selectedRemoveCount = 'batch';
+  let selectedRemoveCount = 'all';
 
-  btnRemoveCommits.addEventListener('click', () => {
+  function updateConfirmButtonText() {
+    if (!btnConfirmRemoveText) return;
+    const fakeCount = parseInt(modalFakeCommitsCount.textContent, 10) || 0;
+
+    if (selectedRemoveCount === 'all') {
+      btnConfirmRemoveText.textContent = fakeCount > 0 ? `Remove ALL ${fakeCount} Generated Commits` : 'Remove ALL Generated Commits';
+    } else if (selectedRemoveCount === 'batch') {
+      const batchNum = parseInt(modalBatchCount.textContent, 10) || 10;
+      btnConfirmRemoveText.textContent = `Remove Current Batch (${batchNum} Commits)`;
+    } else if (selectedRemoveCount === 'custom') {
+      const count = parseInt(removeCustomCount.value, 10) || 10;
+      btnConfirmRemoveText.textContent = `Remove Latest ${count} Commits`;
+    } else {
+      btnConfirmRemoveText.textContent = `Remove Latest ${selectedRemoveCount} Commits`;
+    }
+  }
+
+  btnRemoveCommits.addEventListener('click', async () => {
     const repoUrl = remoteUrlInput.value.trim() || 'No repository selected';
+    const token = githubTokenInput.value.trim();
     const branch = branchInput.value.trim() || 'main';
     const suggestedBatch = state.lastGeneratedCount || parseInt(statSimulatedCommits.textContent, 10) || 10;
 
@@ -645,12 +671,36 @@ document.addEventListener('DOMContentLoaded', () => {
     modalBatchCount.textContent = suggestedBatch;
     removeCustomCount.value = suggestedBatch;
 
-    selectedRemoveCount = 'batch';
+    // Show initial breakdown from local state
+    if (state.gitInfo) {
+      if (modalRealCommitsCount) modalRealCommitsCount.textContent = state.gitInfo.realCommitsCount || 0;
+      if (modalFakeCommitsCount) modalFakeCommitsCount.textContent = state.gitInfo.fakeCommitsCount || 0;
+      if (modalAllFakeCount) modalAllFakeCount.textContent = state.gitInfo.fakeCommitsCount || 0;
+    }
+
+    selectedRemoveCount = 'all';
     document.querySelectorAll('.btn-remove-preset').forEach(b => {
-      b.classList.toggle('active', b.dataset.count === 'batch');
+      b.classList.toggle('active', b.dataset.count === 'all');
     });
     customRemoveGroup.style.display = 'none';
+    updateConfirmButtonText();
     removeModal.style.display = 'flex';
+
+    // Fetch live breakdown for target repository
+    try {
+      const res = await fetch('/api/commit-breakdown', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ repoUrl, token, branch })
+      });
+      const data = await res.json();
+      if (data.success) {
+        if (modalRealCommitsCount) modalRealCommitsCount.textContent = data.realCommitsCount || 0;
+        if (modalFakeCommitsCount) modalFakeCommitsCount.textContent = data.fakeCommitsCount || 0;
+        if (modalAllFakeCount) modalAllFakeCount.textContent = data.fakeCommitsCount || 0;
+        updateConfirmButtonText();
+      }
+    } catch {}
   });
 
   function closeRemoveModal() {
@@ -675,8 +725,13 @@ document.addEventListener('DOMContentLoaded', () => {
       } else {
         customRemoveGroup.style.display = 'none';
       }
+      updateConfirmButtonText();
     });
   });
+
+  if (removeCustomCount) {
+    removeCustomCount.addEventListener('input', updateConfirmButtonText);
+  }
 
   btnConfirmRemoveCommits.addEventListener('click', async () => {
     const repoUrl = remoteUrlInput.value.trim();
@@ -692,18 +747,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!token) {
-      alert('GitHub Personal Access Token is required to rollback commits from GitHub!');
+      alert('GitHub Personal Access Token is required to remove commits from GitHub!');
       closeRemoveModal();
       githubTokenInput.focus();
       return;
     }
 
+    let mode = selectedRemoveCount;
     let removeCount = 10;
-    if (selectedRemoveCount === 'batch') {
+    if (selectedRemoveCount === 'all') {
+      mode = 'all';
+      removeCount = parseInt(modalFakeCommitsCount.textContent, 10) || 1000;
+    } else if (selectedRemoveCount === 'batch') {
+      mode = 'batch';
       removeCount = state.lastGeneratedCount || parseInt(statSimulatedCommits.textContent, 10) || 10;
     } else if (selectedRemoveCount === 'custom') {
+      mode = 'custom';
       removeCount = parseInt(removeCustomCount.value, 10) || 10;
     } else {
+      mode = 'count';
       removeCount = parseInt(selectedRemoveCount, 10) || 10;
     }
 
@@ -716,17 +778,21 @@ document.addEventListener('DOMContentLoaded', () => {
     btnRemoveCommits.innerHTML = `<svg class="spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-6.219-8.56"/></svg> <span>Removing...</span>`;
 
     progressWrapper.style.display = 'block';
-    progressBarFill.style.width = '30%';
-    progressPercent.textContent = '30%';
-    progressStatus.textContent = `Rolling back latest ${removeCount} commits from GitHub...`;
+    progressBarFill.style.width = '20%';
+    progressPercent.textContent = '20%';
+    progressStatus.textContent = mode === 'all'
+      ? 'Removing ALL CommitFlow commits from GitHub while preserving real code...'
+      : `Removing latest ${removeCount} CommitFlow commits from GitHub...`;
     pushSuccessCard.style.display = 'none';
 
-    logToTerminal(`▶ Starting rollback engine: Removing latest ${removeCount} commits from [${branch}]...`, 'warning');
+    logToTerminal(`▶ Starting Smart Rollback Engine: Removing CommitFlow activity commits from [${branch}]...`, 'warning');
+    logToTerminal(`🛡️ Safety Filter Active: Preserving 100% of real application project source code commits!`, 'highlight');
 
     const queryParams = new URLSearchParams({
       repoUrl: repoUrl,
       token: token,
       branch: branch,
+      mode: mode,
       count: removeCount,
       cleanActivityLog: cleanActivity
     });
@@ -743,7 +809,7 @@ document.addEventListener('DOMContentLoaded', () => {
       progressBarFill.style.width = '100%';
       progressPercent.textContent = '100%';
       progressStatus.textContent = 'Rollback complete!';
-      logToTerminal(`🎉 Success: Removed ${data.removedCount} commits from GitHub!`, 'success');
+      logToTerminal(`🎉 Success: Removed ${data.removedCount} CommitFlow commits from GitHub (${branch})! ${data.realCommitsCount || 0} real code commits preserved.`, 'success');
 
       finishRemoval();
       eventSource.close();

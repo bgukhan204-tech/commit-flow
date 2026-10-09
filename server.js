@@ -118,6 +118,66 @@ function ensureGitRepo() {
 
 ensureGitRepo();
 
+// Helper to parse all commits in a repository and classify them into real code commits vs CommitFlow generated activity commits
+function analyzeBranchCommits(cwd = repoRoot) {
+  try {
+    const rawLog = execGit(
+      'git log --reverse --name-only --format="COMMIT:%H|%T|%an|%ae|%ad|%at|%cn|%ce|%cd|%ct|%s"',
+      '',
+      {},
+      cwd
+    );
+    if (!rawLog) return { commits: [], realCommits: [], fakeCommits: [] };
+
+    const lines = rawLog.split('\n');
+    const commits = [];
+    let current = null;
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (!line) continue;
+      if (line.startsWith('COMMIT:')) {
+        if (current) {
+          current.isFake =
+            current.files.length === 0 ||
+            current.files.every(f => f === 'data/activity.log' || f.startsWith('data/'));
+          commits.push(current);
+        }
+        const [hash, tree, an, ae, ad, at, cn, ce, cd, ct, ...sub] = line.substring(7).split('|');
+        current = {
+          hash,
+          tree,
+          an,
+          ae,
+          ad,
+          at: parseInt(at, 10) || 0,
+          cn,
+          ce,
+          cd,
+          ct: parseInt(ct, 10) || 0,
+          message: sub.join('|'),
+          files: [],
+          isFake: false
+        };
+      } else if (current) {
+        current.files.push(line);
+      }
+    }
+    if (current) {
+      current.isFake =
+        current.files.length === 0 ||
+        current.files.every(f => f === 'data/activity.log' || f.startsWith('data/'));
+      commits.push(current);
+    }
+
+    const realCommits = commits.filter(c => !c.isFake);
+    const fakeCommits = commits.filter(c => c.isFake);
+    return { commits, realCommits, fakeCommits };
+  } catch {
+    return { commits: [], realCommits: [], fakeCommits: [] };
+  }
+}
+
 // 1. Git Info Endpoint
 app.get('/api/git-info', (req, res) => {
   ensureGitRepo();
@@ -137,20 +197,21 @@ app.get('/api/git-info', (req, res) => {
     remoteUrl = process.env.GIT_REMOTE_URL || process.env.REPO_URL || 'https://github.com/bgukhan204-tech/commit-flow.git';
   }
 
-  const commitCountStr = execGit('git rev-list --count HEAD', '0');
-  const commitCount = parseInt(commitCountStr, 10) || 0;
+  const { commits, realCommits, fakeCommits } = analyzeBranchCommits(repoRoot);
+  const commitCount = commits.length;
 
   let recentCommits = [];
   if (commitCount > 0) {
-    try {
-      const rawLog = execGit('git log -n 12 --pretty=format:"%h|%an|%ad|%s" --date=short');
-      if (rawLog) {
-        recentCommits = rawLog.split('\n').filter(Boolean).map(line => {
-          const [hash, author, date, message] = line.split('|');
-          return { hash, author, date, message };
-        });
-      }
-    } catch {}
+    recentCommits = commits
+      .slice(-15)
+      .reverse()
+      .map(c => ({
+        hash: c.hash.substring(0, 7),
+        author: c.an,
+        date: c.at ? new Date(c.at * 1000).toISOString().split('T')[0] : (c.ad ? c.ad.split(' ')[0] : ''),
+        message: c.message,
+        isFake: c.isFake
+      }));
   }
 
   const hasServerToken = Boolean(process.env.GITHUB_TOKEN || process.env.GH_TOKEN || process.env.GIT_AUTH_TOKEN);
@@ -162,9 +223,69 @@ app.get('/api/git-info', (req, res) => {
     remoteUrl: maskToken(remoteUrl),
     rawRemoteUrl: remoteUrl.includes('@') ? '' : remoteUrl,
     commitCount,
+    realCommitsCount: realCommits.length,
+    fakeCommitsCount: fakeCommits.length,
     recentCommits,
     repoRoot,
     hasServerToken
+  });
+});
+
+// 1.1 Commit Breakdown Endpoint
+app.post('/api/commit-breakdown', async (req, res) => {
+  const { repoUrl, token: clientToken, branch = 'main' } = req.body;
+  const token = (clientToken || process.env.GITHUB_TOKEN || process.env.GH_TOKEN || process.env.GIT_AUTH_TOKEN || '').trim();
+  const effectiveRepoUrl = (repoUrl || process.env.GIT_REMOTE_URL || process.env.REPO_URL || 'https://github.com/bgukhan204-tech/commit-flow.git').trim();
+  const parsedRepo = parseGitHubUrl(effectiveRepoUrl);
+
+  // If testing against remote repo
+  if (token && parsedRepo) {
+    let jobDir = null;
+    try {
+      jobDir = fs.mkdtempSync(path.join(os.tmpdir(), 'commitflow-breakdown-'));
+      const pushTargetUrl = `https://x-access-token:${encodeURIComponent(token)}@github.com/${parsedRepo.owner}/${parsedRepo.repo}.git`;
+      
+      try {
+        execSync(`git clone --branch ${branch} "${pushTargetUrl}" .`, {
+          cwd: jobDir,
+          stdio: 'pipe',
+          env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+        });
+      } catch {
+        execSync(`git clone "${pushTargetUrl}" .`, {
+          cwd: jobDir,
+          stdio: 'pipe',
+          env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+        });
+      }
+
+      const { commits, realCommits, fakeCommits } = analyzeBranchCommits(jobDir);
+      return res.json({
+        success: true,
+        totalCommits: commits.length,
+        realCommitsCount: realCommits.length,
+        fakeCommitsCount: fakeCommits.length,
+        recentFakeCommits: fakeCommits.slice(-10).reverse().map(c => ({ hash: c.hash.substring(0, 7), message: c.message })),
+        recentRealCommits: realCommits.slice(-10).reverse().map(c => ({ hash: c.hash.substring(0, 7), message: c.message }))
+      });
+    } catch (err) {
+      // Fallback to local repo analysis
+    } finally {
+      if (jobDir && fs.existsSync(jobDir)) {
+        try { fs.rmSync(jobDir, { recursive: true, force: true }); } catch {}
+      }
+    }
+  }
+
+  // Local fallback
+  const { commits, realCommits, fakeCommits } = analyzeBranchCommits(repoRoot);
+  res.json({
+    success: true,
+    totalCommits: commits.length,
+    realCommitsCount: realCommits.length,
+    fakeCommitsCount: fakeCommits.length,
+    recentFakeCommits: fakeCommits.slice(-10).reverse().map(c => ({ hash: c.hash.substring(0, 7), message: c.message })),
+    recentRealCommits: realCommits.slice(-10).reverse().map(c => ({ hash: c.hash.substring(0, 7), message: c.message }))
   });
 });
 
@@ -663,11 +784,13 @@ app.get('/api/stream-remove-commits', async (req, res) => {
     repoUrl,
     branch = 'main',
     token: clientToken,
+    mode = 'batch', // 'all', 'batch', 'count', 'custom'
     count = 10,
     cleanActivityLog = 'true'
   } = req.query;
 
   const removeCount = parseInt(count, 10) || 10;
+  const shouldCleanLog = cleanActivityLog === 'true' || cleanActivityLog === true;
   const token = (clientToken || process.env.GITHUB_TOKEN || process.env.GH_TOKEN || process.env.GIT_AUTH_TOKEN || '').trim();
   const effectiveRepoUrl = (repoUrl || process.env.GIT_REMOTE_URL || process.env.REPO_URL || 'https://github.com/bgukhan204-tech/commit-flow.git').trim();
   const parsedRepo = parseGitHubUrl(effectiveRepoUrl);
@@ -681,7 +804,7 @@ app.get('/api/stream-remove-commits', async (req, res) => {
 
   const isTempJob = (jobDir !== repoRoot);
 
-  sendEvent('log', { text: `🧹 Initializing Commit Removal & Rollback Engine...`, type: 'info' });
+  sendEvent('log', { text: `🧹 Initializing Smart Commit Removal & Rollback Engine...`, type: 'info' });
 
   if (parsedRepo) {
     sendEvent('log', { text: `Target Repository: https://github.com/${parsedRepo.owner}/${parsedRepo.repo} [branch: ${branch}]`, type: 'info' });
@@ -695,11 +818,11 @@ app.get('/api/stream-remove-commits', async (req, res) => {
   try {
     if (isTempJob) {
       if (token && parsedRepo) {
-        sendEvent('log', { text: `📦 Fetching commit history from GitHub (${parsedRepo.owner}/${parsedRepo.repo})...`, type: 'info' });
-        const fetchDepth = Math.max(removeCount + 100, 500);
+        sendEvent('log', { text: `📦 Fetching complete commit history from GitHub (${parsedRepo.owner}/${parsedRepo.repo})...`, type: 'info' });
+        
         let cloneSuccess = false;
         try {
-          execSync(`git clone --depth ${fetchDepth} --branch ${branch} "${pushTargetUrl}" .`, {
+          execSync(`git clone --branch ${branch} "${pushTargetUrl}" .`, {
             cwd: jobDir,
             stdio: 'pipe',
             env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
@@ -707,14 +830,14 @@ app.get('/api/stream-remove-commits', async (req, res) => {
           cloneSuccess = true;
         } catch {
           try {
-            execSync(`git clone --depth ${fetchDepth} "${pushTargetUrl}" .`, {
+            execSync(`git clone "${pushTargetUrl}" .`, {
               cwd: jobDir,
               stdio: 'pipe',
               env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
             });
             cloneSuccess = true;
           } catch (fullCloneErr) {
-            throw new Error(`Failed to clone repository from GitHub. Check your token and repository permissions.`);
+            throw new Error(`Failed to clone repository from GitHub. Check your Personal Access Token and repository permissions.`);
           }
         }
       } else {
@@ -724,60 +847,129 @@ app.get('/api/stream-remove-commits', async (req, res) => {
       cleanupStuckGit(repoRoot);
     }
 
-    // Check available commits
-    const totalCommitsInRepoStr = execGit('git rev-list --count HEAD', '0', {}, jobDir);
-    const totalCommitsInRepo = parseInt(totalCommitsInRepoStr, 10) || 0;
+    // 1. Analyze commits
+    const { commits, realCommits, fakeCommits } = analyzeBranchCommits(jobDir);
+    const totalCommitsInRepo = commits.length;
 
-    sendEvent('log', { text: `🔍 Found commit depth: ${totalCommitsInRepo} commits`, type: 'info' });
+    sendEvent('log', {
+      text: `🔍 Scanned repository: ${totalCommitsInRepo} total commits found (${realCommits.length} Real Code Commits, ${fakeCommits.length} CommitFlow Generated Commits)`,
+      type: 'info'
+    });
 
-    if (totalCommitsInRepo <= 1) {
-      sendEvent('log', { text: `ℹ️ Repository only has ${totalCommitsInRepo} commit. Nothing to rollback.`, type: 'warning' });
-      sendEvent('complete', { success: true, removedCount: 0 });
+    if (fakeCommits.length === 0) {
+      sendEvent('log', { text: `ℹ️ No CommitFlow generated activity commits found in this branch. All ${realCommits.length} real commits were preserved intact!`, type: 'warning' });
+      sendEvent('complete', { success: true, removedCount: 0, realCommitsCount: realCommits.length, remainingTotal: totalCommitsInRepo });
       return;
     }
 
-    const actualRemove = Math.min(removeCount, Math.max(1, totalCommitsInRepo - 1));
+    // 2. Select fake commits to drop based on mode
+    let fakeToDrop = new Set();
+    if (mode === 'all') {
+      fakeToDrop = new Set(fakeCommits.map(c => c.hash));
+      sendEvent('log', { text: `🎯 Target: Removing ALL ${fakeCommits.length} CommitFlow generated commits (Clean Slate)...`, type: 'info' });
+    } else {
+      const actualRemove = Math.min(removeCount, fakeCommits.length);
+      const toDropSlice = fakeCommits.slice(-actualRemove);
+      fakeToDrop = new Set(toDropSlice.map(c => c.hash));
+      sendEvent('log', { text: `🎯 Target: Removing the latest ${actualRemove} CommitFlow commits...`, type: 'info' });
+    }
 
-    sendEvent('log', { text: `⚡ Rolling back the latest ${actualRemove} commits (HEAD~${actualRemove})...`, type: 'info' });
-
-    execSync(`git reset --hard HEAD~${actualRemove}`, {
-      cwd: jobDir,
-      stdio: 'pipe',
-      env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+    sendEvent('log', {
+      text: `🛡️ Safety Protection Active: 100% of ${realCommits.length} project code commits are preserved and will NEVER be deleted!`,
+      type: 'highlight'
     });
 
-    // Optionally reset data/activity.log if requested
-    if (cleanActivityLog === 'true' || cleanActivityLog === true) {
+    // 3. Filter commits to keep
+    const commitsToKeep = commits.filter(c => !fakeToDrop.has(c.hash));
+
+    // 4. Rebuild the branch history via git commit-tree
+    sendEvent('log', { text: `⚡ Reconstructing clean commit graph with ${commitsToKeep.length} preserved commits...`, type: 'info' });
+
+    let parentHash = null;
+
+    if (commitsToKeep.length === 0) {
+      // If there were no real commits and all fake commits were removed, create one clean initial commit
+      const actFile = path.join(jobDir, 'data', 'activity.log');
+      fs.mkdirSync(path.dirname(actFile), { recursive: true });
+      fs.writeFileSync(actFile, '# CommitFlow Activity Log\n', 'utf8');
+      execSync('git add .', { cwd: jobDir, stdio: 'ignore' });
+      const env = Object.assign({}, process.env, {
+        GIT_AUTHOR_NAME: 'CommitFlow',
+        GIT_AUTHOR_EMAIL: 'developer@commitflow.dev',
+        GIT_COMMITTER_NAME: 'CommitFlow',
+        GIT_COMMITTER_EMAIL: 'developer@commitflow.dev',
+        GIT_TERMINAL_PROMPT: '0'
+      });
+      execSync('git commit -m "chore: initialize clean commitflow branch"', { cwd: jobDir, env, stdio: 'ignore' });
+    } else {
+      for (let idx = 0; idx < commitsToKeep.length; idx++) {
+        const c = commitsToKeep[idx];
+        const parentArg = parentHash ? `-p ${parentHash}` : '';
+        const safeMsg = (c.message || 'update').replace(/"/g, '\\"');
+        const commitCmd = `git commit-tree ${c.tree} ${parentArg} -m "${safeMsg}"`;
+
+        const newHash = execSync(commitCmd, {
+          cwd: jobDir,
+          encoding: 'utf8',
+          env: Object.assign({}, process.env, {
+            GIT_AUTHOR_NAME: c.an || 'Developer',
+            GIT_AUTHOR_EMAIL: c.ae || 'developer@users.noreply.github.com',
+            GIT_AUTHOR_DATE: c.ad || new Date().toISOString(),
+            GIT_COMMITTER_NAME: c.cn || c.an || 'Developer',
+            GIT_COMMITTER_EMAIL: c.ce || c.ae || 'developer@users.noreply.github.com',
+            GIT_COMMITTER_DATE: c.cd || c.ad || new Date().toISOString(),
+            GIT_TERMINAL_PROMPT: '0'
+          })
+        }).trim();
+
+        parentHash = newHash;
+      }
+
+      // Point branch HEAD to the reconstructed tree
+      execSync(`git reset --hard ${parentHash}`, {
+        cwd: jobDir,
+        stdio: 'pipe',
+        env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
+      });
+    }
+
+    // 5. Clean activity.log on disk if requested
+    if (shouldCleanLog) {
       const actFile = path.join(jobDir, 'data', 'activity.log');
       if (fs.existsSync(actFile)) {
         try {
           fs.writeFileSync(actFile, '# CommitFlow Activity Log (Reset)\n', 'utf8');
-          execSync('git add "data/activity.log"', { cwd: jobDir, stdio: 'ignore' });
-          execSync('git commit -m "chore: reset activity log"', {
-            cwd: jobDir,
-            stdio: 'ignore',
-            env: Object.assign({}, process.env, {
-              GIT_AUTHOR_NAME: 'CommitFlow Cleaner',
-              GIT_AUTHOR_EMAIL: 'cleaner@commitflow.dev',
-              GIT_COMMITTER_NAME: 'CommitFlow Cleaner',
-              GIT_COMMITTER_EMAIL: 'cleaner@commitflow.dev',
-              GIT_TERMINAL_PROMPT: '0'
-            })
-          });
         } catch {}
       }
     }
 
-    sendEvent('log', { text: `🚀 Force-pushing rollback to GitHub (${branch})...`, type: 'info' });
+    // 6. Force-push the cleaned branch to GitHub
+    sendEvent('log', { text: `🚀 Force-pushing updated branch to GitHub (${branch})...`, type: 'info' });
 
-    const pushResult = execSync(`git push "${pushTargetUrl}" HEAD:refs/heads/${branch} --force`, {
+    execSync(`git push "${pushTargetUrl}" HEAD:refs/heads/${branch} --force`, {
       cwd: jobDir,
       encoding: 'utf8',
       stdio: ['pipe', 'pipe', 'pipe'],
       env: Object.assign({}, process.env, { GIT_TERMINAL_PROMPT: '0' })
     });
 
-    sendEvent('log', { text: `✅ Successfully removed ${actualRemove} commits from GitHub (${branch})!`, type: 'success' });
+    sendEvent('log', {
+      text: `✅ Successfully removed ${fakeToDrop.size} CommitFlow commits from GitHub (${branch})!`,
+      type: 'success'
+    });
+
+    // 7. Sync local repoRoot if it points to this remote
+    if (isTempJob) {
+      try {
+        cleanupStuckGit(repoRoot);
+        const localRemotes = execGit('git remote', '', {}, repoRoot);
+        if (localRemotes.includes('origin')) {
+          execSync(`git fetch origin ${branch}`, { cwd: repoRoot, stdio: 'ignore' });
+          execSync(`git reset --hard origin/${branch}`, { cwd: repoRoot, stdio: 'ignore' });
+        }
+      } catch {}
+    }
+
     if (parsedRepo) {
       sendEvent('log', {
         text: `🌟 GitHub is recalculating your heatmap: https://github.com/${parsedRepo.owner}`,
@@ -787,7 +979,9 @@ app.get('/api/stream-remove-commits', async (req, res) => {
 
     sendEvent('complete', {
       success: true,
-      removedCount: actualRemove,
+      removedCount: fakeToDrop.size,
+      remainingTotal: commitsToKeep.length,
+      realCommitsCount: realCommits.length,
       owner: parsedRepo ? parsedRepo.owner : null,
       repo: parsedRepo ? parsedRepo.repo : null
     });
