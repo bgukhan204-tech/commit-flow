@@ -4240,3 +4240,4 @@
 [2026-10-09T19:44:07.000Z] test: expand integration suite for webhook deliveries (#46/49)
 [2026-10-09T19:54:31.000Z] fix: prevent race condition in async buffer queue (#47/49)
 [2026-10-09T20:10:30.000Z] refactor: decouple configuration loader from runtime core (#48/49)
+[2026-10-09T20:24:14.000Z] docs: update API contract and endpoint specifications (#49/49)
