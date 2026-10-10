@@ -2957,3 +2957,4 @@
 [2026-10-10T01:30:36.956Z] test: add unit coverage for edge-case parser states (#2/10)
 [2026-10-10T01:30:38.965Z] refactor: extract reusable validator utility methods (#3/10)
 [2026-10-10T01:30:40.983Z] perf: reduce memory allocation in matrix computation (#4/10)
+[2026-10-10T01:30:43.001Z] docs: clarify deployment environment variable requirements (#5/10)
