@@ -2970,3 +2970,4 @@
 [2026-10-10T10:24:45.597Z] style: enforce consistent lint formatting across modules (#5/10)
 [2026-10-10T10:24:47.610Z] style: enforce consistent lint formatting across modules (#6/10)
 [2026-10-10T10:24:49.622Z] test: add unit coverage for edge-case parser states (#7/10)
+[2026-10-10T10:24:51.635Z] docs: update API contract and endpoint specifications (#8/10)
