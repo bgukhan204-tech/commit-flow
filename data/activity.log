@@ -4281,3 +4281,4 @@
 [2026-10-10T17:17:04.000Z] perf: debounce high-frequency state update dispatchers (#38/51)
 [2026-10-10T17:25:28.000Z] feat: implement adaptive caching layer for remote sync (#39/51)
 [2026-10-10T17:42:07.000Z] style: enforce consistent lint formatting across modules (#40/51)
+[2026-10-10T17:53:19.000Z] docs: clarify deployment environment variable requirements (#41/51)
