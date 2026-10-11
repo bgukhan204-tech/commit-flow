@@ -2997,3 +2997,4 @@
 [2026-10-11T10:35:11.587Z] chore: bump minor dependency patches and lockfile (#2/10)
 [2026-10-11T10:35:13.598Z] fix: handle null pointer check in payload serializer (#3/10)
 [2026-10-11T10:35:15.609Z] fix: prevent race condition in async buffer queue (#4/10)
+[2026-10-11T10:35:17.619Z] fix: handle null pointer check in payload serializer (#5/10)
