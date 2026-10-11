@@ -4330,3 +4330,4 @@
 [2026-10-11T16:48:03.000Z] docs: clarify deployment environment variable requirements (#36/51)
 [2026-10-11T17:04:12.000Z] fix: resolve timezone offset discrepancy in scheduler (#37/51)
 [2026-10-11T17:13:55.000Z] fix: graceful fallback on upstream rate limiting (#38/51)
+[2026-10-11T17:25:47.000Z] chore: clean up deprecated helper functions (#39/51)
