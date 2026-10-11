@@ -2988,3 +2988,4 @@
 [2026-10-11T00:39:40.181Z] style: enforce consistent lint formatting across modules (#3/10)
 [2026-10-11T00:39:42.195Z] chore: bump minor dependency patches and lockfile (#4/10)
 [2026-10-11T00:39:44.208Z] chore: bump minor dependency patches and lockfile (#5/10)
+[2026-10-11T00:39:46.222Z] fix: handle null pointer check in payload serializer (#6/10)
