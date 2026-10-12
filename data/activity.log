@@ -3014,3 +3014,4 @@
 [2026-10-11T19:54:35.543Z] perf: reduce memory allocation in matrix computation (#9/10)
 [2026-10-11T19:54:37.553Z] fix: prevent race condition in async buffer queue (#10/10)
 [2026-10-12T00:56:48.255Z] refactor: streamline data pipeline transformation logic (#1/10)
+[2026-10-12T00:56:50.272Z] docs: clarify deployment environment variable requirements (#2/10)
