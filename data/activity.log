@@ -4381,3 +4381,4 @@
 [2026-10-12T16:47:31.000Z] docs: clarify deployment environment variable requirements (#36/51)
 [2026-10-12T17:00:19.000Z] refactor: decouple configuration loader from runtime core (#37/51)
 [2026-10-12T17:11:23.000Z] fix: prevent race condition in async buffer queue (#38/51)
+[2026-10-12T17:26:10.000Z] refactor: decouple configuration loader from runtime core (#39/51)
