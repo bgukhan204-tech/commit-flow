@@ -3042,3 +3042,4 @@
 [2026-10-12T22:43:24.021Z] docs: update API contract and endpoint specifications (#7/10)
 [2026-10-12T22:43:26.031Z] feat: implement adaptive caching layer for remote sync (#8/10)
 [2026-10-12T22:43:28.041Z] style: enforce consistent lint formatting across modules (#9/10)
+[2026-10-12T22:43:30.051Z] docs: clarify deployment environment variable requirements (#10/10)
