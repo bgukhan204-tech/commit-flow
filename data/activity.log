@@ -4404,3 +4404,4 @@
 [2026-10-13T10:51:42.000Z] feat: add structured JSON log formatter (#8/48)
 [2026-10-13T11:07:42.000Z] test: expand integration suite for webhook deliveries (#9/48)
 [2026-10-13T11:18:26.000Z] chore: clean up deprecated helper functions (#10/48)
+[2026-10-13T11:37:59.000Z] fix: graceful fallback on upstream rate limiting (#11/48)
