@@ -4434,3 +4434,4 @@
 [2026-10-13T17:51:42.000Z] fix: prevent race condition in async buffer queue (#38/48)
 [2026-10-13T18:02:15.000Z] fix: prevent race condition in async buffer queue (#39/48)
 [2026-10-13T18:21:00.000Z] refactor: extract reusable validator utility methods (#40/48)
+[2026-10-13T18:33:20.000Z] chore: clean up deprecated helper functions (#41/48)
