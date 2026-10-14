@@ -4447,3 +4447,4 @@
 [2026-10-14T09:40:31.000Z] chore: bump minor dependency patches and lockfile (#3/50)
 [2026-10-14T09:58:25.000Z] refactor: decouple configuration loader from runtime core (#4/50)
 [2026-10-14T10:07:25.000Z] perf: reduce memory allocation in matrix computation (#5/50)
+[2026-10-14T10:21:30.000Z] fix: graceful fallback on upstream rate limiting (#6/50)
