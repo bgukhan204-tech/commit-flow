@@ -4473,3 +4473,4 @@
 [2026-10-14T15:44:41.000Z] refactor: extract reusable validator utility methods (#29/50)
 [2026-10-14T15:59:09.000Z] refactor: decouple configuration loader from runtime core (#30/50)
 [2026-10-14T16:15:54.000Z] test: add unit coverage for edge-case parser states (#31/50)
+[2026-10-14T16:30:26.000Z] docs: clarify deployment environment variable requirements (#32/50)
