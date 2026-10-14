@@ -4490,3 +4490,4 @@
 [2026-10-14T19:46:23.000Z] fix: resolve timezone offset discrepancy in scheduler (#46/50)
 [2026-10-14T19:56:09.000Z] style: enforce consistent lint formatting across modules (#47/50)
 [2026-10-14T20:12:49.000Z] docs: clarify deployment environment variable requirements (#48/50)
+[2026-10-14T20:25:26.000Z] docs: add visual sequence diagrams for authentication flow (#49/50)
