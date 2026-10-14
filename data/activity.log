@@ -4445,3 +4445,4 @@
 [2026-10-14T09:12:10.000Z] chore: bump minor dependency patches and lockfile (#1/50)
 [2026-10-14T09:24:38.000Z] docs: clarify deployment environment variable requirements (#2/50)
 [2026-10-14T09:40:31.000Z] chore: bump minor dependency patches and lockfile (#3/50)
+[2026-10-14T09:58:25.000Z] refactor: decouple configuration loader from runtime core (#4/50)
