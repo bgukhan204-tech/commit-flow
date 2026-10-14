@@ -4450,3 +4450,4 @@
 [2026-10-14T10:21:30.000Z] fix: graceful fallback on upstream rate limiting (#6/50)
 [2026-10-14T10:36:04.000Z] perf: debounce high-frequency state update dispatchers (#7/50)
 [2026-10-14T10:48:02.000Z] docs: add visual sequence diagrams for authentication flow (#8/50)
+[2026-10-14T11:09:39.000Z] test: add unit coverage for edge-case parser states (#9/50)
