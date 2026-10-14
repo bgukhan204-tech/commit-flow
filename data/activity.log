@@ -4465,3 +4465,4 @@
 [2026-10-14T13:55:21.000Z] fix: resolve timezone offset discrepancy in scheduler (#21/50)
 [2026-10-14T14:08:55.000Z] test: expand integration suite for webhook deliveries (#22/50)
 [2026-10-14T14:25:18.000Z] perf: reduce memory allocation in matrix computation (#23/50)
+[2026-10-14T14:36:24.000Z] chore: clean up deprecated helper functions (#24/50)
