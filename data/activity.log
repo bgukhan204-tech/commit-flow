@@ -4443,3 +4443,4 @@
 [2026-10-13T19:56:37.000Z] feat: add structured JSON log formatter (#47/48)
 [2026-10-13T20:10:22.000Z] feat: optimize event bus telemetry and trace logging (#48/48)
 [2026-10-14T09:12:10.000Z] chore: bump minor dependency patches and lockfile (#1/50)
+[2026-10-14T09:24:38.000Z] docs: clarify deployment environment variable requirements (#2/50)
