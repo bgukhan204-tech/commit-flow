@@ -4529,3 +4529,4 @@
 [2026-10-15T17:08:03.000Z] docs: update API contract and endpoint specifications (#35/49)
 [2026-10-15T17:26:16.000Z] perf: reduce memory allocation in matrix computation (#36/49)
 [2026-10-15T17:41:41.000Z] perf: reduce memory allocation in matrix computation (#37/49)
+[2026-10-15T17:55:50.000Z] refactor: decouple configuration loader from runtime core (#38/49)
