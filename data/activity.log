@@ -4519,3 +4519,4 @@
 [2026-10-15T14:49:20.000Z] docs: clarify deployment environment variable requirements (#25/49)
 [2026-10-15T15:06:52.000Z] feat: add structured JSON log formatter (#26/49)
 [2026-10-15T15:19:35.000Z] feat: optimize event bus telemetry and trace logging (#27/49)
+[2026-10-15T15:35:03.000Z] fix: resolve timezone offset discrepancy in scheduler (#28/49)
